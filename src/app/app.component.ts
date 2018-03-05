@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {ProfilePage} from '../pages/profile/profile';
 
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -16,17 +17,18 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string,icontitle:string ,component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private afAuth: AngularFireAuth,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-    
-   
+      { title: 'Events',icontitle: 'briefcase', component: HomePage },
+      { title: 'Favorites Events',icontitle: 'heart' ,component: ListPage },
+      { title: 'Test',icontitle: 'chatbubbles', component: HomePage },
+      { title: 'Location',icontitle: 'map' ,component: ListPage },
+      { title: 'Help',icontitle: 'help-buoy' ,component: HomePage },
     ];
 
   }
@@ -45,7 +47,11 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
-  rehome(){
+  logout(){
+    
+     /* if (this.afAuth.auth.currentUser() !== null) {
+      }
+*/
     
   }
 }

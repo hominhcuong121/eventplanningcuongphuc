@@ -88,7 +88,7 @@
         <ion-col col-6 col-md-4 class="no-paddingT no-paddingB">
           <div class="guests bb">
             <ion-item>
-              <ion-label>Adults</ion-label>
+              <ion-label>Guests</ion-label>
               <ion-select [(ngModel)]="adults" cancelText="Cancel" okText="OK">
                 <ion-option value="1" selected="true">1</ion-option>
                 <ion-option value="2">2</ion-option>
@@ -107,7 +107,7 @@
         <ion-col col-6 col-md-4 class="no-paddingT no-paddingB">
           <div class="guests bb">
             <ion-item>
-              <ion-label>Children</ion-label>
+              <ion-label>Print card</ion-label>
               <ion-select [(ngModel)]="children" cancelText="Cancel" okText="OK" (ngModelChange)="childrenArr($event)">
                 <ion-option value="0" selected="true">0</ion-option>
                 <ion-option value="1">1</ion-option>
@@ -206,7 +206,7 @@
       <h2 ion-text class="bold text-white">
         <ion-icon name="pricetags"></ion-icon> 
         Summary
-        <ion-badge class="pull-right green-bg text-white" tappable (click)="viewHotels()">destina MORE</ion-badge>
+        <ion-badge class="pull-right green-bg text-white" tappable (click)="viewHotels()">SEE MORE</ion-badge>
       </h2>
     </ion-item-divider>
     <ion-item>

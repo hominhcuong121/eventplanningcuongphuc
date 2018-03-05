@@ -1,12 +1,10 @@
-<!-- -->
+
 <ion-content padding class="animated fadeIn login auth-page background">
   <div class="login-content">
 
     <!-- Logo -->
     <div padding-horizontal text-center class="animated fadeInDown">
-      <!--<div class="logo" >
-        <img src="../../assets/imgs/logo.png" alt="Logo">
-      </div>-->
+     
       <ion-icon name="calendar" text-center class="logo-icon"></ion-icon>
       <h2 ion-text class="text-white">
            Event Planning
@@ -15,21 +13,21 @@
 
     <!-- Login form -->
     <form class="list-form" [formGroup]="formgroup">
-      <ion-item class="none-color" >
-        <ion-label floating class="text-white">
-          <ion-icon name="mail"  item-start ></ion-icon>
-          Email
-        </ion-label>
-        <ion-input type="email" formControlName="username" [(ngModel)]="user.email"></ion-input>
-      </ion-item>
-
-      <ion-item class="none-color">
-        <ion-label floating class="text-white">
-          <ion-icon name="lock" item-start class="text-white"></ion-icon>
-          Password
-        </ion-label>
-        <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
-      </ion-item>
+        <ion-item class="none-color" >
+            <ion-label floating class="text-white">
+              <ion-icon name="mail"  item-start ></ion-icon>
+              Email
+            </ion-label>
+            <ion-input type="email" formControlName="username" [(ngModel)]="user.email"></ion-input>
+          </ion-item>
+    
+          <ion-item class="none-color">
+            <ion-label floating class="text-white">
+              <ion-icon name="lock" item-start class="text-white"></ion-icon>
+              Password
+            </ion-label>
+            <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+          </ion-item>
     </form>
 
     <p text-right ion-text class="text-white"  color="whitetext" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>

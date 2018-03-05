@@ -1,13 +1,67 @@
+<ion-menu side="left" id="authenticated" [content]="content"></ion-menu>
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>List</ion-title>
-  </ion-navbar>
+  <ion-toolbar class="user-profile" no-padding>
+
+    <ion-list no-margin >
+      <ion-item >
+        <ion-avatar item-start>
+          <img class="user-avarta" src="../assets/imgs/avar.png">
+        </ion-avatar>
+        <h2 class="bold">Le Hoang Phuc</h2>
+        <h3 ion-text color="secondary">kaka@gmail.com</h3>
+      <div padding-top>
+        <button ion-button icon-left small color="secondary">
+          <ion-icon name="contact"></ion-icon>
+          Edit Profile
+        </button>
+        <button ion-button icon-left small color="secondary" menuClose tappable (click)="logout()">
+          <ion-icon name="log-out"></ion-icon>
+        </button>
+      </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-grid no-padding>
+      <ion-row class="other-data" no-padding>
+        <ion-col text-center class="column">
+          <span ion-text color="primary" class="bold" (click)="rehome()">Event</span>
+          <h5 ion-text no-margin class="text-1x text-white">10</h5>
+        </ion-col>
+        <ion-col text-center class="column">
+          <span ion-text color="light" class="bold">Summary</span>
+          <h5 ion-text no-margin class="text-1x text-white">10</h5>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content color="primary">
+
+  <ion-list class="user-list">
+    <button ion-item class="text-1x">
+      <ion-icon name="briefcase" color="primary"></ion-icon> 
+      <span ion-text color="primary">Events</span>
+    </button>
+    <button ion-item class="text-1x">
+      <ion-icon name="heart" color="primary"></ion-icon> 
+      <span ion-text color="primary">Favorites Events</span>
+    </button>
+    <button ion-item class="text-1x">
+      <ion-icon name="chatbubbles" color="primary"></ion-icon> 
+      <span ion-text color="primary">Test</span>
+    </button>
+    <button ion-item class="text-1x">
+      <ion-icon name="map" color="primary"></ion-icon> 
+      <span ion-text color="primary">Location</span>
+    </button>
+    <button ion-item class="text-1x">
+      <ion-icon name="help-buoy" color="primary"></ion-icon> 
+      <span ion-text color="primary">Help</span>
+    </button>
+  </ion-list>
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-start></ion-icon>

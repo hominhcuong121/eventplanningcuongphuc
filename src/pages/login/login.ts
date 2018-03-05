@@ -21,8 +21,6 @@ import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@
   templateUrl: 'login.html',
 })
 export class LoginPage {
- 
- 
   formgroup:FormGroup;
   username:AbstractControl;
   password:AbstractControl;
@@ -84,7 +82,7 @@ export class LoginPage {
         this.navCtrl.setRoot(HomePage);
         setTimeout(() => {
           loading.dismiss();
-        }, 3000);
+        }, 2000);
         
       }  
     }
