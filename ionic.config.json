@@ -2,5 +2,11 @@
   "name": "eventplanning",
   "app_id": "",
   "type": "ionic-angular",
+<<<<<<< HEAD
+  "integrations": {
+    "cordova": {}
+  }
+=======
   "integrations": {}
+>>>>>>> 7697d42ce17734cb6b955e9a0187b1254e8f2626
 }
