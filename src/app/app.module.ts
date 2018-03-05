@@ -14,13 +14,17 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
 import {RegisterPage} from '../pages/register/register';
+import { FileserviceProvider } from '../providers/fileservice/fileservice';
+import { ProfilePage } from '../pages/profile/profile';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -28,6 +32,7 @@ import {RegisterPage} from '../pages/register/register';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule,
+ 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,13 +40,15 @@ import {RegisterPage} from '../pages/register/register';
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    FileserviceProvider
   ]
 })
 export class AppModule {}

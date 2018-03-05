@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController, AlertController} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,7 +21,8 @@ import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@
   templateUrl: 'login.html',
 })
 export class LoginPage {
- public info:string;
+ 
+ 
   formgroup:FormGroup;
   username:AbstractControl;
   password:AbstractControl;
@@ -50,7 +51,7 @@ export class LoginPage {
 
 }
   */
- constructor(public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
+ constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
   this.formgroup = formbuilder.group({
     username: new FormControl('', Validators.compose([
       Validators.required,
@@ -72,14 +73,29 @@ export class LoginPage {
  
   async login(user: User) {
     try {
+      
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      
       if (result) {
-       
+        let loading=this.loadingCtrl.create({
+          content: 'Logging...'
+        });
+        loading.present();
         this.navCtrl.setRoot(HomePage);
+        setTimeout(() => {
+          loading.dismiss();
+        }, 3000);
+        
       }  
     }
     catch (e) {
-      this.info="Wrong username or passowrd";
+      let alertinfo=this.alertCtrl.create({
+        title:'Notification!',
+        subTitle:'Wrong username or password, Please try agian',
+        buttons:['OK'],
+      });
+      alertinfo.present();
+     
       console.log(e);
     }
   }

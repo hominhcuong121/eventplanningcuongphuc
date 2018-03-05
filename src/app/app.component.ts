@@ -6,6 +6,8 @@ import {LoginPage} from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AngularFireAuth } from 'angularfire2/auth';
+import {ProfilePage} from '../pages/profile/profile';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -23,7 +25,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Login', component: LoginPage }
+    
+   
     ];
 
   }
@@ -41,5 +44,8 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+  rehome(){
+    
   }
 }

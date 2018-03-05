@@ -1,96 +1,70 @@
-<!--
-  Generated template for the LoginPage page.
+<!-- -->
+<ion-content padding class="animated fadeIn login auth-page background">
+  <div class="login-content">
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <!--<div class="logo" >
+        <img src="../../assets/imgs/logo.png" alt="Logo">
+      </div>-->
+      <ion-icon name="calendar" text-center class="logo-icon"></ion-icon>
+      <h2 ion-text class="text-white">
+           Event Planning
+      </h2>
+    </div>
 
-  <!--<ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>-->
-
-</ion-header>
-
-
-<!--<ion-content padding>
-      <ion-item>
-        <ion-label color="primary">Email</ion-label>
-        <ion-input placeholder="Enter your Email" type="text" [(ngModel)]="user.email"></ion-input>
+    <!-- Login form -->
+    <form class="list-form" [formGroup]="formgroup">
+      <ion-item class="none-color" >
+        <ion-label floating class="text-white">
+          <ion-icon name="mail"  item-start ></ion-icon>
+          Email
+        </ion-label>
+        <ion-input type="email" formControlName="username" [(ngModel)]="user.email"></ion-input>
       </ion-item>
 
-      <ion-item>
-          <ion-label color="primary" fixed>Password</ion-label>
-          <ion-input type="password" placeholder="Enter your passowrd" [(ngModel)]="user.password"></ion-input>
+      <ion-item class="none-color">
+        <ion-label floating class="text-white">
+          <ion-icon name="lock" item-start class="text-white"></ion-icon>
+          Password
+        </ion-label>
+        <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
       </ion-item>
-      <button ion-button round (click)="login(user)">Login</button>
-
-</ion-content>-->
-
-<ion-content class="background">
-  <h1>Event Planning</h1> 
-  <ion-card>
-    <ion-card-header>
-      LOGIN
-    </ion-card-header>
-    
-    <ion-card-content>
-        <form [formGroup]="formgroup">
-      <ion-list no-lines>
-         
-        <ion-item>
-          <ion-label floating>Username</ion-label>
-          <ion-input type="text" formControlName="username" [(ngModel)]="user.email"></ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="username.hasError('required')">
-            <p class="noti"> *Username is required</p>
-          </ion-item>
-          <ion-item *ngIf="username.hasError('pattern')">
-              <p class="noti"> *Username is not valid email</p>
-            </ion-item>
-
-
-        <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="password.hasError('required') ">
-            <p class="noti"> *Password is required</p>
-          </ion-item>
-
-          <ion-item *ngIf="password.hasError('minlength')">
-              <p class="noti"> *Password is as least 6 characters</p>
-            </ion-item>
-            
-        <ion-item>
-          <p>Forgot Password ? <a>Get Your password</a></p>
-        </ion-item>
-        <button ion-button outline block color="primary"  (click)="login(user)">Login</button>
-        <ion-item ng-if="info">
-          <p class="noti"> {{info}}</p>
-        </ion-item>
-      
-      </ion-list>
     </form>
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-left block>
-        <ion-icon name="logo-facebook"></ion-icon>
-        <div>login with facebook</div>
+
+    <p text-right ion-text class="text-white"  color="whitetext" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>
+
+    <div>
+      <button ion-button icon-start block class="btn-login" tappable (click)="login(user)">
+        <ion-icon name="log-in"></ion-icon>
+        SIGN IN
       </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-left color="danger" block>
-        <ion-icon name="logo-google"></ion-icon>
-        <div>login with Google</div>
-      </button>
-        </ion-col>
-      </ion-row>
-      <b>OR</b>
-      <button ion-button outline block color="danger" (click)="register()">Sign Up</button>
-      
-    </ion-card-content>
-  </ion-card>
+
+      <p text-center class="text-white"  ion-text color="whitetext">Or Sign in with:</p>
+
+      <ion-grid >
+        <ion-row >
+          <ion-col col-6 >
+            <button ion-button icon-only block  class="btn-facebook">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </button>
+          </ion-col>
+          
+          <ion-col col-6>
+            <button ion-button icon-only block class="btn-gplus" color="danger">
+              <ion-icon name="logo-googleplus"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+
+
+    <!-- Other links -->
+    <div text-center margin-top>
+      <span ion-text class="text-white" tappable (click)="register()">New account? <strong>Sign up</strong></span>
+    </div>
+
+  </div>
 </ion-content>
