@@ -1,0 +1,44 @@
+<!--
+  Generated template for the AddGuestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Guest</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Guest's name</ion-label>
+    <ion-input [(ngModel)]="nameGuest" type="text" placeholder="Fill your guest's name" clearInput></ion-input>
+  </ion-item>
+  <ion-buttons end>
+    <button ion-button icon-only round (click)="addGuest(nameGuest)">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+  <h4 class="title">My Guest</h4>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of items | async">
+        <ion-item text-capitalize *ngIf="item.groupId == groupId">
+            <h2>{{item.guestName}}</h2>
+            <p>Gift Money: {{item.giftMoney}}</p>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button expandable (click)="editGuest(item)" class="editButton">
+            <ion-icon name="ios-brush"></ion-icon>
+          </button>
+          <button ion-button expandable (click)="deleteGuest(item.key)" class="deleteButton">
+            <ion-icon name="ios-trash"></ion-icon>
+          </button> 
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+</ion-content>
