@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+=======
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
 
 /**
  * Generated class for the AddTaskPage page.
@@ -17,6 +21,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AddTaskPage {
 
+<<<<<<< HEAD
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
   eventId: string;
@@ -30,12 +35,16 @@ export class AddTaskPage {
     });
 
     this.eventId = this.navParams.data;
+=======
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddTaskPage');
   }
 
+<<<<<<< HEAD
   addTask(eventId, nameTask: string, receipts: number, expenditures: number) {
     let alert = this.alertCtrl.create({
       title: 'Notice!',
@@ -60,4 +69,6 @@ export class AddTaskPage {
     alert.present();
   }
 
+=======
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
 }

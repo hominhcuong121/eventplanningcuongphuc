@@ -15,7 +15,11 @@
 
 <ion-content padding>
   <ion-buttons end>
+<<<<<<< HEAD
       <button ion-button icon-only round (click)="addTask(eventId)">
+=======
+      <button ion-button icon-only round (click)="addTask()">
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
         <ion-icon name="add"></ion-icon>
       </button>
   </ion-buttons>
@@ -24,10 +28,16 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let item of items | async">
+<<<<<<< HEAD
         <ion-item text-capitalize *ngIf="item.eventId == eventId">
             <h2>{{item.nameTask}}</h2>
             <p>Receipts: {{item.receipts}} - Expenditures: {{item.expenditures}}</p>
         </ion-item>
+=======
+        <button ion-item (click)="openEventDetail(item)" text-capitalize>
+            <ion-label>{{item.name}}</ion-label>
+        </button>
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
         <ion-item-options>
           <button ion-button expandable (click)="editTask(item)" class="editButton">
             <ion-icon name="ios-brush"></ion-icon>

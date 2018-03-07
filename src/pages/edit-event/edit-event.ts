@@ -37,7 +37,11 @@ export class EditEventPage {
     console.log('ionViewDidLoad EditEventItemPage');
   }
 
+<<<<<<< HEAD
   editEvent(item, newName: string) {
+=======
+  editEvent(item, newName: string, myDate: Date) {
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
     let alert = this.alertCtrl.create({
       title: 'Notice!',
       message: 'Do you agree to edit this?',
@@ -51,7 +55,11 @@ export class EditEventPage {
         {
           text: 'Agree',
           handler: () => {
+<<<<<<< HEAD
             this.itemsRef.update(item.key, { name: newName });
+=======
+            this.itemsRef.update(item.key, { name: newName, date: myDate });
+>>>>>>> 2479dbb8ffc7b4208ae97a23963ffe7754fcfc7a
             this.navCtrl.pop();
           }
         }
