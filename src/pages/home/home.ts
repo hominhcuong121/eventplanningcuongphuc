@@ -1,61 +1,100 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { AddeventPage } from '../addevent/addevent';
 import { EditEventPage } from '../edit-event/edit-event';
 import { EventDetailPage } from '../event-detail/event-detail';
-=======
-import { NavController } from 'ionic-angular';
-
->>>>>>> 7697d42ce17734cb6b955e9a0187b1254e8f2626
+import { AngularFireAuth } from 'angularfire2/auth';
+import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-<<<<<<< HEAD
+  uid:string;
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
   
-  constructor(public db: AngularFireDatabase, public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
+              public modalCtrl: ModalController, public alertCtrl: AlertController,
+              public afAuth:AngularFireAuth
+            ) {
+              
+    this.uid = this.afAuth.auth.currentUser.uid;
     this.items = db.list('events').valueChanges();
     this.itemsRef = db.list('events');
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
+    
   }
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddEventPage'); 
   }
 
-  addEvent() {
-    this.navCtrl.push(AddeventPage);
+  addEvent(nameEvent) {
+    let alert = this.alertCtrl.create({
+      title: 'Notice!',
+      message: 'Do you agree to add this event?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.itemsRef.push({name: nameEvent, uid: this.uid});
+          }
+        }
+      ]
+    });
+
+    alert.present();
+    
   }
 
-  deleteEvent(item : string) {
-    this.itemsRef.remove(item);
+  deleteEvent(eventId : string) {
+    let alert = this.alertCtrl.create({
+      title: 'Notice!',
+      message: 'Do you agree to delete this?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.itemsRef.remove(eventId);
+          }
+        }
+      ]
+    });
+
+    alert.present();
+    
   }
 
-  editEvent(item) {
-    this.navCtrl.push(EditEventPage, item);
-    alert(item);
+  editEvent(eventId) {
+    this.navCtrl.push(EditEventPage, eventId);
   }
 
-  openEventDetail(item) {
-    this.navCtrl.push(EventDetailPage, item);
+  openEventDetail(eventId) {
+    this.navCtrl.push(EventDetailPage, eventId);
+    // console.log(eventId);
+  }
+
+  addGroupOfGuest(eventId) {
+    this.navCtrl.push(GroupOfGuestPage, eventId);
   }
 
 }
 
 
-=======
-  constructor(public navCtrl: NavController) {
-
-  }
-
-}
->>>>>>> 7697d42ce17734cb6b955e9a0187b1254e8f2626
