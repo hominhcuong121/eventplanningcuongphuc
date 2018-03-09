@@ -28,7 +28,7 @@
     </button>
     <ion-title>
       <div ion-text class="icon-title"></div>
-      <span class="text-primary">Event<strong>Planning</strong></span>
+      <span class="text-primary">Event<strong>Planning {{email}}</strong></span>
     </ion-title>
     <ion-buttons end>
       <button ion-button tappable (click)="presentNotifications($event)" color="primary">
@@ -43,11 +43,12 @@
 
 <ion-content class="animated fadeIn common-bg">
   <!--list menu on the top-->
+  
   <div class="booking-card">
     <ion-grid class="card" col-md-8 col-lg-6>
       <ion-row>
         <ion-col class="no-padding">
-          <ion-searchbar [(ngModel)]="hotellocation" (ionInput)="getItems($event)" (ionCancel)="showItems = !showItems" autocomplete="on" autocorrect="on" spellcheck="true" animated="true" placeholder="Event name..."></ion-searchbar>
+          <ion-searchbar [(ngModel)]="hotellocation" (ionInput)="getItems($event)" (ionCancel)="showItems = !showItems" autocomplete="on" autocorrect="on" spellcheck="true" animated="true" placeholder="Event Task..."></ion-searchbar>
           <ion-list class="searchbar-results animated fadeIn" *ngIf="showItems">
             <button ion-item *ngFor="let item of items" tappable (click)="itemSelected(item)">
               <ion-icon name="pin"></ion-icon>
@@ -160,17 +161,17 @@
         </ion-col>
       </ion-row>    
 
-      <ion-row>
+<!--<ion-row>
         <ion-col>
           <button ion-button block color="primary" class="round" tappable (click)="viewHotels()">
             <ion-icon name="search"></ion-icon>
             Search
           </button>        
         </ion-col>
-      </ion-row>
+      </ion-row>-->
     </ion-grid>
   </div>
-
+<!-->
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 col-lg-6 offset-md-2 offset-lg-3>
@@ -200,7 +201,7 @@
       <div id="home-map" class="google-map"></div>
     </ion-item>
   </ion-item-group>
-
+-->
   <ion-item-group class="home-widget">
     <ion-item-divider color="primary">
       <h2 ion-text class="bold text-white">

@@ -14,9 +14,10 @@
 
 
 <ion-content padding>
+  
   <ion-item>
     <ion-label stacked>Email</ion-label>
-    <ion-input type="email" placeholder="Your email address" [(ngModel)]="user.username"></ion-input>
+    <ion-input type="email" placeholder="Your email address" [(ngModel)]="user.email"></ion-input>
   </ion-item>
   
 
@@ -50,10 +51,10 @@
         Upload Single
       </button>
       
-  <
+  
       
   
-  <button ion-button block (click)="register(user)" >
+  <button ion-button block (click)="signup(user)" >
     Create an Account
   </button>
 </ion-content>
