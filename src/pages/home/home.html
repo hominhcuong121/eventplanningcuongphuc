@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="title">Event</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only item-end (click)="addEvent()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-buttons>
+  </ion-navbar>
+</ion-header> 
+
+<ion-content>
+  
+    <ion-searchbar placeholder="Enter the event's name." showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
+
+  <h4 class="title text-green" padding>My Events</h4>
+
+  <p *ngIf="eventExist.length == 0">You have no any event, please insert a new one!</p>
+
+  <ion-list padding>
+    <ion-item-sliding *ngFor="let item of items | async">
+        <button ion-item (click)="openEventDetail(item.key)" text-capitalize *ngIf="item.uid == uid">
+            <ion-label>{{item.name}}</ion-label>
+        </button>
+        <ion-item-options>
+          <button ion-button expandable (click)="editEvent(item)" class="editButton">
+            <ion-icon name="ios-brush"></ion-icon>
+          </button>
+          <button ion-button expandable (click)="deleteEvent(item.key)" class="deleteButton">
+            <ion-icon name="ios-trash"></ion-icon>
+          </button> 
+          <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
+            <ion-icon name="ios-people"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+

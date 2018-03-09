@@ -1,0 +1,43 @@
+<!--
+  Generated template for the GroupOfGuestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Group Of Guest</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item-divider>
+      <ion-label floating>Add your new group here</ion-label>
+      <ion-input [(ngModel)]="groupName" type="text" autofocus maxLength="40"></ion-input>
+      <button ion-button ion-only item-end round (click)="addGroup(eventId, groupName)" style="width: 40px; height: 40px;">
+          <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-item-divider>
+  
+  <h4 class="title">My Groups</h4>
+
+  <ion-list>
+      <ion-item-sliding *ngFor="let item of items | async">
+          <button ion-item text-capitalize (click)="openAddGuestPage(item.key, item.eventId)" *ngIf="item.eventId == eventId">
+              <h2>{{item.groupName}}</h2>
+          </button>
+          <ion-item-options>
+            <button ion-button expandable (click)="editGroup(item)" class="editButton">
+              <ion-icon name="ios-brush"></ion-icon>
+            </button>
+            <button ion-button expandable (click)="deleteGroup(item.key)" class="deleteButton">
+              <ion-icon name="ios-trash"></ion-icon>
+            </button> 
+          </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
