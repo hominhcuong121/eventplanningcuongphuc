@@ -7,7 +7,7 @@ import { User } from "../../models/user";
 
 import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-
+import * as firebase from 'firebase';
 
 
 
@@ -80,8 +80,11 @@ loginfacebook(){
   
 }
 logingoogle() {
-  this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  this.navCtrl.setRoot(HomePage);
+  if(this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
+  {
+    this.navCtrl.setRoot(HomePage);
+  };
+  
 }
 resetPassword() {
   return this.auth.resetdialog();
