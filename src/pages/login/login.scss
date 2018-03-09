@@ -1,0 +1,45 @@
+page-login {
+  .background{
+    /*background: url('../../assets/imgs/bg.png') no-repeat;
+    background-size: 100%;*/
+    background: #554C8B;
+  }
+  .logo-icon{
+    font-size: 50px;
+    color: #ffffff;
+  }
+  .logo{
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: sub;
+    background: url("../assets/img/ionbooking-ico.png") no-repeat;
+    background-size: 100%;  
+  }
+  .logo{
+    
+  }
+  .none-color{
+    background: none;
+  }
+  $color: (
+  
+    primary: #4267B2,
+    secondary: #986cda,
+    danger: #9E1A7A,
+    light: #D7D6E1,
+    dark: #412d61,
+    whitetext:#ffffff,
+  );
+  .text-primary{
+    color: #9871d1;
+    
+  }
+  .btn-login{
+background: #563D7C;
+  }
+  .text-white{
+    color:#ffffff;
+  }
+  }
+  
