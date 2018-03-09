@@ -6,6 +6,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from "../../models/user";
 
 import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
+
+
+
 
 
 /**
@@ -21,8 +25,7 @@ import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@
   templateUrl: 'login.html',
 })
 export class LoginPage {
- 
- 
+  
   formgroup:FormGroup;
   username:AbstractControl;
   password:AbstractControl;
@@ -51,7 +54,7 @@ export class LoginPage {
 
 }
   */
- constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
+ constructor(public auth:AuthProvider,public alertCtrl:AlertController,public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
   this.formgroup = formbuilder.group({
     username: new FormControl('', Validators.compose([
       Validators.required,
@@ -70,13 +73,25 @@ export class LoginPage {
   this.password = this.formgroup.controls['password'];
 
 }
- 
+loginfacebook(){
+  if(this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())){
+    this.navCtrl.setRoot(HomePage);
+  }
+  
+}
+logingoogle() {
+  this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  this.navCtrl.setRoot(HomePage);
+}
+resetPassword() {
+  return this.auth.resetdialog();
+}
   async login(user: User) {
     try {
       
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
       
-      if (result) {
+      if (result && this.afAuth.auth.currentUser.emailVerified==true) {
         let loading=this.loadingCtrl.create({
           content: 'Logging...'
         });
@@ -84,8 +99,16 @@ export class LoginPage {
         this.navCtrl.setRoot(HomePage);
         setTimeout(() => {
           loading.dismiss();
-        }, 3000);
+        }, 1000);
         
+      }
+      else{
+        let alertinfo=this.alertCtrl.create({
+          title:'Notification!',
+          subTitle:'Please check your email and verify by click the link below then try agian',
+          buttons:['OK'],
+        });
+        alertinfo.present();
       }  
     }
     catch (e) {
