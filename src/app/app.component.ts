@@ -10,7 +10,9 @@ import { LoginPage } from '../pages/login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
+@Component({
+  templateUrl: 'app.html'
+})
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
