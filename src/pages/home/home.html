@@ -28,7 +28,7 @@
     </button>
     <ion-title>
       <div ion-text class="icon-title"></div>
-      <span class="text-primary">Event<strong>Planning {{email}}</strong></span>
+      <span class="text-primary">Event<strong>Planning</strong></span>
     </ion-title>
     <ion-buttons end>
       <button ion-button tappable (click)="presentNotifications($event)" color="primary">
@@ -39,16 +39,14 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content class="animated fadeIn common-bg">
-  <!--list menu on the top-->
-  
+<!-- <ion-content class="animated fadeIn common-bg">
   <div class="booking-card">
     <ion-grid class="card" col-md-8 col-lg-6>
       <ion-row>
         <ion-col class="no-padding">
-          <ion-searchbar [(ngModel)]="hotellocation" (ionInput)="getItems($event)" (ionCancel)="showItems = !showItems" autocomplete="on" autocorrect="on" spellcheck="true" animated="true" placeholder="Event Task..."></ion-searchbar>
+          <ion-searchbar [(ngModel)]="hotellocation" (ionInput)="getItems($event)" (ionCancel)="showItems = !showItems" autocomplete="on" autocorrect="on" spellcheck="true" animated="true" placeholder="Event name..."></ion-searchbar>
           <ion-list class="searchbar-results animated fadeIn" *ngIf="showItems">
             <button ion-item *ngFor="let item of items" tappable (click)="itemSelected(item)">
               <ion-icon name="pin"></ion-icon>
@@ -89,7 +87,7 @@
         <ion-col col-6 col-md-4 class="no-paddingT no-paddingB">
           <div class="guests bb">
             <ion-item>
-              <ion-label>Guests</ion-label>
+              <ion-label>Adults</ion-label>
               <ion-select [(ngModel)]="adults" cancelText="Cancel" okText="OK">
                 <ion-option value="1" selected="true">1</ion-option>
                 <ion-option value="2">2</ion-option>
@@ -108,7 +106,7 @@
         <ion-col col-6 col-md-4 class="no-paddingT no-paddingB">
           <div class="guests bb">
             <ion-item>
-              <ion-label>Print card</ion-label>
+              <ion-label>Children</ion-label>
               <ion-select [(ngModel)]="children" cancelText="Cancel" okText="OK" (ngModelChange)="childrenArr($event)">
                 <ion-option value="0" selected="true">0</ion-option>
                 <ion-option value="1">1</ion-option>
@@ -161,17 +159,17 @@
         </ion-col>
       </ion-row>    
 
-<!--<ion-row>
+      <ion-row>
         <ion-col>
           <button ion-button block color="primary" class="round" tappable (click)="viewHotels()">
             <ion-icon name="search"></ion-icon>
             Search
           </button>        
         </ion-col>
-      </ion-row>-->
+      </ion-row>
     </ion-grid>
   </div>
-<!-->
+
   <ion-grid>
     <ion-row>
       <ion-col col-md-8 col-lg-6 offset-md-2 offset-lg-3>
@@ -201,13 +199,12 @@
       <div id="home-map" class="google-map"></div>
     </ion-item>
   </ion-item-group>
--->
   <ion-item-group class="home-widget">
     <ion-item-divider color="primary">
       <h2 ion-text class="bold text-white">
         <ion-icon name="pricetags"></ion-icon> 
         Summary
-        <ion-badge class="pull-right green-bg text-white" tappable (click)="viewHotels()">SEE MORE</ion-badge>
+        <ion-badge class="pull-right green-bg text-white" tappable (click)="viewHotels()">destina MORE</ion-badge>
       </h2>
     </ion-item-divider>
     <ion-item>
@@ -258,6 +255,49 @@
     </ion-item>
   </ion-item-group>
 
+</ion-content>  -->
 
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="title">Event</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-item-divider>
+      <ion-label floating>Add your new event here</ion-label>
+      <ion-input [(ngModel)]="nameEvent" type="text" autofocus maxLength="40" ></ion-input>
+      <button ion-button ion-only item-end round (click)="addEvent(nameEvent)" style="width: 40px; height: 40px;">
+          <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-item-divider>
+  
+  <h4 class="title" padding>My Events</h4>
+
+  <ion-list padding>
+    <ion-item-sliding *ngFor="let item of items | async">
+        <button ion-item (click)="openEventDetail(item.key)" text-capitalize *ngIf="item.uid == uid">
+            <ion-label>{{item.name}}</ion-label>
+        </button>
+        <ion-item-options>
+          <button ion-button expandable (click)="editEvent(item)" class="editButton">
+            <ion-icon name="ios-brush"></ion-icon>
+          </button>
+          <button ion-button expandable (click)="deleteEvent(item.key)" class="deleteButton">
+            <ion-icon name="ios-trash"></ion-icon>
+          </button> 
+        </ion-item-options>
+        <ion-item-options side="left">
+            <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
+              <ion-icon name="ios-people"></ion-icon>
+            </button>
+          </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
 </ion-content>
+
 

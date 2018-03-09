@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
 import { Upload } from "../../models/upload";
 import { AngularFireAuth } from 'angularfire2/auth';
 import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@angular/forms';

@@ -1,18 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav,Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import {LoginPage} from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { AngularFireAuth } from 'angularfire2/auth';
 import {ProfilePage} from '../pages/profile/profile';
 import { User } from '../models/user';
 import * as firebase from 'firebase';
+import { HomePage } from '../pages/home/home';
+import { Nav, Platform } from 'ionic-angular';
+import { LoginPage } from '../pages/login/login';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
-@Component({
-  templateUrl: 'app.html'
-})
+
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
