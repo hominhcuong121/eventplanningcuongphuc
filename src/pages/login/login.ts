@@ -73,17 +73,42 @@ export class LoginPage {
   this.password = this.formgroup.controls['password'];
 
 }
-loginfacebook(){
-  if(this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())){
-    this.navCtrl.setRoot(HomePage);
+async loginfacebook(){
+  try{
+    const result=await this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    if(result)
+    {
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
+  catch(e){
+    console.log(e);
   }
   
+  
+
+    
+
+
+
+
+  
 }
-logingoogle() {
-  if(this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
+async logingoogle() {
+  try
+  {
+    const result= await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  if(result)
   {
     this.navCtrl.setRoot(HomePage);
-  };
+  }
+
+  }catch(e){
+    console.log(e);
+  }
+ 
+    
+  
   
 }
 resetPassword() {

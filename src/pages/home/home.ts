@@ -6,6 +6,7 @@ import { EditEventPage } from '../edit-event/edit-event';
 import { EventDetailPage } from '../event-detail/event-detail';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
+import * as firebase from 'firebase';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -57,7 +58,19 @@ export class HomePage {
     alert.present();
     
   }
+findEvent(eventName:string){
+  var ref = firebase.database().ref("events");
+  
+  ref.on("value", function(snapshot) {
+   if(snapshot.val().name=="cuong")
+   {
+     console.log('trung');
+     return;
 
+   }
+  });
+  
+}
   deleteEvent(eventId : string) {
     let alert = this.alertCtrl.create({
       title: 'Notice!',
