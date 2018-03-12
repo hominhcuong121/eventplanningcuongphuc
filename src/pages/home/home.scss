@@ -1,6 +1,6 @@
 page-home{
     $color: (
-    green-color:#0dbb7e,
+    green-color:#26d89a,
     green-navbar:#0dbb7e,
     primary: #000,
     secondary: #986cda,
@@ -41,6 +41,9 @@ ion-header .title{
 
 /*End header*/
 /*Content*/
+.title-bar .label{
+border-radius:5px;
+}
 .title-bar{
   position: relative;
   height: 100px;
@@ -50,12 +53,15 @@ ion-header .title{
 
 .icon-title-bar{
  margin-left: 5px;
+ 
+ 
 }
 
 .img-hat span{
   margin-left: 15px;
 }
 .img-hat{
+
   height: 60px;
   position: absolute;
   top: 1px;
@@ -63,13 +69,23 @@ ion-header .title{
   z-index: 1000;
   background: none;
   min-width: 33px;
-}
-.title-name-bar{
-  font-size: 20px;
-  background: #0dbb7e;
-  padding: 10px 0;
-  padding-right: 20px;
-}
+  }
+  .title-name-bar{
+    font-size: 20px;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+-moz-box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+background: #26d89a;
+padding: 10px 0;
+padding-right: 20px;
+  }
+
+ .title-bar  .item-inner{
+  border-bottom: none!important;
+  }
+ .title-bar .item-wrapper{
+
+  }
 /*end content*/
 .home {
   .icon-title {
@@ -271,9 +287,11 @@ ion-header .title{
 }
 
 ion-content {
-  background-image: url('../assets/imgs/background.jpg')
+  //background-image: url('../assets/imgs/background.jpg')
 }
-
+ion-content {
+  //background-image: url('../assets/imgs/background.jpg')
+}
 .addButton {
   margin-top: 10px; 
 }

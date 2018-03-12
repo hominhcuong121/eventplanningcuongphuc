@@ -1,52 +1,57 @@
-<ion-menu [content]="content">
-  <ion-header>
-      <ion-toolbar class="user-profile" no-padding>
+<ion-header>
+  <ion-navbar class="bg-green">
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="text-white"></ion-icon>
+    </button>
+    <ion-title class="text-white">Profile</ion-title>
 
-          <ion-list no-margin >
-            <ion-item >
-              <ion-avatar item-start>
-                <img class="user-avarta" src="../assets/imgs/avar.png">
-              </ion-avatar>
-              <h2 class="bold">Le Hoang Phuc</h2>
-              <h3 ion-text  class="text-purple"></h3>
-            <div padding-top>
-              <button ion-button icon-left small class="bg-btn bg-purple" >
-                <ion-icon name="contact"></ion-icon>
-                Edit Profile
-              </button>
-              <button class="bg-purple" ion-button icon-left small color="secondary" menuClose tappable (click)="logout()">
-                <ion-icon name="log-out"></ion-icon>
-              </button>
-            </div>
-            </ion-item>
-          </ion-list>
-      
-          <ion-grid no-padding>
-            <ion-row class="other-data" no-padding>
-              <ion-col text-center class="column">
-                <span ion-text color="primary" class="bold" (click)="rehome()">Event</span>
-                <h5 ion-text no-margin class="text-1x text-white">10</h5>
-              </ion-col>
-              <ion-col text-center class="column">
-                <span ion-text color="light" class="bold">Summary</span>
-                <h5 ion-text no-margin class="text-1x text-white">10</h5>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-      
-        </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-      <ion-list class="user-list">
-
-          <button ion-item class="text-1x" *ngFor="let p of pages" (click)="openPage(p)">
-            <ion-icon name="{{p.icontitle}}" color="primary" ></ion-icon> 
-            <span ion-text color="primary">{{p.title}}</span>
-          </button>      
-        </ion-list>
-  </ion-content>
-
-</ion-menu>
+  </ion-navbar>
+</ion-header>
 
 
+<ion-content>
+
+  <ion-toolbar class="user-profile" no-padding>
+
+
+
+    <ion-list no-margin>
+
+      <ion-item style="text-align:center" *ngFor="let item of filteredUsers">
+
+        <div class="header-avatar">
+          
+            <ion-img src="../assets/imgs/avar1.jpg"></ion-img>
+       
+        </div>
+        <h2 class="bold">{{item.name}}</h2>
+        <h3 ion-text class="text-green"></h3>
+        <div padding-top>
+          <button ion-button icon-left small class="bg-btn bg-green">
+            <ion-icon name="contact"></ion-icon>
+            Reset Password
+          </button>
+          <button class="bg-green" ion-button icon-left small  menuClose tappable (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-grid no-padding class="bg-green text-white">
+      <ion-row class="other-data" no-padding>
+        <ion-col text-center class="column">
+          <span ion-text class="bold" (click)="rehome()">Event</span>
+          <h5 ion-text no-margin class="text-1x text-white">10</h5>
+        </ion-col>
+        <ion-col text-center class="column">
+          <span ion-text class="bold">Summary</span>
+          <h5 ion-text no-margin class="text-1x text-white">10</h5>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+
+
+</ion-content>
