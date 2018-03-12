@@ -8,6 +8,7 @@ import { LoadingController, Alert, AlertController} from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HomePage } from '../../pages/home/home';
 import * as firebase from "firebase";
+
 /*
   Generated class for the AuthProvider provider.
 
@@ -23,78 +24,30 @@ interface User {
 @Injectable()
 
 export class AuthProvider {
-  
-  /*
-  user: Observable<User | null>;
 
-  constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore
-            
-              ) {
-
-    this.user = this.afAuth.authState
-      .switchMap((user) => {
-        if (user) {
-          return this.afs.doc<User>('users/'+user.uid).valueChanges();
-        } else {
-          return Observable.of(null);
-        }
-      });
-  }
-  private oAuthLogin(provider: firebase.auth.AuthProvider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-       // this.notify.update('Welcome to Firestarter!!!', 'success');
-        return this.updateUserData(credential.user);
-      })
-      .catch((error) => {console.log(error)});
-  }
-  googleLogin() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
-  }
-  
-  private updateUserData(user: User) {
-
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc('users/'+user.uid);
-
-    const data: User = {
-      uid: user.uid,
-      email: user.email || null,
-      displayName: user.displayName,
-      
-    };
-    return userRef.set(data);
-  }
-  emailSignUp(email: string, password: string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        //this.notify.update('Welcome to Firestarter!!!', 'success');
-        console.log('Success');
-        return this.updateUserData(user); // if using firestore
-        
-      })
-      .catch((error) => {console.log(error)} );
-  }*/
 
  
   user = {} as User;
   loading:any;
-
+  private currentUser: firebase.User;
   //username:AbstractControl;
   //password:AbstractControl;
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController,  
     public db: AngularFireDatabase,
-    private afAuth: AngularFireAuth,
+    private afAuth: AngularFireAuth,private auth$: AngularFireAuth
     
   ) {
-    
+    afAuth.authState.subscribe((user: firebase.User) => this.currentUser = user);
 
   }
-
+  
   /*ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }*/
+  get authenticated(): boolean {
+    return this.currentUser !== null;
+  }
+
   resetdialog() {
     let alert = this.alertCtrl.create({
       title: 'Reset Password',
@@ -160,6 +113,7 @@ addUser(user,uid:string){
     email: user.email,
   });
 }
+ 
 checkerror(e){
   
   if (e == 'auth/weak-password') {

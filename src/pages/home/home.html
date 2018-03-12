@@ -31,56 +31,57 @@
       <span class="text-white">Event Planning</span>
     </ion-title>
     <ion-buttons end>
-      
-      
+        <button ion-button ion-only item-end round class="text-white add-event-icon" (click)="addEvent(nameEvent)">
+            <ion-icon name="add"></ion-icon>
+        </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-
-
-
-  
-
-
-<!--
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-item-divider>
-      <ion-label floating>Add your new event here</ion-label>
-      <ion-input [(ngModel)]="nameEvent" type="text" autofocus maxLength="40" ></ion-input>
-      <button ion-button ion-only item-end round (click)="addEvent(nameEvent)" style="width: 40px; height: 40px;">
-          <ion-icon name="add"></ion-icon>
-      </button>
-  </ion-item-divider>
+    
   
-  <h4 class="title" padding>My Events</h4>
+      <ion-item class="title-bar">
+         
+        <div ion-text class="bold bg-green text-white title-name-bar">
+          <ion-icon name="book" class="text-green icon-title-bar" > </ion-icon> 
+          <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img>
+          Events
+          <ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>
+        </div>
+      </ion-item>
+    </ion-item-divider>
+    
+      
 
   <ion-list padding>
-    <ion-item-sliding *ngFor="let item of items | async">
-        <button ion-item (click)="openEventDetail(item.key)" text-capitalize *ngIf="item.uid == uid">
-            <ion-label>{{item.name}}</ion-label>
+    <ion-item-sliding *ngFor="let event of eventList">
+     
+        <button ion-item (click)="openEventDetail(event)" text-capitalize *ngIf="event.uid == uid">
+            <ion-label>{{event.name}}</ion-label>
         </button>
         <ion-item-options>
-          <button ion-button expandable (click)="editEvent(item)" class="editButton">
+          <button ion-button expandable (click)="editEvent(event)" class="editButton">
             <ion-icon name="ios-brush"></ion-icon>
           </button>
-          <button ion-button expandable (click)="deleteEvent(item.key)" class="deleteButton">
+          <button ion-button expandable (click)="deleteEvent(event)" class="deleteButton">
             <ion-icon name="ios-trash"></ion-icon>
           </button> 
         </ion-item-options>
         <ion-item-options side="left">
-            <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
+            <button ion-button expandable (click)="addGroupOfGuest(event)" class="groupButton">
               <ion-icon name="ios-people"></ion-icon>
             </button>
           </ion-item-options>
+      
       </ion-item-sliding>
-  </ion-list>-->
-  <ion-content>
-      <ion-searchbar [(ngModel)]="event"  autocomplete="on" autocorrect="on" spellcheck="true" animated="true" placeholder="Destination or address..."></ion-searchbar>
-      <ion-list class="searchbar-results animated fadeIn" >
-        <button    (click)="findEvent(event)">
-          Find
-        </button> 
-      </ion-list>  
+  </ion-list>
+
+ 
+  
+
     </ion-content>
 
 

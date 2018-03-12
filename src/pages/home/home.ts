@@ -7,34 +7,106 @@ import { EventDetailPage } from '../event-detail/event-detail';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
 import * as firebase from 'firebase';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {EventProvider} from '../../providers/event/event';
+import { LoginPage } from '../login/login';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+ 
+  public eventList:Array<any>;
+  public loadedeventList:Array<any>;
+  public eventRef:firebase.database.Reference;
 
   uid:string;
   itemsRef: AngularFireList<any>;
   items: Observable<any[]>;
   
   constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
-              public modalCtrl: ModalController, public alertCtrl: AlertController,
+              public alertCtrl: AlertController,
               public afAuth:AngularFireAuth
             ) {
+              this.afAuth.authState.subscribe(user=>{
+                if(user)
+                {
+                  
+                  this.uid = this.afAuth.auth.currentUser.uid;
+                  this.items = db.list('events').valueChanges();
+                  this.itemsRef = db.list('events');
+                  this.items = this.itemsRef.snapshotChanges().map(changes => {
+                    return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+                  });
+                  this.eventRef = firebase.database().ref('/events');
               
-    this.uid = this.afAuth.auth.currentUser.uid;
-    this.items = db.list('events').valueChanges();
-    this.itemsRef = db.list('events');
-    this.items = this.itemsRef.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
+                  this.eventRef.on('value', eventList => {
+                    let events = [];
+                    eventList.forEach( event => {
+                      if(event.val().uid==this.afAuth.auth.currentUser.uid)
+                      {
+                        events.push(event.val());
+                        return false;
+                      }
+                      
+                    });
+            
+                    this.eventList = events;
+                    this.loadedeventList = events;
+                  });
+                  
+                }else{
+                  this.navCtrl.setRoot(LoginPage);
+                }
+              });
+             
     
   }
-  
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddEventPage'); 
+  initializeItems(){
+    this.eventList = this.loadedeventList;
+    
+  }
+  getItems(searchbar) {
+    // Reset items back to all of the items
+    this.initializeItems();
+    
+    // set q to the value of the searchbar
+    var q = searchbar.srcElement.value;
+
+
+    // if the value is an empty string don't filter the items
+    if (!q) {
+      return;
+    }
+   
+      this.eventList = this.eventList.filter((v) => {
+        if(v.name && q && v.uid==this.afAuth.auth.currentUser.uid) {
+          if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+           
+            return true;
+           
+          }
+          return false;
+        }
+      });
+      console.log(this.eventList);
+    console.log(q, this.eventList.length);
+
   }
 
+
+
+
+
+
+
+  ionViewDidLoad() {
+   
+   
+  }
+
+ 
   addEvent(nameEvent) {
     let alert = this.alertCtrl.create({
       title: 'Notice!',
@@ -58,7 +130,7 @@ export class HomePage {
     alert.present();
     
   }
-findEvent(eventName:string){
+/*findEvent(eventName:string){
   var ref = firebase.database().ref("events");
   
   ref.on("value", function(snapshot) {
@@ -70,7 +142,8 @@ findEvent(eventName:string){
    }
   });
   
-}
+}*/
+
   deleteEvent(eventId : string) {
     let alert = this.alertCtrl.create({
       title: 'Notice!',
@@ -107,7 +180,12 @@ findEvent(eventName:string){
   addGroupOfGuest(eventId) {
     this.navCtrl.push(GroupOfGuestPage, eventId);
   }
+logout(){
+  this.afAuth.auth.signOut();
+  
 
+  
+}
 }
 
 

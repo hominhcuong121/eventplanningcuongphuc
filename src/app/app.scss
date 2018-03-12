@@ -1,0 +1,53 @@
+$color:(
+  green-color:#26d89a, 
+  white-color:#ffffff,
+  bg-green:#1fd696,
+  bg-menu-content:#212121,
+  logo-color:#ceda13,
+  text-logo:#6da55c,
+  icon-menu-color:#45c69b,
+);
+.text-green{
+  color:color($color,green-color)!important;
+}
+.text-white{
+  color:color($color,white-color)!important;
+}
+
+.header-menu{
+    font-size: 30px;
+    text-align: center;
+    height: 130px;
+    background-color:color($color,bg-green);
+    color:color($color,white-color);
+}
+.header-menu ion-icon{
+    color: color($color,logo-color);
+}
+.header h2{
+    color: color($color,text-logo);
+}
+.menu-list{
+    background:color($color,bg-menu-content)!important;
+}
+.menu-list button {
+    background:#212121;
+    color:#ababab;
+    
+    
+    font-size: 18px;
+}
+.menu-list ion-icon{
+    color:color($color,icon-menu-color);
+    font-size: 35px;
+    padding-right: 20px;
+}
+.menu-list button .item-inner{
+    background: none!important;
+}
+.bg-menu-list{
+background: #212121;
+}
+ .scroll-content{
+    overflow-y: auto!important;
+}

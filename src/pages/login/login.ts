@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,LoadingController, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController, AlertController, MenuController} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -54,7 +54,8 @@ export class LoginPage {
 
 }
   */
- constructor(public auth:AuthProvider,public alertCtrl:AlertController,public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
+ constructor(private menu: MenuController,public auth:AuthProvider,public alertCtrl:AlertController,public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
+
   this.formgroup = formbuilder.group({
     username: new FormControl('', Validators.compose([
       Validators.required,
@@ -73,6 +74,14 @@ export class LoginPage {
   this.password = this.formgroup.controls['password'];
 
 }
+ionViewDidEnter() {
+  this.menu.swipeEnable(false);
+  
+
+  // If you have more than one side menu, use the id like below
+  // this.menu.swipeEnable(false, 'menu1');
+}
+
 async loginfacebook(){
   try{
     const result=await this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());

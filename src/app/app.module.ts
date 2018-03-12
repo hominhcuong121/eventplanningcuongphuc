@@ -26,7 +26,9 @@ import {RegisterPage} from '../pages/register/register';
 import { FileserviceProvider } from '../providers/fileservice/fileservice';
 import { ProfilePage } from '../pages/profile/profile';
 import { firebaseConfig } from '../enviroment';
-
+import { EventProvider } from '../providers/event/event';
+import { WaitingPage } from '../pages/waiting/waiting';
+import {AboutPage} from '../pages/about/about';  
 @NgModule({
   declarations: [
     MyApp,
@@ -42,7 +44,8 @@ import { firebaseConfig } from '../enviroment';
     GroupOfGuestPage,
     EditGroupPage,
     AddGuestPage,
-    EditGuestPage
+    EditGuestPage,WaitingPage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -68,14 +71,16 @@ import { firebaseConfig } from '../enviroment';
     GroupOfGuestPage,
     EditGroupPage,
     AddGuestPage,
-    EditGuestPage
+    EditGuestPage,WaitingPage,
+    AboutPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    FileserviceProvider
+    FileserviceProvider,
+    EventProvider
   ]
 })
 export class AppModule {}

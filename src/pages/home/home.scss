@@ -12,8 +12,23 @@ $color:(
 .bg-green{
   background-color:color($color,green-color);
 }
+.bold{
+  font-weight: bold;
+}
 .toolbar-background{
   background: none;
+}
+.toolbar-title-md{
+  color:none!important;
+}
+ion-content{
+  background-image: url('../../assets/imgs/background.jpg');
+  
+}
+.add-event-icon {
+  
+  padding-right: 15px;
+  font-size: 30px!important;
 }
 .icon-title {
   width: 28px;
@@ -22,5 +37,36 @@ $color:(
   vertical-align: sub;
   background: url("../assets/img/ionbooking-ico.png") no-repeat;
   background-size: 100%;    
+}
+
+.seemore{
+  background:#45c69b;
+  color:#fff;
+  margin-top: 5px;
+}
+.title-bar{
+  position: relative;
+  height: 60px;
+  background:#26d89a;
+}
+.icon-title-bar{
+  padding-right: 10px;
+ 
+ 
+}
+.img-hat{
+
+height: 57px;
+position: absolute;
+top: 2px;
+left: 9px;
+z-index: 1000;
+background: none;
+min-width: 33px;
+}
+.title-name-bar{
+  font-size: 20px;
+  padding:5px 0;
+ 
 }
 }
