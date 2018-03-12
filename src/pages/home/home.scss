@@ -1,6 +1,6 @@
 page-home{
     $color: (
-    green-color:#26d89a,
+    green-color:#0dbb7e,
     green-navbar:#0dbb7e,
     primary: #000,
     secondary: #986cda,
@@ -50,15 +50,12 @@ ion-header .title{
 
 .icon-title-bar{
  margin-left: 5px;
- 
- 
 }
 
 .img-hat span{
   margin-left: 15px;
 }
 .img-hat{
-
   height: 60px;
   position: absolute;
   top: 1px;
@@ -66,14 +63,13 @@ ion-header .title{
   z-index: 1000;
   background: none;
   min-width: 33px;
-  }
-  .title-name-bar{
-    font-size: 20px;
-    
-background: #26d89a;
-padding: 10px 0;
-padding-right: 20px;
-  }
+}
+.title-name-bar{
+  font-size: 20px;
+  background: #0dbb7e;
+  padding: 10px 0;
+  padding-right: 20px;
+}
 /*end content*/
 .home {
   .icon-title {
