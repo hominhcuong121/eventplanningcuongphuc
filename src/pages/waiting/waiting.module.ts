@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { EditGroupPage } from './edit-group';
+import { WaitingPage } from './waiting';
 
 @NgModule({
   declarations: [
-    EditGroupPage,
+    WaitingPage,
   ],
   imports: [
-    IonicPageModule.forChild(EditGroupPage),
+    IonicPageModule.forChild(WaitingPage),
   ],
 })
-export class EditGroupPageModule {}
+export class WaitingPageModule {}
