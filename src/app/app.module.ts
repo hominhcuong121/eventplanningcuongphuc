@@ -28,7 +28,8 @@ import { AddGuestPage } from '../pages/add-guest/add-guest';
 
 import { TaskProvider } from '../providers/task/task';
 import { GroupProvider } from '../providers/group/group';
-import { GuestProvider } from '../providers/guest/guest'; 
+import { GuestProvider } from '../providers/guest/guest';
+import { UserProvider } from '../providers/user/user'; 
 @NgModule({
   declarations: [
     MyApp,
@@ -79,7 +80,8 @@ import { GuestProvider } from '../providers/guest/guest';
     EventProvider,
     TaskProvider,
     GroupProvider,
-    GuestProvider
+    GuestProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

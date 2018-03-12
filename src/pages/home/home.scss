@@ -41,6 +41,9 @@ ion-header .title{
 
 /*End header*/
 /*Content*/
+.title-bar .label{
+border-radius:5px;
+}
 .title-bar{
   position: relative;
   height: 100px;
@@ -69,10 +72,19 @@ ion-header .title{
   }
   .title-name-bar{
     font-size: 20px;
-    
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+-moz-box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
 background: #26d89a;
 padding: 10px 0;
 padding-right: 20px;
+  }
+
+ .title-bar  .item-inner{
+  border-bottom: none!important;
+  }
+ .title-bar .item-wrapper{
+
   }
 /*end content*/
 .home {
@@ -275,9 +287,11 @@ padding-right: 20px;
 }
 
 ion-content {
-  background-image: url('../assets/imgs/background.jpg')
+  //background-image: url('../assets/imgs/background.jpg')
 }
-
+ion-content {
+  //background-image: url('../assets/imgs/background.jpg')
+}
 .addButton {
   margin-top: 10px; 
 }
