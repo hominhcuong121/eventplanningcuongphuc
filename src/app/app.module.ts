@@ -10,6 +10,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { RegisterPage } from '../pages/register/register';
 import { EventDetailPage } from '../pages/event-detail/event-detail';
 import { GroupOfGuestPage } from '../pages/group-of-guest/group-of-guest';
+import { AddGuestPage } from '../pages/add-guest/add-guest';
+import { SummaryPage } from '../pages/summary/summary';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,13 +19,13 @@ import { firebaseConfig } from '../enviroment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { AuthProvider } from '../providers/auth/auth';
 import { FileserviceProvider } from '../providers/fileservice/fileservice';
 import { EventProvider } from '../providers/event/event';
 import { TaskProvider } from '../providers/task/task';
 import { GroupProvider } from '../providers/group/group';
 import { GuestProvider } from '../providers/guest/guest';
-import { AddGuestPage } from '../pages/add-guest/add-guest';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { AddGuestPage } from '../pages/add-guest/add-guest';
     ProfilePage,
     EventDetailPage,
     GroupOfGuestPage,
-    AddGuestPage
+    AddGuestPage,
+    SummaryPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { AddGuestPage } from '../pages/add-guest/add-guest';
     ProfilePage,
     EventDetailPage,
     GroupOfGuestPage,
-    AddGuestPage
+    AddGuestPage,
+    SummaryPage
   ],
   providers: [
     StatusBar,

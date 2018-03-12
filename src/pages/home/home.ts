@@ -8,6 +8,7 @@ import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { forEach } from '@firebase/util';
 import { EventProvider } from "../../providers/event/event";
+import { SummaryPage } from '../summary/summary';
 
 
 
@@ -171,6 +172,10 @@ export class HomePage {
 
   addGroupOfGuest(eventId) {
     this.navCtrl.push(GroupOfGuestPage, eventId);
+  }
+
+  openSummary(eventId) {
+    this.navCtrl.push(SummaryPage, eventId);
   }
 
   filterItems(ev: any) {
