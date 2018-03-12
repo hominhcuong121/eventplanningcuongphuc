@@ -71,6 +71,7 @@ export class RegisterPage {
         this.db.database.ref('users/' + result.uid).set({
           name: user.name,
           email: user.username,
+          firstLogin: true
         });
         this.navCtrl.setRoot(HomePage);
         setTimeout(() => {

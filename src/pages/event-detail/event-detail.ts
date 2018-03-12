@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { AddTaskPage } from '../add-task/add-task';
-import { EditTaskPage } from '../edit-task/edit-task';
 import { forEach } from '@firebase/util';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { TaskProvider } from '../../providers/task/task';
 
 /**
  * Generated class for the EventDetailPage page.
@@ -19,14 +19,22 @@ import { forEach } from '@firebase/util';
   templateUrl: 'event-detail.html',
 })
 export class EventDetailPage {
+  public filteredTasks: Array<any>;
+  public numberOfAllTasks: number;
 
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
-  eventId: string;
+  public itemsRef: AngularFireList<any>;
+  public items: Observable<any[]>;
+  public eventId: string;
+  public uid: string;
+
+  public taskRef = this.db.database.ref('tasks');
+  public taskExist: Array<any> = [];
 
   constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
               public modalCtrl: ModalController, public navParams: NavParams,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController, public afAuth: AngularFireAuth,
+              public taskProvider: TaskProvider) {
+    this.uid = this.afAuth.auth.currentUser.uid;
     this.eventId = this.navParams.data;
     this.items = db.list('tasks').valueChanges();
     this.itemsRef = db.list('tasks');
@@ -38,15 +46,119 @@ export class EventDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventDetailPage');
+    this.initAllTasks();
   }
 
   addTask(eventId) {
-    this.navCtrl.push(AddTaskPage, eventId);
-    console.log(eventId);
+    let alert = this.alertCtrl.create({
+      title: 'Add Event',
+      message: "Please enter a task's name",
+      inputs: [
+        {
+          name: 'taskName',
+          placeholder: "task's name"
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            this.taskRef.on('value', snapshot => {
+              this.taskExist = [];
+              snapshot.forEach(data => {
+                if(data.val().eventId == this.eventId) {
+                  this.taskExist.push(data.val().taskName);
+                }
+                return false;
+              });
+            });
+            if(data.taskName === undefined || data.taskName === '') {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Please enter the task's name",
+                  buttons: ['Dismiss']
+                  });
+                alert.present();
+              }
+              else {
+                data.taskName = data.taskName.trim();
+                if(data.taskName !== '' && this.taskExist.indexOf(data.taskName) === -1){
+                  this.itemsRef.push({taskName: data.taskName, eventId: this.eventId, expectedCost: 0, actualCost: 0});
+                }
+                else if (data.taskName !== '' && this.taskExist.indexOf(data.taskName) !== -1) {
+                  let alert = this.alertCtrl.create({
+                    title: 'Notice!!!',
+                    subTitle: "Task's name has already existed. Please enter another name",
+                    buttons: ['Dismiss']
+                    });
+                  alert.present();
+                }
+                else {
+                  let alert = this.alertCtrl.create({
+                    title: 'Notice!!!',
+                    subTitle: "Task's name must consist of 1 letter at least",
+                    buttons: ['Dismiss']
+                    });
+                  alert.present();
+                }
+              }
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
   editTask(item) {
-    this.navCtrl.push(EditTaskPage, item);
+    var eventName = item.name;
+    let alert = this.alertCtrl.create({
+      title: 'Edit Task',
+      inputs: [
+        {
+          name: "taskName",
+          placeholder: "Enter your new task's name"
+        },
+        {
+          name: "expectedCost",
+          placeholder: "Enter your task's expected cost",
+          type: 'number'
+        },
+        {
+          name: "actualCost",
+          placeholder: "Enter your new task's actual cost",
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            if (data.taskName.trim() !== '') {
+              if(data.expectedCost === '' || data.actualCost === '') {
+                data.expectedCost = 0;
+                data.actualCost = 0;
+              }
+              this.itemsRef.update(item.key, { taskName: data.taskName, expectedCost: data.expectedCost, actualCost: data.actualCost });
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   deleteTask(item) {
@@ -70,6 +182,53 @@ export class EventDetailPage {
     });
 
     alert.present();
+  }
+
+  initAllTasks() {
+    this.taskProvider.getTaskList().on('value', taskListSnapshot => {
+      this.filteredTasks = [];
+      taskListSnapshot.forEach(snap => {
+        if (snap.val().eventId === this.eventId) {
+          this.filteredTasks.push({
+            key: snap.key,
+            taskName: snap.val().taskName,
+            eventId: snap.val().eventId,
+            expectedCost: snap.val().expectedCost,
+            actualCost: snap.val().actualCost
+          });
+          return false;
+        }
+      });
+      this.numberOfAllTasks = this.filteredTasks.length;
+    });
+  }
+
+  filterItems(ev: any) {
+    let val = ev.target.value;
+
+    if (val === null || val.trim() === '') {
+      this.initAllTasks();
+    }
+
+    if (val && val.trim() !== '') {
+      this.taskProvider.getTaskList().on('value', taskListSnapshot => {
+        let allTasks = [];
+        taskListSnapshot.forEach(snap => {
+          if (snap.val().eventId === this.eventId) {
+            allTasks.push({
+              key: snap.key,
+              taskName: snap.val().taskName,
+              eventId: snap.val().eventId,
+              expectedCost: snap.val().expectedCost,
+              actualCost: snap.val().actualCost
+            });
+            return false;
+          }
+        });
+
+        this.filteredTasks = allTasks.filter(e => e.taskName.toLowerCase().includes(val.toLowerCase()));
+      });
+    }
   }
 
 }

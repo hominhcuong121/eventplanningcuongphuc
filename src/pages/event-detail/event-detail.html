@@ -6,37 +6,37 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Tasks</ion-title>
+    <ion-title class="title">Task</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only item-end (click)="addTask(eventId)">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-buttons end>
-      <button ion-button icon-only round (click)="addTask(eventId)">
-        <ion-icon name="add"></ion-icon>
-      </button>
-  </ion-buttons>
-  
-  <h4 class="title">My Tasks</h4>
+<ion-content>
+  <ion-searchbar placeholder="Enter the task's name." (ionInput)="filterItems($event)"></ion-searchbar>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of items | async">
-        <ion-item text-capitalize *ngIf="item.eventId == eventId">
-            <h2>{{item.nameTask}}</h2>
-            <p>Receipts: {{item.receipts}} - Expenditures: {{item.expenditures}}</p>
-        </ion-item>
-        <ion-item-options>
-          <button ion-button expandable (click)="editTask(item)" class="editButton">
-            <ion-icon name="ios-brush"></ion-icon>
-          </button>
-          <button ion-button expandable (click)="deleteTask(item.key)" class="deleteButton">
-            <ion-icon name="ios-trash"></ion-icon>
-          </button> 
-        </ion-item-options>
-      </ion-item-sliding>
+  <h4 class="title" padding>My Tasks</h4>
+
+  <p *ngIf="numberOfAllTasks == 0">You have no any task, please insert a new one!</p>
+
+  <ion-list padding>
+    <ion-item-sliding *ngFor="let item of filteredTasks">
+      <ion-item text-capitalize>
+        <h2>{{item.taskName}}</h2>
+        <p>Expected Cost: {{item.expectedCost}} - Actual Cost: {{item.actualCost}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button expandable (click)="editTask(item)" class="editButton">
+          <ion-icon name="ios-construct-outline"></ion-icon>
+        </button>
+        <button ion-button expandable (click)="deleteTask(item.key)" class="deleteButton">
+          <ion-icon name="ios-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
 </ion-content>

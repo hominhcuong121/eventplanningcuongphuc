@@ -8,14 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
 import { RegisterPage } from '../pages/register/register';
-import { EditEventPage } from '../pages/edit-event/edit-event';
 import { EventDetailPage } from '../pages/event-detail/event-detail';
-import { AddTaskPage } from '../pages/add-task/add-task';
-import { EditTaskPage } from '../pages/edit-task/edit-task';
 import { GroupOfGuestPage } from '../pages/group-of-guest/group-of-guest';
-import { EditGroupPage } from '../pages/edit-group/edit-group';
-import { AddGuestPage } from '../pages/add-guest/add-guest';
-import { EditGuestPage } from '../pages/edit-guest/edit-guest';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,6 +19,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
 import { FileserviceProvider } from '../providers/fileservice/fileservice';
+import { EventProvider } from '../providers/event/event';
+import { TaskProvider } from '../providers/task/task';
+import { GroupProvider } from '../providers/group/group';
+import { GuestProvider } from '../providers/guest/guest';
+import { AddGuestPage } from '../pages/add-guest/add-guest';
 
 @NgModule({
   declarations: [
@@ -33,15 +32,10 @@ import { FileserviceProvider } from '../providers/fileservice/fileservice';
     ListPage,
     LoginPage,
     RegisterPage,
-    ProfilePage, 
-    EditEventPage,
+    ProfilePage,
     EventDetailPage,
-    AddTaskPage,
-    EditTaskPage,
     GroupOfGuestPage,
-    EditGroupPage,
-    AddGuestPage,
-    EditGuestPage
+    AddGuestPage
   ],
   imports: [
     BrowserModule,
@@ -59,21 +53,20 @@ import { FileserviceProvider } from '../providers/fileservice/fileservice';
     LoginPage,
     RegisterPage,
     ProfilePage,
-    EditEventPage,
     EventDetailPage,
-    AddTaskPage,
-    EditTaskPage,
     GroupOfGuestPage,
-    EditGroupPage,
-    AddGuestPage,
-    EditGuestPage
+    AddGuestPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    FileserviceProvider
+    FileserviceProvider,
+    EventProvider,
+    TaskProvider,
+    GroupProvider,
+    GuestProvider
   ]
 })
 export class AppModule {}

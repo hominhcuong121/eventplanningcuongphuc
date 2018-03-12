@@ -1,6 +1,6 @@
 page-home{
-    $colors: (
-  
+    $color: (
+    green-color:#26d89a,
     primary: #000,
     secondary: #986cda,
     danger: #9E1A7A,
@@ -8,7 +8,15 @@ page-home{
     dark: #412d61,
     whitetext:#ffffff,
   );
-  
+
+.text-green{
+  color:color($color,green-color);
+}
+
+.bg-green {
+  background: color($color, green-color);
+}
+
 .home {
   .icon-title {
     width: 28px;
