@@ -2,149 +2,131 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { EditEventPage } from '../edit-event/edit-event';
 import { EventDetailPage } from '../event-detail/event-detail';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
-import * as firebase from 'firebase';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {EventProvider} from '../../providers/event/event';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { forEach } from '@firebase/util';
+import { EventProvider } from "../../providers/event/event";
 import { LoginPage } from '../login/login';
+
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
- 
-  public eventList:Array<any>;
-  public loadedeventList:Array<any>;
-  public eventRef:firebase.database.Reference;
+  public filteredEvents: Array<any>;
+  public numberOfAllEvents: number;
 
-  uid:string;
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
-  
-  constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
-              public alertCtrl: AlertController,
-              public afAuth:AngularFireAuth
-            ) {
-              this.afAuth.authState.subscribe(user=>{
-                if(user)
-                {
-                  
-                  this.uid = this.afAuth.auth.currentUser.uid;
-                  this.items = db.list('events').valueChanges();
-                  this.itemsRef = db.list('events');
-                  this.items = this.itemsRef.snapshotChanges().map(changes => {
-                    return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-                  });
-                  this.eventRef = firebase.database().ref('/events');
-              
-                  this.eventRef.on('value', eventList => {
-                    let events = [];
-                    eventList.forEach( event => {
-                      if(event.val().uid==this.afAuth.auth.currentUser.uid)
-                      {
-                        events.push(event.val());
-                        return false;
-                      }
-                      
-                    });
+  public uid: string;
+  public itemsRef: AngularFireList<any>;
+  public items: Observable<any[]>;
+
+  public eventRef = this.db.database.ref('events');
+  public userRef = this.db.database.ref('users');
+  public eventExist: Array<any> = [];
+
+  constructor(public db: AngularFireDatabase, public navCtrl: NavController,
+    public modalCtrl: ModalController, public alertCtrl: AlertController,
+    public afAuth: AngularFireAuth, public eventProvider: EventProvider
+  ) {
+        this.afAuth.authState.subscribe(user=>{
+          if(user)
+          {
+            this.uid = this.afAuth.auth.currentUser.uid;
+            this.items = db.list('events').valueChanges();
+            this.itemsRef = db.list('events');
+            this.items = this.itemsRef.snapshotChanges().map(changes => {
+          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
             
-                    this.eventList = events;
-                    this.loadedeventList = events;
-                  });
-                  
-                }else{
-                  this.navCtrl.setRoot(LoginPage);
-                }
-              });
-             
-    
-  }
-  initializeItems(){
-    this.eventList = this.loadedeventList;
-    
-  }
-  getItems(searchbar) {
-    // Reset items back to all of the items
-    this.initializeItems();
-    
-    // set q to the value of the searchbar
-    var q = searchbar.srcElement.value;
-
-
-    // if the value is an empty string don't filter the items
-    if (!q) {
-      return;
-    }
-   
-      this.eventList = this.eventList.filter((v) => {
-        if(v.name && q && v.uid==this.afAuth.auth.currentUser.uid) {
-          if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-           
-            return true;
-           
+            
+          }else{
+            this.navCtrl.setRoot(LoginPage);
           }
-          return false;
-        }
-      });
-      console.log(this.eventList);
-    console.log(q, this.eventList.length);
-
+        });
   }
-
-
-
-
-
-
-
   ionViewDidLoad() {
-   
+    this.afAuth.authState.subscribe(user=>{
+      if(user)
+      {
+        this.initAllEvents();
+      }
+      
+    });
    
   }
 
- 
-  addEvent(nameEvent) {
+  addEvent() {
     let alert = this.alertCtrl.create({
-      title: 'Notice!',
-      message: 'Do you agree to add this event?',
+      title: 'Add Event',
+      message: "Please enter an event's name",
+      inputs: [
+        {
+          name: 'eventName',
+          placeholder: "event's name"
+        },
+      ],
       buttons: [
         {
-          text: 'Disagree',
+          text: 'Cancel',
           handler: () => {
-            console.log('Disagree clicked');
+            console.log('Cancel clicked');
           }
         },
         {
-          text: 'Agree',
-          handler: () => {
-            this.itemsRef.push({name: nameEvent, uid: this.uid});
+          text: 'Save',
+          handler: data => {
+            this.eventRef.on('value', snapshot => {
+              this.eventExist = [];
+              snapshot.forEach(data => {
+                if (data.val().uid == this.uid) {
+                  this.eventExist.push(data.val().name);
+                }
+                return false;
+              });
+            });
+            if (data.eventName === undefined || data.eventName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: 'Notice!!!',
+                subTitle: "Please enter the event's name",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              data.eventName = data.eventName.trim();
+              if (data.eventName !== '' && this.eventExist.indexOf(data.eventName) === -1) {
+                this.itemsRef.push({ name: data.eventName, uid: this.uid });
+              }
+              else if (data.eventName !== '' && this.eventExist.indexOf(data.eventName) !== -1) {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Event's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Event's name must consist of 1 letter at least",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
+            }
           }
         }
       ]
     });
 
     alert.present();
-    
   }
-/*findEvent(eventName:string){
-  var ref = firebase.database().ref("events");
-  
-  ref.on("value", function(snapshot) {
-   if(snapshot.val().name=="cuong")
-   {
-     console.log('trung');
-     return;
 
-   }
-  });
-  
-}*/
-
-  deleteEvent(eventId : string) {
+  deleteEvent(eventId: string) {
     let alert = this.alertCtrl.create({
       title: 'Notice!',
       message: 'Do you agree to delete this?',
@@ -165,27 +147,90 @@ export class HomePage {
     });
 
     alert.present();
-    
+
   }
 
-  editEvent(eventId) {
-    this.navCtrl.push(EditEventPage, eventId);
+  editEvent(item) {
+    var eventName = item.name;
+    let alert = this.alertCtrl.create({
+      title: 'Edit Event',
+      inputs: [
+        {
+          name: "name",
+          placeholder: "Enter your new event's name"
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            if (data.trim !== '') {
+              this.itemsRef.update(item.key, { name: data.name });
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   openEventDetail(eventId) {
     this.navCtrl.push(EventDetailPage, eventId);
-    // console.log(eventId);
   }
 
   addGroupOfGuest(eventId) {
     this.navCtrl.push(GroupOfGuestPage, eventId);
   }
-logout(){
-  this.afAuth.auth.signOut();
-  
 
-  
-}
+  filterItems(ev: any) {
+    let val = ev.target.value;
+
+    if (val === null || val.trim() === '') {
+      this.initAllEvents();
+    }
+
+    if (val && val.trim() !== '') {
+      this.eventProvider.getEventList().on('value', eventListSnapshot => {
+        let allEvents = [];
+        eventListSnapshot.forEach(snap => {
+          if (snap.val().uid === this.uid) {
+            allEvents.push({
+              key: snap.key,
+              name: snap.val().name,
+              uid: snap.val().uid
+            });
+            return false;
+          }
+        });
+
+        this.filteredEvents = allEvents.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
+      });
+    }
+  }
+
+  initAllEvents() {
+    this.eventProvider.getEventList().on('value', eventListSnapshot => {
+      this.filteredEvents = [];
+      eventListSnapshot.forEach(snap => {
+        if (snap.val().uid === this.uid) {
+          this.filteredEvents.push({
+            key: snap.key,
+            name: snap.val().name,
+            uid: snap.val().uid
+          });
+          return false;
+        }
+      });
+      this.numberOfAllEvents = this.filteredEvents.length;
+    });
+  }
 }
 
 

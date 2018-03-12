@@ -1,28 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { Reference, ThenableReference } from '@firebase/database-types';
 
 /*
-  Generated class for the EventProvider provider.
+  Generated class for the GuestProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class EventProvider {
-  public eventListRef: Reference;
+export class GuestProvider {
+  public guestListRef: Reference;
 
   constructor() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.eventListRef = firebase
+        this.guestListRef = firebase
           .database()
-          .ref(`/events`);
+          .ref(`/guests`);
       }
     });
   }
 
-  getEventList(): Reference {
-    return this.eventListRef;
+  getGuestList(): Reference {
+    return this.guestListRef;
   }
+
 }

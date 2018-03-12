@@ -15,12 +15,15 @@ $color:(
 }
 
 .header-menu{
+
     font-size: 30px;
     text-align: center;
     height: 130px;
     background-color:color($color,bg-green);
     color:color($color,white-color);
+    
 }
+
 .header-menu ion-icon{
     color: color($color,logo-color);
 }
