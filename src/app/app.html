@@ -3,7 +3,7 @@
     <ion-item class="header-menu">
        
           <ion-icon name="calendar" text-center ></ion-icon>
-          <h2><strong>Event Planning</strong></h2>
+          <h2><strong>{{"home" | translate}}</strong></h2>
 
       
     </ion-item>
@@ -21,6 +21,14 @@
           <ion-icon name="log-out" ></ion-icon> 
         Logout</button>
     </ion-list>
+    <ion-select #C  (ionChange)="onChange(C.value)">
+      <ion-option value="vi">
+        VietNam
+      </ion-option>   
+      <ion-option value="en">
+        English
+      </ion-option>       
+    </ion-select>
   </ion-content>
 
 </ion-menu>

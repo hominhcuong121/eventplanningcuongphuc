@@ -17,14 +17,35 @@
 
     <ion-list no-margin>
 
-      <ion-item style="text-align:center" *ngFor="let item of filteredUsers">
-
+      <ion-item style="text-align:center">
+        
         <div class="header-avatar">
           
-            <ion-img src="../assets/imgs/avar1.jpg"></ion-img>
+        
+          <ion-img src="{{user.photoUrl}}"></ion-img>
        
         </div>
-        <h2 class="bold">{{item.name}}</h2>
+        <div *ngIf="currentUpload">
+          <div class="progress">
+            <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
+          </div>
+          Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+        </div>
+        <div class="upfile">
+            <label>
+               <input type="file"  (change)="detectFiles($event)">
+            </label>
+        
+            <button
+                    [disabled]="!selectedFiles"
+                    (click)="uploadSingle()">
+        
+              Upload
+            </button>
+          </div>
+        <h2 class="bold">{{user.name}}</h2>
+        
+      
         <h3 ion-text class="text-green"></h3>
         <div padding-top>
           <button ion-button icon-left small class="bg-btn bg-green">
@@ -53,5 +74,6 @@
 
   </ion-toolbar>
 
+ 
 
 </ion-content>

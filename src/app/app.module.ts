@@ -7,7 +7,8 @@ import { MyApp } from './app.component';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
-
+import { IonicPageModule } from 'ionic-angular';
+import { HttpClientModule,HttpClient } from '@angular/common/http';
 
 import { EventDetailPage } from '../pages/event-detail/event-detail';
 import { GroupOfGuestPage } from '../pages/group-of-guest/group-of-guest';
@@ -30,8 +31,15 @@ import { TaskProvider } from '../providers/task/task';
 import { GroupProvider } from '../providers/group/group';
 import { GuestProvider } from '../providers/guest/guest';
 import { UserProvider } from '../providers/user/user'; 
+
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpModule, Http } from '@angular/http';
+
 @NgModule({
   declarations: [
+
     MyApp,
     HomePage,
     ListPage,
@@ -45,13 +53,24 @@ import { UserProvider } from '../providers/user/user';
     AboutPage
   ],
   imports: [
+    IonicPageModule.forChild(HomePage),
+    TranslateModule.forChild(),
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule,
-    AngularFirestoreModule
- 
+    AngularFirestoreModule,
+    TranslateModule.forRoot(),
+    HttpModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+        loader: {
+            provide: TranslateLoader,
+            useFactory: createTranslateLoader,
+            deps: [HttpClient]
+        }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -85,3 +104,6 @@ import { UserProvider } from '../providers/user/user';
   ]
 })
 export class AppModule {}
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}

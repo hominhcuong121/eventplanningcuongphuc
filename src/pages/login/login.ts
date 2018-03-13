@@ -142,7 +142,7 @@ resetPassword() {
       else{
         let alertinfo=this.alertCtrl.create({
           title:'Notification!',
-          subTitle:'Please check your email and verify by click the link below then try agian',
+          subTitle:'Please check your email and verify by click the link below then try again',
           buttons:['OK'],
         });
         alertinfo.present();

@@ -13,6 +13,8 @@ import {AuthProvider} from '../providers/auth/auth';
 import { WaitingPage } from '../pages/waiting/waiting';
 import { AboutPage } from '../pages/about/about';
 import { AddGuestPage } from '../pages/add-guest/add-guest';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -22,11 +24,12 @@ export class MyApp {
 rootPage: any=HomePage;
   
  
- 
+ language:string;
   pages: Array<{title: string,icon:string,component: any}>;
 public user:any;
-  constructor(public authSvc:AuthProvider,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    
+  constructor(public authSvc:AuthProvider,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public translate:TranslateService) {
+    this.translate=translate;
+    translate.setDefaultLang('vi');
     this.initializeApp();
     
     
@@ -73,5 +76,9 @@ public user:any;
     console.log(error);
 
   });
+ }
+ onChange(CValue:string){
+  this.translate.use(CValue);
+   console.log(CValue);
  }
 }

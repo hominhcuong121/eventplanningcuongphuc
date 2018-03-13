@@ -8,6 +8,7 @@ import { LoadingController, Alert, AlertController} from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HomePage } from '../../pages/home/home';
 import * as firebase from "firebase";
+import { User } from '../../models/user';
 
 /*
   Generated class for the AuthProvider provider.
@@ -15,12 +16,7 @@ import * as firebase from "firebase";
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-interface User {
-  uid: string;
-  email?: string | null;
 
-  displayName?: string;
-}
 @Injectable()
 
 export class AuthProvider {
@@ -70,9 +66,10 @@ export class AuthProvider {
           handler: data => {
             if (data) {
               console.log(data.username);
-             
+
               this.afAuth.auth.sendPasswordResetEmail(data.username)
               .then(() => {
+                
                 console.log("email sent");
                 let alertinfo=this.alertCtrl.create({
                   title:'Notification!',
@@ -111,6 +108,7 @@ addUser(user,uid:string){
   return this.db.database.ref('users/' + uid).set({
     name: user.name,
     email: user.email,
+    photoUrl:'../../assets/imgs/avar1.jpg',
   });
 }
  

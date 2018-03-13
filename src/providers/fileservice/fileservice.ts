@@ -6,6 +6,7 @@ import {Upload} from '../../models/upload';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
 /*
   Generated class for the FileserviceProvider provider.
 
@@ -16,9 +17,25 @@ import { Observable } from 'rxjs/Observable';
 export class FileserviceProvider {
 
  
+  public uid: string;
+  public usersRef: AngularFireList<any>;
+  public users: Observable<any[]>;
 
   
-  constructor( private db: AngularFireDatabase) { }
+  constructor( private db: AngularFireDatabase,public afAuth:AngularFireAuth) {
+    this.afAuth.authState.subscribe(user=>{
+      if(user)
+      {
+        this.uid = this.afAuth.auth.currentUser.uid;
+        this.users = db.list('users').valueChanges();
+        this.usersRef = db.list('users');
+        this.users = this.usersRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+
+   }
+  });
+}
   basePath:string = '/uploads';
   uploadsRef: AngularFireList<Upload>;
   uploads: Observable<Upload[]>;
@@ -53,6 +70,11 @@ export class FileserviceProvider {
 
   // Writes the file details to the realtime db
   private saveFileData(upload: Upload) {
-    this.db.list(this.basePath+ '/').push(upload);
+    if(this.uid)
+    {
+      this.usersRef.update(this.uid, { photoUrl: upload.url });
+    }
+   
   }
+  
 }

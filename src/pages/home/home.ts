@@ -208,6 +208,7 @@ export class HomePage {
             });
             return false;
           }
+
         });
 
         this.filteredEvents = allEvents.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
