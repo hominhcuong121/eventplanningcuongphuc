@@ -8,6 +8,7 @@ import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { forEach } from '@firebase/util';
 import { EventProvider } from "../../providers/event/event";
+import { LoginPage } from '../login/login';
 import { SummaryPage } from '../summary/summary';
 
 
@@ -32,19 +33,34 @@ export class HomePage {
     public modalCtrl: ModalController, public alertCtrl: AlertController,
     public afAuth: AngularFireAuth, public eventProvider: EventProvider
   ) {
-    this.uid = this.afAuth.auth.currentUser.uid;
-    this.items = db.list('events').valueChanges();
-    this.itemsRef = db.list('events');
-    this.items = this.itemsRef.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
+        this.afAuth.authState.subscribe(user=>{
+          if(user)
+          {
+            this.uid = this.afAuth.auth.currentUser.uid;
+            this.items = db.list('events').valueChanges();
+            this.itemsRef = db.list('events');
+            this.items = this.itemsRef.snapshotChanges().map(changes => {
+          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
+            
+            
+          }else{
+            this.navCtrl.setRoot(LoginPage);
+          }
+        });
   }
-
   ionViewDidLoad() {
-    this.initAllEvents();
+    this.afAuth.authState.subscribe(user=>{
+      if(user)
+      {
+        this.initAllEvents();
+      }
+      
+    });
+   
   }
 
-  addEvent() {
+  addEvent(eventId: string) {
     let alert = this.alertCtrl.create({
       title: 'Add Event',
       message: "Please enter an event's name",
@@ -174,10 +190,6 @@ export class HomePage {
     this.navCtrl.push(GroupOfGuestPage, eventId);
   }
 
-  openSummary(eventId) {
-    this.navCtrl.push(SummaryPage, eventId);
-  }
-
   filterItems(ev: any) {
     let val = ev.target.value;
 
@@ -219,6 +231,10 @@ export class HomePage {
       });
       this.numberOfAllEvents = this.filteredEvents.length;
     });
+  }
+
+  openSummary(item) {
+    this.navCtrl.push(SummaryPage, item);
   }
 }
 

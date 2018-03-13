@@ -1,46 +1,48 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar class="bg-green">
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu" class="text-white"></ion-icon>
     </button>
-    <ion-title class="title">Event</ion-title>
+    <ion-title class="text-white">Event</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only item-end (click)="addEvent()">
-        <ion-icon name="add"></ion-icon>
+      <button ion-button icon-only item-end class="text-white add-event-icon" (click)="addEvent()">
+        <ion-icon name="md-add-circle"></ion-icon>
       </button>
-  </ion-buttons>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
   <ion-searchbar placeholder="Enter the event's name." (ionInput)="filterItems($event)"></ion-searchbar>
-
-  <h4 class="title text-green" padding>My Events</h4>
+  <ion-item class="title-bar">
+    <div ion-text class="bold  text-white title-name-bar">
+      <ion-icon name="ios-book" class="text-white icon-title-bar"> </ion-icon>
+      <span class="title-span-bar"> My Events</span>
+    </div>
+  </ion-item>
 
   <p *ngIf="numberOfAllEvents == 0">You have no any event, please insert a new one!</p>
 
   <ion-list padding>
     <ion-item-sliding *ngFor="let item of filteredEvents">
-        <button ion-item (click)="openEventDetail(item.key)" text-capitalize>
-            <ion-label>{{item.name}}</ion-label>
+      <button ion-item (click)="openEventDetail(item.key)" text-capitalize>
+        <ion-label>{{item.name}}</ion-label>
+      </button>
+      <ion-item-options>
+        <button ion-button expandable (click)="editEvent(item)" class="editButton">
+          <ion-icon name="ios-construct-outline"></ion-icon>
         </button>
-        <ion-item-options>
-          <button ion-button expandable (click)="editEvent(item)" class="editButton">
-            <ion-icon name="ios-construct-outline"></ion-icon>
-          </button>
-          <button ion-button expandable (click)="deleteEvent(item.key)" class="deleteButton">
-            <ion-icon name="ios-trash"></ion-icon>
-          </button>
-          <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
-            <ion-icon name="ios-people"></ion-icon>
-          </button>
-          <button ion-button expandable (click)="openSummary(item.key)" class="groupButton">
-              <ion-icon name="ios-stats-outline"></ion-icon>
-            </button>
-        </ion-item-options>
+        <button ion-button expandable (click)="deleteEvent(item.key)" class="deleteButton">
+          <ion-icon name="ios-trash"></ion-icon>
+        </button>
+        <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
+          <ion-icon name="ios-people"></ion-icon>
+        </button>
+        <button ion-button expandable (click)="openSummary(item.key)" class="summaryButton">
+          <ion-icon name="ios-stats-outline"></ion-icon>
+        </button>
+      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
-
-

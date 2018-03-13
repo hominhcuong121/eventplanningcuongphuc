@@ -117,7 +117,6 @@ export class EventDetailPage {
   }
 
   editTask(item) {
-    var eventName = item.name;
     let alert = this.alertCtrl.create({
       title: 'Edit Task',
       inputs: [
@@ -148,12 +147,18 @@ export class EventDetailPage {
           text: 'Save',
           handler: data => {
             if (data.taskName.trim() !== '') {
-              if(data.expectedCost === '' || data.actualCost === '') {
-                data.expectedCost = 0;
-                data.actualCost = 0;
-              }
-              this.itemsRef.update(item.key, { taskName: data.taskName, expectedCost: data.expectedCost, actualCost: data.actualCost });
+              data.taskName = data.taskName.trim();
             }
+            else {
+              data.taskName = item.taskName;
+            }
+            if(data.expectedCost === '') {
+              data.expectedCost = item.expectedCost;
+            }
+            if(data.actualCost === '') {
+              data.actualCost = item.actualCost
+            }
+            this.itemsRef.update(item.key, { taskName: data.taskName, expectedCost: data.expectedCost, actualCost: data.actualCost });
           }
         }
       ]

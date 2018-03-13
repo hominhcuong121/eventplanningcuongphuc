@@ -1,9 +1,8 @@
-export interface User {
-    email: string;
+export class User {
+    email:string;
     password: string;
-    repasssword:string;
+    repassword:string;
     name:string;
     dateofbirth:string;
     avatar:any;
-    firstLogin: boolean;
 }

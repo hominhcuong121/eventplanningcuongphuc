@@ -26,5 +26,4 @@ export class TaskProvider {
   getTaskList(): Reference {
     return this.taskListRef;
   }
-
 }

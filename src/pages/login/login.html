@@ -1,57 +1,54 @@
-<!-- -->
 <ion-content padding class="animated fadeIn login auth-page background">
   <div class="login-content">
 
     <!-- Logo -->
     <div padding-horizontal text-center class="animated fadeInDown">
-      <!--<div class="logo" >
-        <img src="../../assets/imgs/logo.png" alt="Logo">
-      </div>-->
       <ion-icon name="calendar" text-center class="logo-icon"></ion-icon>
       <h2 ion-text class="text-white">
            Event Planning
       </h2>
     </div>
+     
 
     <!-- Login form -->
     <form class="list-form" [formGroup]="formgroup">
-      <ion-item class="none-color" >
-        <ion-label floating class="text-white">
-          <ion-icon name="mail"  item-start ></ion-icon>
-          Email
-        </ion-label>
-        <ion-input type="email" formControlName="username" [(ngModel)]="user.email"></ion-input>
-      </ion-item>
-
-      <ion-item class="none-color">
-        <ion-label floating class="text-white">
-          <ion-icon name="lock" item-start class="text-white"></ion-icon>
-          Password
-        </ion-label>
-        <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
-      </ion-item>
+        <ion-item class="animated fadeInDown none-color" >
+            <ion-label floating class="text-white">
+              <ion-icon name="mail"  item-start ></ion-icon>
+              Email
+            </ion-label>
+            <ion-input type="email" formControlName="username" [(ngModel)]="user.email"></ion-input>
+          </ion-item>
+    
+          <ion-item  class="animated fadeInDown none-color">
+            <ion-label floating class="text-white">
+              <ion-icon name="lock" item-start class="text-white"></ion-icon>
+              Password
+            </ion-label>
+            <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+          </ion-item>
     </form>
 
-    <p text-right ion-text class="text-white"  color="whitetext" tappable (click)="forgotPass()"><strong>Forgot Password?</strong></p>
+    <p text-right ion-text class="text-white animated fadeInDown"  color="whitetext" tappable (click)="resetPassword()"><strong>Forgot Password?</strong></p>
 
     <div>
-      <button ion-button icon-start block class="btn-login" tappable (click)="login(user)">
+      <button ion-button icon-start block class="btn-login animated fadeInDown" tappable (click)="login(user)">
         <ion-icon name="log-in"></ion-icon>
         SIGN IN
       </button>
 
-      <p text-center class="text-white"  ion-text color="whitetext">Or Sign in with:</p>
+      <p text-center class="text-white animated fadeInDown"  ion-text color="whitetext">Or Sign in with:</p>
 
       <ion-grid >
         <ion-row >
           <ion-col col-6 >
-            <button ion-button icon-only block  class="btn-facebook">
+            <button ion-button icon-only block (click)='loginfacebook()' class="btn-facebook animated fadeInDown">
               <ion-icon name="logo-facebook"></ion-icon>
             </button>
           </ion-col>
           
           <ion-col col-6>
-            <button ion-button icon-only block class="btn-gplus" color="danger">
+            <button ion-button icon-only block class="btn-gplus animated fadeInDown" (click)='logingoogle()' color="danger">
               <ion-icon name="logo-googleplus"></ion-icon>
             </button>
           </ion-col>
@@ -63,7 +60,7 @@
 
     <!-- Other links -->
     <div text-center margin-top>
-      <span ion-text class="text-white" tappable (click)="register()">New account? <strong>Sign up</strong></span>
+      <span ion-text class="text-white animated fadeInDown" tappable (click)="register()">New account? <strong>Sign up</strong></span>
     </div>
 
   </div>

@@ -140,11 +140,21 @@ export class AddGuestPage {
           handler: data => {
             if (data.guestName.trim() !== '' && this.guestExist.indexOf(data.guestName.trim()) !== -1) {
               if(data.giftMoney === '') {
-                data.giftMoney = 0;
+                data.giftMoney = item.giftMoney;
               }
-              this.itemsRef.update(item.key, { guestName: data.guestName, giftMoney: data.giftMoney });
-              console.log(this.guestExist.indexOf(data.guestName.trim()));
+              else {
+                data.giftMoney = data.giftMoney;
+              }
             }
+            if(data.guestName.trim() === '') {
+              data.guestName = item.guestName;
+            }
+            if(data.giftMoney === '') {
+              data.giftMoney = item.giftMoney;
+            }
+            console.log(data.guestName);
+            console.log(data.giftMoney);
+            this.itemsRef.update(item.key, { guestName: data.guestName, giftMoney: data.giftMoney });
           }
         }
       ]

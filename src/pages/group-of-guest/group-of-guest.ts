@@ -87,6 +87,7 @@ export class GroupOfGuestPage {
                 data.groupName = data.groupName.trim();
                 if(data.groupName !== '' && this.groupExist.indexOf(data.groupName) === -1){
                   this.itemsRef.push({groupName: data.groupName, eventId: eventId});
+                  console.log(this.eventId);
                 }
                 else if (data.groupName !== '' && this.groupExist.indexOf(data.groupName) !== -1) {
                   let alert = this.alertCtrl.create({
