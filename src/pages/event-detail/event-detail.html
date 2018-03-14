@@ -18,7 +18,16 @@
 <ion-content>
   <ion-searchbar placeholder="Enter the task's name." (ionInput)="filterItems($event)"></ion-searchbar>
 
-  <h4 class="title" padding>My Tasks</h4>
+  <ion-item class="title-bar">
+       
+    <div ion-text class="bold  text-white title-name-bar">
+      <ion-icon name="ios-book" class="text-white icon-title-bar" > </ion-icon>
+      <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
+      <span class="title-span-bar"> Task</span>
+      <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
+    </div>
+  </ion-item>
+
 
   <p *ngIf="numberOfAllTasks == 0">You have no any task, please insert a new one!</p>
 
@@ -38,5 +47,36 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-item class="title-bar">
+       
+    <div ion-text class="bold  text-white title-name-bar">
+      <ion-icon name="ios-book" class="text-white icon-title-bar" > </ion-icon>
+      <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
+      <span class="title-span-bar"> Image</span>
+      <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
+      
+    </div>
 
+    
+  </ion-item>
+  <ion-item text-center>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 class="col-image">
+        <ion-img  class="image-event" src="../../assets/imgs/bg.jpg"></ion-img>
+      </ion-col>
+      <ion-col col-6 class="col-image">
+        <ion-img class="image-event" src="../../assets/imgs/bg1.jpg"></ion-img>
+      </ion-col>
+      <ion-col  col-6 class="col-image">
+        <ion-img class="image-event" src="../../assets/imgs/bg2.jpg"></ion-img>
+      </ion-col>
+      <ion-col col-6 class="col-image">
+        <ion-img class="image-event" src="../../assets/imgs/bg2.jpg"></ion-img>
+      </ion-col>
+     
+      
+    </ion-row>
+  </ion-grid>
+</ion-item>
 </ion-content>

@@ -1,3 +1,9 @@
 {
-  "home": "Trang chu"
+  "home": "Trang chủ",
+  "events":"Sự kiện",
+  "profile":"Hồ sơ cá nhân",
+  "aboutus" : "Giới thiệu",
+  "login" : "Đăng nhập",
+  "signout" : "Tạo tài khoản",
+  "forgotpassword" : "Quên mật khẩu?"
 }

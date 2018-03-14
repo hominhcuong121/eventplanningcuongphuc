@@ -34,16 +34,6 @@ uid:string;
 public userRef = this.db.database.ref('users');
 public userExist: Array<any> = [];
   constructor(private upSvc: FileserviceProvider,public db: AngularFireDatabase,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public userProvider:UserProvider) {
-/*this.afAuth.authState.subscribe(user=>{
-      if(user)
-      {
-      
-        
-  
-        
-        
-      }
-    });*/
     this.uid=this.afAuth.auth.currentUser.uid;
     
     this.email=this.afAuth.auth.currentUser.email;

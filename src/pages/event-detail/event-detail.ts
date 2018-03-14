@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { forEach } from '@firebase/util';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TaskProvider } from '../../providers/task/task';
-
+import {FileserviceProvider} from '../../providers/fileservice/fileservice';
+import { Upload } from '../../models/upload';
 /**
  * Generated class for the EventDetailPage page.
  *
@@ -29,12 +30,14 @@ export class EventDetailPage {
 
   public taskRef = this.db.database.ref('tasks');
   public taskExist: Array<any> = [];
-
-  constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
+  selectedFiles: FileList | null;
+  currentUpload: Upload;
+  constructor(private upSvc: FileserviceProvider,public db: AngularFireDatabase, public navCtrl: NavController, 
               public modalCtrl: ModalController, public navParams: NavParams,
               public alertCtrl: AlertController, public afAuth: AngularFireAuth,
               public taskProvider: TaskProvider) {
     this.uid = this.afAuth.auth.currentUser.uid;
+    
     this.eventId = this.navParams.data;
     this.items = db.list('tasks').valueChanges();
     this.itemsRef = db.list('tasks');
@@ -115,7 +118,18 @@ export class EventDetailPage {
 
     alert.present();
   }
+  uploadMulti() {
+    const files = this.selectedFiles;
+    if (!files || files.length === 0) {
+      console.error('No Multi Files found!');
+      return;
+    }
 
+    Array.from(files).forEach((file) => {
+      this.currentUpload = new Upload(file);
+      this.upSvc.pushUpload(this.currentUpload);
+    });
+  }
   editTask(item) {
     var eventName = item.name;
     let alert = this.alertCtrl.create({

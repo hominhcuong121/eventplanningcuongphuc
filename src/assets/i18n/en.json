@@ -1,3 +1,10 @@
 {
-  "home": "Home"
+  "home": "Home",
+  "events" : "Events",
+  "profile" : "Profile",
+  "aboutus" : "About us",
+  "login" : "Sign in",
+  "signout" : "Create account",
+  "forgotpassword" : "Forgot password?"
+ 
 }

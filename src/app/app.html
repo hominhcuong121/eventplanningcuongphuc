@@ -15,20 +15,23 @@
     <ion-list class="menu-list">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon name="{{p.icon}}"></ion-icon>     
-        {{p.title}}
+        {{p.title | translate}}
       </button>
       <button menuClose ion-item (click)="logout()">
           <ion-icon name="log-out" ></ion-icon> 
         Logout</button>
+        
     </ion-list>
-    <ion-select #C  (ionChange)="onChange(C.value)">
+   <ion-item class="text-green">
+   <ion-select   (ionChange)="onChange($event)">
       <ion-option value="vi">
-        VietNam
+        Việt Nam
       </ion-option>   
       <ion-option value="en">
         English
       </ion-option>       
-    </ion-select>
+    </ion-select> 
+  </ion-item>  
   </ion-content>
 
 </ion-menu>

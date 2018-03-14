@@ -35,7 +35,7 @@ import { UserProvider } from '../providers/user/user';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpModule, Http } from '@angular/http';
+//import { HttpModule, Http } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,7 @@ import { HttpModule, Http } from '@angular/http';
     AngularFireAuthModule,
     AngularFirestoreModule,
     TranslateModule.forRoot(),
-    HttpModule,
+    
     HttpClientModule,
     TranslateModule.forRoot({
         loader: {

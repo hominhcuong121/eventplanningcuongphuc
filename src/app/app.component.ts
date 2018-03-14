@@ -38,10 +38,10 @@ public user:any;
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Events', icon:'home',component: HomePage },
-      {title:'Chart',icon:'pie',component:AddGuestPage},
-      { title: 'Profile',icon:'person', component: ProfilePage },
-      {title:'About Us',icon:'information-circle',component:AboutPage},
+      { title: 'events', icon:'home',component: HomePage },
+     
+      { title: 'profile',icon:'person', component: ProfilePage },
+      {title:'aboutus',icon:'information-circle',component:AboutPage},
       
     ];
 
@@ -77,8 +77,8 @@ public user:any;
 
   });
  }
- onChange(CValue:string){
-  this.translate.use(CValue);
-   console.log(CValue);
+ onChange(ev:string){
+  this.translate.use(ev);
+   console.log(ev);
  }
 }
