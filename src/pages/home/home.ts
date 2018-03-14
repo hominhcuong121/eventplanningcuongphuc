@@ -9,7 +9,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { forEach } from '@firebase/util';
 import { EventProvider } from "../../providers/event/event";
 import { LoginPage } from '../login/login';
-
+import * as $ from 'jquery';
 
 
 @Component({
@@ -118,7 +118,9 @@ export class HomePage {
                 alert.present();
               }
             }
+         
           }
+          
         }
       ]
     });
@@ -174,7 +176,9 @@ export class HomePage {
             if (data.trim !== '') {
               this.itemsRef.update(item.key, { name: data.name });
             }
+            
           }
+          
         }
       ]
     });

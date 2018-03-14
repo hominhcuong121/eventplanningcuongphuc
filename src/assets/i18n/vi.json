@@ -1,9 +1,8 @@
 {
   "home": "Trang chủ",
   "events":"Sự kiện",
+  "myevent":"Sự kiện của tôi",
   "profile":"Hồ sơ cá nhân",
   "aboutus" : "Giới thiệu",
-  "login" : "Đăng nhập",
-  "signout" : "Tạo tài khoản",
-  "forgotpassword" : "Quên mật khẩu?"
+  "lang":"Ngôn ngữ"
 }

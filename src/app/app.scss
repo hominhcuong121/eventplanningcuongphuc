@@ -1,9 +1,9 @@
 $color:(
-  green-color:#26d89a, 
+  green-color:#0dbb7e, 
   white-color:#ffffff,
   bg-green:#1fd696,
-  bg-menu-content:#212121,
-  logo-color:#ceda13,
+bg-menu-content:#212121,
+  logo-color:#ffffff,
   text-logo:#6da55c,
   icon-menu-color:#45c69b,
 );
@@ -13,7 +13,9 @@ $color:(
 .text-white{
   color:color($color,white-color)!important;
 }
-
+.bg-green{
+    background:color($color,green-color);
+}
 .header-menu{
 
     font-size: 30px;
@@ -28,14 +30,14 @@ $color:(
     color: color($color,logo-color);
 }
 .header h2{
-    color: color($color,text-logo);
+    color: color($color,white-color);
 }
 .menu-list{
-    background:color($color,bg-menu-content)!important;
+    //background:color($color,bg-menu-content)!important;
 }
 .menu-list button {
-    background:#212121;
-    color:#ababab;
+//background:#212121;
+    color:#000;
     
     
     font-size: 18px;
@@ -49,8 +51,13 @@ $color:(
     background: none!important;
 }
 .bg-menu-list{
-background: #212121;
+
 }
+.bg-menu-list::before{
+    
+}
+
+
  .scroll-content{
     overflow-y: auto!important;
 }

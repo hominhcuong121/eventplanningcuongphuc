@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar class="bg-green">
-    <button ion-button menuToggle>
-      <ion-icon name="menu" class="text-white"></ion-icon>
+    <button ion-button menuToggle class="btn-menu">
+      <ion-icon name="menu" class="text-white icon-menu"></ion-icon>
     </button>
-    <ion-title class="text-white">Event</ion-title>
+    <ion-title ><span class="text-white">Event</span>   </ion-title>
     <ion-buttons end>
       <button ion-button icon-only item-end class="text-white add-event-icon" (click)="addEvent()">
         <ion-icon name="md-add-circle"></ion-icon>
@@ -12,20 +12,39 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="bg-opacity">
+  <div class="slide-bar">
+      <ion-slides>
+          <ion-slide>
+            <img class="img-slide" src="../assets/imgs/slide4.jpg" alt="">
+          </ion-slide>
+          <ion-slide>
+              <img class="img-slide" src="../assets/imgs/slide1.jpg" alt="">
+          </ion-slide>
+          <ion-slide>
+              <img class="img-slide" src="../assets/imgs/slide2.png" alt="">
+          </ion-slide>
+          <ion-slide>
+              <img class="img-slide" src="../assets/imgs/slide3.png" alt="">
+          </ion-slide>
+          <ion-slide>
+              <img class="img-slide" src="../assets/imgs/slide5.jpg" alt="">
+          </ion-slide>
+        </ion-slides>
+  </div>
 
-  <ion-searchbar placeholder="Enter the event's name." (ionInput)="filterItems($event)"></ion-searchbar>
-<!--
-  <h4 class="title text-green" padding>My Events</h4>-->
+  <div class="search bg-img-green text-white">
+    <ion-searchbar placeholder="Enter the event's name..." (ionInput)="filterItems($event)"></ion-searchbar>
+  </div>
   
     
   
     <ion-item class="title-bar">
        
-      <div ion-text class="bold  text-white title-name-bar">
-        <ion-icon name="ios-book" class="text-white icon-title-bar" > </ion-icon>
+      <div ion-text class="bold bg-green text-white title-name-bar">
+        
         <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
-        <span class="title-span-bar"> {{"home" | translate}}</span>
+        <span class="title-span-bar"> {{"myevent" | translate}}</span>
         <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
       </div>
     </ion-item>

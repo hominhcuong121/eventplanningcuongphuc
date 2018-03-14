@@ -1,10 +1,10 @@
 {
   "home": "Home",
   "events" : "Events",
+  "myevent":"My Events",
   "profile" : "Profile",
-  "aboutus" : "About us",
-  "login" : "Sign in",
-  "signout" : "Create account",
-  "forgotpassword" : "Forgot password?"
+
+  "aboutus" : "About us"
+
  
 }
