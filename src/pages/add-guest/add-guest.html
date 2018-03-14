@@ -24,6 +24,8 @@
 
   <h4 class="title" padding>My Guest</h4>
 
+  <p *ngIf="numberOfAllGuests == 0">You have no any guest, please insert a new one!</p>
+
   <ion-list padding>
     <ion-item-sliding *ngFor="let item of items | async">
         <ion-item text-capitalize *ngIf="item.groupId == groupId">

@@ -52,10 +52,7 @@
         Task's Chart
       </ion-card-header>
       <ion-card-content>
-        <canvas #expectedCostBarCanvas></canvas>
-      </ion-card-content>
-      <ion-card-content>
-        <canvas #actualCostBarCanvas></canvas>
+        <canvas #BarCanvas></canvas>
       </ion-card-content>
     </ion-card>
   </ion-item>
@@ -91,18 +88,40 @@
           <h3>{{totalGiftMoneyAllGroups}}</h3>
         </ion-col>
       </ion-row>
+      <ion-row *ngIf="infoForEachgroup.length !== 0">
+        <ion-col col-6>
+          <h3>Group's Name </h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>Gift Money</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>Total Guest</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of infoForEachgroup">
+        <ion-col col-6>
+          <h3>{{item.groupName}}</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>{{item.giftMoney}}</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>{{item.guestCount}}</h3>
+        </ion-col>
+      </ion-row>
     </ion-grid>
-    <!-- <ion-card>
+    <ion-card>
       <ion-card-header>
-        Task's Chart
+        Group and Guest's Chart
       </ion-card-header>
       <ion-card-content>
-        <canvas #expectedCostBarCanvas></canvas>
+        <canvas #giftMoenyPieCanvas></canvas>
       </ion-card-content>
       <ion-card-content>
-        <canvas #actualCostBarCanvas></canvas>
+        <canvas #guestPieCanvas></canvas>
       </ion-card-content>
-    </ion-card> -->
+    </ion-card>
   </ion-item>
 
 </ion-content>

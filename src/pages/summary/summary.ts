@@ -29,74 +29,92 @@ export class SummaryPage {
 
   public numberOfGroup: number = 0;
   public groupSummary: Array<any>;
-  public totalGiftMoneyPerGroup: number = 0;
   public totalGiftMoneyAllGroups: number = 0;
   public groupId: Array<any>;
+  public infoForEachgroup: Array<any> = [];
 
   public eventId: string;
 
-  @ViewChild('expectedCostBarCanvas') expectedCostBarCanvas;
-  @ViewChild('actualCostBarCanvas') actualCostBarCanvas;
-
+  @ViewChild('BarCanvas') BarCanvas;
   public chartLabels: any = [];
   public chartExpectedCost: any = [];
   public chartActualCost: any = [];
+  public BarChart: any;
 
-  public expectedCostBarChart: any;
-  public actualCostBarChart: any;
+  @ViewChild('giftMoenyPieCanvas') giftMoenyPieCanvas;
+  public pieChartLabels: any = [];
+  public pieChartGiftMoney: any = [];
+  public pieChartColors: any = [];
+  public giftMoneyPieChart: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public taskProvider: TaskProvider, public guestProvider: GuestProvider,
-              public groupProvider: GroupProvider) {
+    public taskProvider: TaskProvider, public guestProvider: GuestProvider,
+    public groupProvider: GroupProvider) {
     this.eventId = this.navParams.data;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SummaryPage');
     this.initAllTasks();
-    this.initAllGuests();
     this.initAllGroups();
-    this.defineActualCostBarChart();
-    this.defineExpectedCostBarChart();
+    this.initAllGuests();
+    this.defineBarChart();
+    this.definePieChart();
   }
 
-  defineExpectedCostBarChart() {
-    this.expectedCostBarChart = new Chart(this.expectedCostBarCanvas.nativeElement, {
-      type: 'horizontalBar',
+  definePieChart() {
+    this.giftMoneyPieChart = new Chart(this.giftMoenyPieCanvas.nativeElement, {
+      type: 'pie',
       data: {
-        labels: this.chartLabels,
-        datasets: [{
-          label: 'Expected Cost',
-          data: this.chartExpectedCost,
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
+        labels: this.pieChartLabels,
+        datasets: [
+          {
+            label: 'hihi',
+            data: this.pieChartGiftMoney,
+            duration: 2000,
+            easing: 'easeInQuart',
+            backgroundColor: this.pieChartColors
+          }
+        ],
+        options: {
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              left: 50,
+              right: 0,
+              top: 0,
+              bottom: 0
+            },
+          },
+          animation: {
+            duration: 5000
+          }
         }
       }
     });
   }
 
-  defineActualCostBarChart() {
-    this.actualCostBarChart = new Chart(this.actualCostBarCanvas.nativeElement, {
+  defineBarChart() {
+    this.BarChart = new Chart(this.BarCanvas.nativeElement, {
       type: 'horizontalBar',
       data: {
         labels: this.chartLabels,
-        datasets: [{
-          label: 'Actual Cost',
-          data: this.chartActualCost,
-          backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          borderColor: 'rgba(153, 102, 255, 1)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'Expected Cost',
+            data: this.chartExpectedCost,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Actual Cost',
+            data: this.chartActualCost,
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         scales: {
@@ -146,16 +164,44 @@ export class SummaryPage {
             eventId: snap.val().eventId,
             groupId: snap.val().groupId,
             giftMoney: snap.val().giftMoney
-        });
-        //check whether this group belongs to this event
-        if(this.groupId.indexOf(snap.val().groupId) === -1) {
-          this.groupId.push(snap.val().groupId);
+          });
+          //check whether this group belongs to this event
+          if (this.groupId.indexOf(snap.val().groupId) === -1) {
+            this.groupId.push(snap.val().groupId);
+          }
+          this.totalGiftMoneyAllGroups += Number(snap.val().giftMoney);
+          return false;
         }
-        this.totalGiftMoneyAllGroups += Number(snap.val().giftMoney);
-        return false;
-      }
-    });
-    this.numberOfGuest = this.guestSummary.length;
+      });
+      //calculate gift money and number of guest for each group
+      this.groupSummary.forEach(groupSnap => {
+        var giftMoney = 0;
+        var guestCount = 0;
+        for (var i = 0; i < this.guestSummary.length; i++) {
+          if (groupSnap.key === this.guestSummary[i].groupId) {
+            giftMoney += Number(this.guestSummary[i].giftMoney);
+            guestCount++;
+          }
+        }
+        for (var i = 0; i < this.groupSummary.length; i++) {
+          if (groupSnap.key === this.groupSummary[i].key) {
+            this.infoForEachgroup.push({
+              groupName: this.groupSummary[i].groupName,
+              giftMoney: giftMoney,
+              guestCount: guestCount
+            });
+            this.pieChartLabels.push(this.groupSummary[i].groupName);
+            this.pieChartGiftMoney.push(giftMoney);
+            var hex = "0123456789ABCDEF", color = "#";
+            for (var i = 1; i <= 6; i++) {
+              color += hex[Math.floor(Math.random() * 16)];
+            }
+            this.pieChartColors.push(color);
+            break;
+          }
+        }
+      });
+      this.numberOfGuest = this.guestSummary.length;
     });
   }
 
@@ -175,4 +221,5 @@ export class SummaryPage {
       this.numberOfGroup = this.groupSummary.length;
     });
   }
+
 }
