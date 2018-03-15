@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { forEach } from '@firebase/util';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TaskProvider } from '../../providers/task/task';
 
@@ -30,10 +29,10 @@ export class EventDetailPage {
   public taskRef = this.db.database.ref('tasks');
   public taskExist: Array<any> = [];
 
-  constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
-              public modalCtrl: ModalController, public navParams: NavParams,
-              public alertCtrl: AlertController, public afAuth: AngularFireAuth,
-              public taskProvider: TaskProvider) {
+  constructor(public db: AngularFireDatabase, public navCtrl: NavController,
+    public modalCtrl: ModalController, public navParams: NavParams,
+    public alertCtrl: AlertController, public afAuth: AngularFireAuth,
+    public taskProvider: TaskProvider) {
     this.uid = this.afAuth.auth.currentUser.uid;
     this.eventId = this.navParams.data;
     this.items = db.list('tasks').valueChanges();
@@ -41,7 +40,7 @@ export class EventDetailPage {
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
-    
+
   }
 
   ionViewDidLoad() {
@@ -72,42 +71,35 @@ export class EventDetailPage {
             this.taskRef.on('value', snapshot => {
               this.taskExist = [];
               snapshot.forEach(data => {
-                if(data.val().eventId == this.eventId) {
-                  this.taskExist.push(data.val().taskName);
+                if (data.val().eventId == this.eventId) {
+                  this.taskExist.push(data.val().taskName.toLowerCase());
                 }
                 return false;
               });
             });
-            if(data.taskName === undefined || data.taskName === '') {
-                let alert = this.alertCtrl.create({
-                  title: 'Notice!!!',
-                  subTitle: "Please enter the task's name",
-                  buttons: ['Dismiss']
-                  });
-                alert.present();
+            if (data.taskName === undefined || data.taskName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: "Failed...",
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              var taskName = data.taskName.trim().toLowerCase();
+              if (this.taskExist.indexOf(taskName) === -1) {
+                this.itemsRef.push({ taskName: taskName, eventId: this.eventId, expectedCost: 0, actualCost: 0 });
+                console.log(this.taskExist);
               }
               else {
-                data.taskName = data.taskName.trim();
-                if(data.taskName !== '' && this.taskExist.indexOf(data.taskName) === -1){
-                  this.itemsRef.push({taskName: data.taskName, eventId: this.eventId, expectedCost: 0, actualCost: 0});
-                }
-                else if (data.taskName !== '' && this.taskExist.indexOf(data.taskName) !== -1) {
-                  let alert = this.alertCtrl.create({
-                    title: 'Notice!!!',
-                    subTitle: "Task's name has already existed. Please enter another name",
-                    buttons: ['Dismiss']
-                    });
-                  alert.present();
-                }
-                else {
-                  let alert = this.alertCtrl.create({
-                    title: 'Notice!!!',
-                    subTitle: "Task's name must consist of 1 letter at least",
-                    buttons: ['Dismiss']
-                    });
-                  alert.present();
-                }
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Task's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
               }
+            }
           }
         }
       ]
@@ -146,19 +138,31 @@ export class EventDetailPage {
         {
           text: 'Save',
           handler: data => {
-            if (data.taskName.trim() !== '') {
-              data.taskName = data.taskName.trim();
-            }
-            else {
-              data.taskName = item.taskName;
-            }
-            if(data.expectedCost === '') {
+            if (data.expectedCost === '') {
               data.expectedCost = item.expectedCost;
             }
-            if(data.actualCost === '') {
+            if (data.actualCost === '') {
               data.actualCost = item.actualCost
             }
-            this.itemsRef.update(item.key, { taskName: data.taskName, expectedCost: data.expectedCost, actualCost: data.actualCost });
+            var taskName = data.taskName.trim().toLowerCase();
+            if (taskName === '') {
+              this.itemsRef.update(item.key, { taskName: taskName, 
+                                    expectedCost: data.expectedCost, actualCost: data.actualCost });
+            }
+            else {
+              if (this.taskExist.indexOf(taskName) === -1) {
+                this.itemsRef.update(item.key, { taskName: taskName, 
+                                      expectedCost: data.expectedCost, actualCost: data.actualCost });
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Task's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
+            }
           }
         }
       ]

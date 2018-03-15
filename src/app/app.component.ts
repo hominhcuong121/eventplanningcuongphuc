@@ -12,7 +12,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {AuthProvider} from '../providers/auth/auth'; 
 import { WaitingPage } from '../pages/waiting/waiting';
 import { AboutPage } from '../pages/about/about';
-import { AddGuestPage } from '../pages/add-guest/add-guest';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

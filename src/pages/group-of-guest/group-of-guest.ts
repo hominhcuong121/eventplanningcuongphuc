@@ -34,9 +34,9 @@ export class GroupOfGuestPage {
   public groupExist: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public db: AngularFireDatabase, public alertCtrl: AlertController,
-              public groupProvider: GroupProvider, public afAuth: AngularFireAuth
-            ) {
+    public db: AngularFireDatabase, public alertCtrl: AlertController,
+    public groupProvider: GroupProvider, public afAuth: AngularFireAuth
+  ) {
     this.eventId = this.navParams.data;
     this.items = db.list('groups').valueChanges();
     this.itemsRef = db.list('groups');
@@ -80,43 +80,34 @@ export class GroupOfGuestPage {
             this.groupRef.on('value', snapshot => {
               this.groupExist = [];
               snapshot.forEach(data => {
-                if(data.val().eventId == this.eventId) {
-                  this.groupExist.push(data.val().groupName);
+                if (data.val().eventId == this.eventId) {
+                  this.groupExist.push(data.val().groupName.toLowerCase());
                 }
                 return false;
               });
             });
-            if(data.groupName === undefined || data.groupName === '') {
-                let alert = this.alertCtrl.create({
-                  title: 'Notice!!!',
-                  subTitle: "Please enter the task's name",
-                  buttons: ['Dismiss']
-                  });
-                alert.present();
+            if (data.groupName === undefined || data.groupName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: "Failed...",
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              var groupName = data.groupName.trim().toLowerCase();
+              if (this.groupExist.indexOf(groupName) === -1) {
+                this.itemsRef.push({ groupName: groupName, eventId: eventId });
               }
               else {
-                data.groupName = data.groupName.trim();
-                if(data.groupName !== '' && this.groupExist.indexOf(data.groupName) === -1){
-                  this.itemsRef.push({groupName: data.groupName, eventId: eventId});
-                  console.log(this.eventId);
-                }
-                else if (data.groupName !== '' && this.groupExist.indexOf(data.groupName) !== -1) {
-                  let alert = this.alertCtrl.create({
-                    title: 'Notice!!!',
-                    subTitle: "Group's name has already existed. Please enter another name",
-                    buttons: ['Dismiss']
-                    });
-                  alert.present();
-                }
-                else {
-                  let alert = this.alertCtrl.create({
-                    title: 'Notice!!!',
-                    subTitle: "Group's name must consist of 1 letter at least",
-                    buttons: ['Dismiss']
-                    });
-                  alert.present();
-                }
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Group's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
               }
+            }
           }
         }
       ]
@@ -145,8 +136,27 @@ export class GroupOfGuestPage {
         {
           text: 'Save',
           handler: data => {
-            if (data.groupName.trim() !== '') {
-              this.itemsRef.update(item.key, { groupName: data.groupName });
+            if (data.groupName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: 'Notice!!!',
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              var groupName = data.groupName.trim().toLowerCase();
+              if (this.groupExist.indexOf(groupName) === -1) {
+                this.itemsRef.update(item.key, { groupName: groupName, eventId: item.eventId});
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Event's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
             }
           }
         }
@@ -173,7 +183,7 @@ export class GroupOfGuestPage {
             //delete all guests belong to this group if this one is deleted
             this.guestsRef.on('value', guestSnap => {
               guestSnap.forEach(snap => {
-                if(snap.val().groupId === item) {
+                if (snap.val().groupId === item) {
                   this.guestRef.remove(snap.key);
                 }
                 return false;

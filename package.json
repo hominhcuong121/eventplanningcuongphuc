@@ -30,6 +30,7 @@
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "angularfire2": "^5.0.0-rc.6",
+    "chart.js": "^2.7.2",
     "cordova-android": "^7.0.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.2",

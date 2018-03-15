@@ -105,36 +105,29 @@ export class HomePage {
               this.eventExist = [];
               snapshot.forEach(data => {
                 if (data.val().uid == this.uid) {
-                  this.eventExist.push(data.val().name);
+                  this.eventExist.push(data.val().name.toLowerCase());
                 }
                 return false;
               });
             });
             if (data.eventName === undefined || data.eventName.trim() === '') {
               let alert = this.alertCtrl.create({
-                title: 'Notice!!!',
-                subTitle: "Please enter the event's name",
+                title: "Failed...",
+                subTitle: "Event's name cannot be empty",
                 buttons: ['Dismiss']
               });
               alert.present();
             }
             else {
-              data.eventName = data.eventName.trim();
-              if (data.eventName !== '' && this.eventExist.indexOf(data.eventName) === -1) {
+              data.eventName = data.eventName.trim().toLowerCase();
+              if (this.eventExist.indexOf(data.eventName) === -1) {
                 this.itemsRef.push({ name: data.eventName, uid: this.uid });
-              }
-              else if (data.eventName !== '' && this.eventExist.indexOf(data.eventName) !== -1) {
-                let alert = this.alertCtrl.create({
-                  title: 'Notice!!!',
-                  subTitle: "Event's name has already existed. Please enter another name",
-                  buttons: ['Dismiss']
-                });
-                alert.present();
+                console.log(this.eventExist);
               }
               else {
                 let alert = this.alertCtrl.create({
                   title: 'Notice!!!',
-                  subTitle: "Event's name must consist of 1 letter at least",
+                  subTitle: "Event's name has already existed. Please enter another name",
                   buttons: ['Dismiss']
                 });
                 alert.present();
@@ -217,8 +210,27 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            if (data.trim !== '') {
-              this.itemsRef.update(item.key, { name: data.name });
+            if (data.name.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: 'Notice!!!',
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              data.name = data.name.trim();
+              if (this.eventExist.indexOf(data.name.toLowerCase()) === -1) {
+                this.itemsRef.update(item.key, { name: data.name, uid: this.uid });
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Event's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
             }
           }
         }

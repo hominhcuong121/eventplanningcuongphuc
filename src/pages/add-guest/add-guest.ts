@@ -29,8 +29,8 @@ export class AddGuestPage {
   public guestExist: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public db: AngularFireDatabase, public alertCtrl: AlertController,
-              public guestProvider: GuestProvider) {
+    public db: AngularFireDatabase, public alertCtrl: AlertController,
+    public guestProvider: GuestProvider) {
     this.items = db.list('guests').valueChanges();
     this.itemsRef = db.list('guests');
     this.items = this.itemsRef.snapshotChanges().map(changes => {
@@ -69,42 +69,37 @@ export class AddGuestPage {
             this.guestRef.on('value', snapshot => {
               this.guestExist = [];
               snapshot.forEach(data => {
-                if(data.val().groupId == this.groupId) {
-                  this.guestExist.push(data.val().guestName);
+                if (data.val().groupId == this.groupId) {
+                  this.guestExist.push(data.val().guestName.toLowerCase());
                 }
                 return false;
               });
             });
-            if(data.guestName === undefined || data.guestName === '') {
-                let alert = this.alertCtrl.create({
-                  title: 'Notice!!!',
-                  subTitle: "Please enter the guest's name",
-                  buttons: ['Dismiss']
-                  });
-                alert.present();
+            if (data.guestName === undefined || data.guestName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: "Failed...",
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              var guestName = data.guestName.trim().toLowerCase();
+              if (this.guestExist.indexOf(guestName) === -1) {
+                this.itemsRef.push({
+                  guestName: guestName, eventId: this.eventId,
+                  groupId: this.groupId, giftMoney: 0
+                });
               }
               else {
-                data.guestName = data.guestName.trim();
-                if(data.guestName !== '' && this.guestExist.indexOf(data.guestName) === -1){
-                  this.itemsRef.push({guestName: data.guestName, eventId: this.eventId, groupId: this.groupId, giftMoney: 0});
-                }
-                else if (data.guestName !== '' && this.guestExist.indexOf(data.guestName) !== -1) {
-                  let alert = this.alertCtrl.create({
-                    title: 'Notice!!!',
-                    subTitle: "Guest's name has already existed. Please enter another name",
-                    buttons: ['Dismiss']
-                    });
-                  alert.present();
-                }
-                else {
-                  let alert = this.alertCtrl.create({
-                    title: 'Notice!!!',
-                    subTitle: "Guest's name must consist of 1 letter at least",
-                    buttons: ['Dismiss']
-                    });
-                  alert.present();
-                }
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Guest's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
               }
+            }
           }
         }
       ]
@@ -138,23 +133,27 @@ export class AddGuestPage {
         {
           text: 'Save',
           handler: data => {
-            if (data.guestName.trim() !== '' && this.guestExist.indexOf(data.guestName.trim()) !== -1) {
-              if(data.giftMoney === '') {
-                data.giftMoney = item.giftMoney;
-              }
-              else {
-                data.giftMoney = data.giftMoney;
-              }
-            }
-            if(data.guestName.trim() === '') {
-              data.guestName = item.guestName;
-            }
-            if(data.giftMoney === '') {
+            if (data.giftMoney === '') {
               data.giftMoney = item.giftMoney;
             }
-            console.log(data.guestName);
-            console.log(data.giftMoney);
-            this.itemsRef.update(item.key, { guestName: data.guestName, giftMoney: data.giftMoney });
+            var guestName = data.guestName.trim().toLowerCase();
+            if(guestName === '') {
+              guestName = item.guestName;
+            }
+            else {
+              if(this.guestExist.indexOf(guestName) === -1) {
+                this.itemsRef.update(item.key, { guestName: guestName, giftMoney: data.giftMoney });
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Guest's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
+            }
+            
           }
         }
       ]
