@@ -64,7 +64,7 @@ export class SummaryPage {
 
   definePieChart() {
     this.giftMoneyPieChart = new Chart(this.giftMoenyPieCanvas.nativeElement, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: this.pieChartLabels,
         datasets: [
@@ -88,7 +88,8 @@ export class SummaryPage {
           },
           animation: {
             duration: 5000
-          }
+          },
+          
         }
       }
     });
