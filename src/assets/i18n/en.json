@@ -3,8 +3,13 @@
   "events" : "Events",
   "myevent":"My Events",
   "profile" : "Profile",
-
-  "aboutus" : "About us"
-
- 
+  "aboutus" : "About us",
+  "lang":"Language",
+  "logout":"Logout",
+  "task":"Tasks",
+  "guest":"Guests",
+  "groupguest":"Group Guest",
+  "chart":"Chart",
+  "summary":"Summary",
+  "searchtitle":"Enter the event's name"
 }

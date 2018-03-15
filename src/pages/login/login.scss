@@ -1,8 +1,9 @@
 page-login {
   .background{
-    background: url('../../assets/imgs/bg2.jpg') no-repeat;
-    background-size: 100%;
+    // background: url('../../assets/imgs/bg2.jpg') no-repeat;
+    // background-size: 100%;
     //background: #26d89a; 0dbb7e
+    background: #cd4f39;
   }
 .logo-icon{
     font-size: 50px;
@@ -20,21 +21,16 @@ page-login {
   .none-color{
     background: none;
   }
-  $color: (
-  
-    primary: #000,
-    secondary: #986cda,
-    danger: #9E1A7A,
-    light: #D7D6E1,
-    dark: #412d61,
-    whitetext:#ffffff,
-  );
+ 
   .text-primary{
     color: #9871d1;
     
   }
   .btn-login{
-background: #07bb8e;//26d89a
+background: #ffffff;//26d89a
+color:color($color,red-color);
+font-weight: bold;
+
   }
   .text-white{
     color:#ffffff!important;

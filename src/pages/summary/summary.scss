@@ -1,0 +1,50 @@
+page-summary {
+        $color: (
+        green-color:#0dbb7e,
+        green-navbar:#0dbb7e,
+        primary: #000,
+        secondary: #986cda,
+        danger: #9E1A7A,
+        light: #D7D6E1,
+        dark: #412d61,
+        whitetext:#ffffff,
+    );
+
+
+    .text-white {
+        color:color($color,whitetext)!important;
+    }
+
+    .title-bar {
+        position: relative;
+        height: 100px;
+        background:unset;
+    }
+
+    .title-name-bar {
+        font-size: 20px;
+        background: #0dbb7e;
+        padding: 10px 0;
+        padding-right: 20px;
+    }
+
+    .icon-title-bar {
+        margin-left: 5px;
+    }
+
+    .title-span-bar {
+        color:color($color,whitetext)!important;
+    }
+
+    .ios, .md {
+        page-home {
+            .scroll-content {
+                background-color: map-get($colors, light);
+            }
+     
+            ion-card-header {
+                font-weight: bold;
+            }
+        }
+    }
+}

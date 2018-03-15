@@ -1,0 +1,135 @@
+<!--
+  Generated template for the SummaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Summary</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item class="title-bar">
+    <div ion-text class="bold text-white title-name-bar">
+      <ion-icon name="ios-book" class="text-white icon-title-bar"> </ion-icon>
+      <span class="title-span-bar"> Task</span>
+    </div>
+  </ion-item>
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Number Of Task: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{numberOfTasks}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Total Expected Cost: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{totalExpectedCost}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Total Actual Cost: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{totalActualCost}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card>
+      <ion-card-header>
+        Task's Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #BarCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+  <ion-item class="title-bar">
+    <div ion-text class="bold text-white title-name-bar">
+      <ion-icon name="ios-book" class="text-white icon-title-bar"> </ion-icon>
+      <span class="title-span-bar"> Group &amp; Guest</span>
+    </div>
+  </ion-item>
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Number Of Group: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{numberOfGroup}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Number Of Guest: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{numberOfGuest}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Number Of Table: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{numberOftable}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <h3>Total Gift Money: </h3>
+        </ion-col>
+        <ion-col col-6>
+          <h3>{{totalGiftMoneyAllGroups}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="infoForEachgroup.length !== 0">
+        <ion-col col-6>
+          <h3>Group's Name </h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>Gift Money</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>Total Guest</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of infoForEachgroup">
+        <ion-col col-6>
+          <h3>{{item.groupName}}</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>{{item.giftMoney}}</h3>
+        </ion-col>
+        <ion-col col-3>
+          <h3>{{item.guestCount}}</h3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card>
+      <ion-card-header>
+        Group and Guest's Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #giftMoenyPieCanvas></canvas>
+      </ion-card-content>
+      <ion-card-content>
+        <canvas #guestPieCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+
+</ion-content>

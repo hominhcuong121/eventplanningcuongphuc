@@ -31,7 +31,7 @@ import { TaskProvider } from '../providers/task/task';
 import { GroupProvider } from '../providers/group/group';
 import { GuestProvider } from '../providers/guest/guest';
 import { UserProvider } from '../providers/user/user'; 
-
+import { SummaryPage } from '../pages/summary/summary';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -50,7 +50,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     GroupOfGuestPage,
     AddGuestPage,
     WaitingPage,
-    AboutPage
+    AboutPage,
+    SummaryPage
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
@@ -80,7 +81,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     LoginPage,
     RegisterPage,
     ProfilePage,
-    
+    SummaryPage,
     EventDetailPage,
  
 

@@ -26,16 +26,27 @@ export class GroupOfGuestPage {
   public items: Observable<any[]>;
   public eventId: string;
 
+  public guestRef: AngularFireList<any>;
+  public guests: Observable<any[]>;
+  public guestsRef = this.db.database.ref('guests');
+
   public groupRef = this.db.database.ref('groups');
   public groupExist: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public db: AngularFireDatabase, public alertCtrl: AlertController,
-              public groupProvider: GroupProvider, public afAuth: AngularFireAuth) {
+              public groupProvider: GroupProvider, public afAuth: AngularFireAuth
+            ) {
     this.eventId = this.navParams.data;
     this.items = db.list('groups').valueChanges();
     this.itemsRef = db.list('groups');
     this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+
+    this.guests = db.list('guests').valueChanges();
+    this.guestRef = db.list('guests');
+    this.guests = this.guestRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
@@ -87,6 +98,7 @@ export class GroupOfGuestPage {
                 data.groupName = data.groupName.trim();
                 if(data.groupName !== '' && this.groupExist.indexOf(data.groupName) === -1){
                   this.itemsRef.push({groupName: data.groupName, eventId: eventId});
+                  console.log(this.eventId);
                 }
                 else if (data.groupName !== '' && this.groupExist.indexOf(data.groupName) !== -1) {
                   let alert = this.alertCtrl.create({
@@ -158,6 +170,15 @@ export class GroupOfGuestPage {
           text: 'Agree',
           handler: () => {
             this.itemsRef.remove(item);
+            //delete all guests belong to this group if this one is deleted
+            this.guestsRef.on('value', guestSnap => {
+              guestSnap.forEach(snap => {
+                if(snap.val().groupId === item) {
+                  this.guestRef.remove(snap.key);
+                }
+                return false;
+              });
+            });
           }
         }
       ]

@@ -4,5 +4,12 @@
   "myevent":"Sự kiện của tôi",
   "profile":"Hồ sơ cá nhân",
   "aboutus" : "Giới thiệu",
-  "lang":"Ngôn ngữ"
+  "logout":"Đăng xuất",
+  "lang":"Ngôn ngữ",
+  "task":"Nhiệm vụ",
+  "guest":"Khách",
+  "groupguest":"Nhóm khách",
+  "chart":"Biểu đồ",
+  "summary":"Thống kê",
+  "searchtitle":"Nhập tên event"
 }

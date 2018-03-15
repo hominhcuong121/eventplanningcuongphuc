@@ -55,7 +55,7 @@ export class LoginPage {
 }
   */
  constructor(private menu: MenuController,public auth:AuthProvider,public alertCtrl:AlertController,public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public formbuilder:FormBuilder) {
-
+try{
   this.formgroup = formbuilder.group({
     username: new FormControl('', Validators.compose([
       Validators.required,
@@ -72,6 +72,17 @@ export class LoginPage {
 
   this.username = this.formgroup.controls['username'];
   this.password = this.formgroup.controls['password'];
+}catch(error)
+{
+  alert(error.code);
+  // let alert = this.alertCtrl.create({
+  //   title: 'Notice!!!',
+  //   subTitle: "Your network limited",
+  //   buttons: ['Dismiss']
+  // });
+  // alert.present();
+}
+  
 
 }
 ionViewDidEnter() {

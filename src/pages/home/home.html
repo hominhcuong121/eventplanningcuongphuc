@@ -34,7 +34,7 @@
   </div>
 
   <div class="search bg-img-green text-white">
-    <ion-searchbar placeholder="Enter the event's name..." (ionInput)="filterItems($event)"></ion-searchbar>
+    <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
   </div>
   
     
@@ -52,9 +52,10 @@
   <p *ngIf="numberOfAllEvents == 0">You have no any event, please insert a new one!</p>
 
   <ion-list padding>
+   
     <ion-item-sliding *ngFor="let item of filteredEvents">
         <button ion-item (click)="openEventDetail(item.key)" text-capitalize>
-            <ion-label>{{item.name}}</ion-label>
+           <h3>{{item.name}}</h3>
         </button>
         <ion-item-options>
           <button ion-button expandable (click)="editEvent(item)" class="editButton">
@@ -66,7 +67,7 @@
           <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
             <ion-icon name="ios-people"></ion-icon>
           </button>
-          <button ion-button expandable (click)="addGroupOfGuest(item.key)" class="groupButton">
+          <button ion-button expandable (click)="openSummary(item.key)" class="summaryButton">
               <ion-icon name="ios-stats-outline"></ion-icon>
             </button>
         </ion-item-options>

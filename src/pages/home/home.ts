@@ -5,11 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import { EventDetailPage } from '../event-detail/event-detail';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GroupOfGuestPage } from '../group-of-guest/group-of-guest';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { forEach } from '@firebase/util';
 import { EventProvider } from "../../providers/event/event";
 import { LoginPage } from '../login/login';
-import * as $ from 'jquery';
+import { SummaryPage } from '../summary/summary';
+
 
 
 @Component({
@@ -24,6 +23,16 @@ export class HomePage {
   public itemsRef: AngularFireList<any>;
   public items: Observable<any[]>;
 
+  public taskRef: AngularFireList<any>;
+  public task: Observable<any[]>;
+  public groupRef: AngularFireList<any>;
+  public group: Observable<any[]>;
+  public guestRef: AngularFireList<any>;
+  public guest: Observable<any[]>;
+  public tasksRef = this.db.database.ref('tasks');
+  public groupsRef = this.db.database.ref('groups');
+  public guestsRef = this.db.database.ref('guests');
+
   public eventRef = this.db.database.ref('events');
   public userRef = this.db.database.ref('users');
   public eventExist: Array<any> = [];
@@ -32,34 +41,47 @@ export class HomePage {
     public modalCtrl: ModalController, public alertCtrl: AlertController,
     public afAuth: AngularFireAuth, public eventProvider: EventProvider
   ) {
-        this.afAuth.authState.subscribe(user=>{
-          if(user)
-          {
-            this.uid = this.afAuth.auth.currentUser.uid;
-            this.items = db.list('events').valueChanges();
-            this.itemsRef = db.list('events');
-            this.items = this.itemsRef.snapshotChanges().map(changes => {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.uid = this.afAuth.auth.currentUser.uid;
+        this.items = db.list('events').valueChanges();
+        this.itemsRef = db.list('events');
+        this.items = this.itemsRef.snapshotChanges().map(changes => {
           return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         });
-            
-            
-          }else{
-            this.navCtrl.setRoot(LoginPage);
-          }
+        
+        this.task = db.list('tasks').valueChanges();
+        this.taskRef = db.list('tasks');
+        this.task = this.taskRef.snapshotChanges().map(changes => {
+          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
         });
-  }
-  ionViewDidLoad() {
-    this.afAuth.authState.subscribe(user=>{
-      if(user)
-      {
-        this.initAllEvents();
+
+        this.group = db.list('groups').valueChanges();
+        this.groupRef = db.list('groups');
+        this.group = this.groupRef.snapshotChanges().map(changes => {
+          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
+
+        this.guest = db.list('guests').valueChanges();
+        this.guestRef = db.list('guests');
+        this.guest = this.guestRef.snapshotChanges().map(changes => {
+          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
+      } else {
+        this.navCtrl.setRoot(LoginPage);
       }
-      
     });
-   
   }
 
-  addEvent() {
+  ionViewDidLoad() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.initAllEvents();
+      }
+    });
+  }
+
+  addEvent(eventId: string) {
     let alert = this.alertCtrl.create({
       title: 'Add Event',
       message: "Please enter an event's name",
@@ -118,9 +140,7 @@ export class HomePage {
                 alert.present();
               }
             }
-         
           }
-          
         }
       ]
     });
@@ -143,17 +163,41 @@ export class HomePage {
           text: 'Agree',
           handler: () => {
             this.itemsRef.remove(eventId);
+            //delete all tasks belong to this event if this one is deleted
+            this.tasksRef.on('value', taskSnap => {
+              taskSnap.forEach(snap => {
+                if(snap.val().eventId === eventId){
+                  this.taskRef.remove(snap.key);
+                }
+                return false;
+              });
+            });
+            //delete all groups belong to this event if this one is deleted
+            this.groupsRef.on('value', groupSnap => {
+              groupSnap.forEach(snap => {
+                if(snap.val().eventId === eventId){
+                  this.groupRef.remove(snap.key);
+                }
+                return false;
+              });
+            });
+            //delete all guests belong to this event if this one is deleted
+            this.guestsRef.on('value', guestSnap => {
+              guestSnap.forEach(snap => {
+                if(snap.val().eventId === eventId){
+                  this.guestRef.remove(snap.key);
+                }
+                return false;
+              });
+            });
           }
         }
       ]
     });
-
     alert.present();
-
   }
 
   editEvent(item) {
-    var eventName = item.name;
     let alert = this.alertCtrl.create({
       title: 'Edit Event',
       inputs: [
@@ -176,9 +220,7 @@ export class HomePage {
             if (data.trim !== '') {
               this.itemsRef.update(item.key, { name: data.name });
             }
-            
           }
-          
         }
       ]
     });
@@ -212,7 +254,6 @@ export class HomePage {
             });
             return false;
           }
-
         });
 
         this.filteredEvents = allEvents.filter(e => e.name.toLowerCase().includes(val.toLowerCase()));
@@ -235,6 +276,10 @@ export class HomePage {
       });
       this.numberOfAllEvents = this.filteredEvents.length;
     });
+  }
+
+  openSummary(item) {
+    this.navCtrl.push(SummaryPage, item);
   }
 }
 

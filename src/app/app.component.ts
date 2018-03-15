@@ -29,7 +29,7 @@ rootPage: any=HomePage;
 public user:any;
   constructor(public authSvc:AuthProvider,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public translate:TranslateService) {
     this.translate=translate;
-    translate.setDefaultLang('vi');
+    translate.setDefaultLang('en');
     this.initializeApp();
     
     
