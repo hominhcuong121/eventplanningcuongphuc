@@ -24,13 +24,14 @@ export class AddGuestPage {
   public items: Observable<any[]>;
   public groupId: string;
   public eventId: string;
+  public groupName: string;
 
   public guestRef = this.db.database.ref('guests');
   public guestExist: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public db: AngularFireDatabase, public alertCtrl: AlertController,
-    public guestProvider: GuestProvider) {
+              public db: AngularFireDatabase, public alertCtrl: AlertController,
+              public guestProvider: GuestProvider) {
     this.items = db.list('guests').valueChanges();
     this.itemsRef = db.list('guests');
     this.items = this.itemsRef.snapshotChanges().map(changes => {
@@ -39,6 +40,7 @@ export class AddGuestPage {
 
     this.groupId = this.navParams.get('groupId');
     this.eventId = this.navParams.get('eventId');
+    this.groupName = this.navParams.get('groupName');
   }
 
   ionViewDidLoad() {

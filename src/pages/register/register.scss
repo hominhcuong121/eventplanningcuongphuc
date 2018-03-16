@@ -1,7 +1,6 @@
 page-register {
     .background{
-        background: url('../../assets/imgs/bg2.jpg') no-repeat;
-        background-size: 100%;
+      background: #cd4f39;
         //background: #26d89a;
       }
       .none-color{
@@ -10,4 +9,17 @@ page-register {
       .btn-login{
         background: #6ef295;//26d89a
           }
+          .btn-register{
+            text-align: center;
+            margin-top: 5rem;
+          }
+          .btn-register button{
+            background:#ffffff;
+            color: #cd4f39;
+            display: inline-block;
+            width: 60%;
+            font-weight: bold;
+            
+          }
+
 }

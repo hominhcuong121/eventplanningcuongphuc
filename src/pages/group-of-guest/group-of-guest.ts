@@ -25,6 +25,7 @@ export class GroupOfGuestPage {
   public itemsRef: AngularFireList<any>;
   public items: Observable<any[]>;
   public eventId: string;
+  public eventName: string;
 
   public guestRef: AngularFireList<any>;
   public guests: Observable<any[]>;
@@ -34,10 +35,11 @@ export class GroupOfGuestPage {
   public groupExist: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public db: AngularFireDatabase, public alertCtrl: AlertController,
-    public groupProvider: GroupProvider, public afAuth: AngularFireAuth
-  ) {
-    this.eventId = this.navParams.data;
+              public db: AngularFireDatabase, public alertCtrl: AlertController,
+              public groupProvider: GroupProvider, public afAuth: AngularFireAuth
+            ) {
+    this.eventId = this.navParams.get('eventId');
+    this.eventName = this.navParams.get('eventName');
     this.items = db.list('groups').valueChanges();
     this.itemsRef = db.list('groups');
     this.items = this.itemsRef.snapshotChanges().map(changes => {
@@ -183,7 +185,7 @@ export class GroupOfGuestPage {
             //delete all guests belong to this group if this one is deleted
             this.guestsRef.on('value', guestSnap => {
               guestSnap.forEach(snap => {
-                if (snap.val().groupId === item) {
+                if(snap.val().groupId === item) {
                   this.guestRef.remove(snap.key);
                 }
                 return false;
@@ -197,11 +199,12 @@ export class GroupOfGuestPage {
     alert.present();
   }
 
-  openAddGuestPage(groupId, EventId) {
+  openAddGuestPage(groupId, EventId, groupName) {
     // console.log(groupId, this.eventId);
     this.navCtrl.push(AddGuestPage, {
       groupId: groupId,
-      eventId: this.eventId
+      eventId: this.eventId,
+      groupName: groupName
     });
   }
 

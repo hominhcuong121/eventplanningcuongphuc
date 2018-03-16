@@ -6,29 +6,40 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Group Of Guest</ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only item-end (click)="addGroup(eventId)">
-          <ion-icon name="add"></ion-icon>
-        </button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar class="nav-child-page">
+        <ion-title class="title">Group Guest</ion-title>
+        <ion-buttons end>
+          <button ion-button icon-only item-end (click)="addGroup(eventId)">
+            <ion-icon name="md-add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
 
-  <ion-searchbar placeholder="Enter the group's name." (ionInput)="filterItems($event)"></ion-searchbar>
+    <div class="search bg-img-red text-white">
+        <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+      </div>
+  <ion-item class="title-bar">
+       
+    <div ion-text class="bold  text-white title-name-bar">
+      <ion-icon name="ios-book" class="text-white icon-title-bar" > </ion-icon>
+      <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
+      <span class="title-span-bar">{{eventName}}'s Group</span>
+      <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
+    </div>
+  </ion-item>
   
-  <h4 class="title" padding>My Groups</h4>
+ 
 
   <p *ngIf="numberOfAllGroups == 0">You have no any group, please insert a new one!</p>
 
   <ion-list padding>
       <ion-item-sliding *ngFor="let item of filteredGroups">
-          <button ion-item text-capitalize (click)="openAddGuestPage(item.key, item.eventId)">
+          <button ion-item text-capitalize (click)="openAddGuestPage(item.key, item.eventId, item.groupName)">
               <h2>{{item.groupName}}</h2>
           </button>
           <ion-item-options>

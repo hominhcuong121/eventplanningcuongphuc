@@ -1,7 +1,7 @@
 page-home{
     $color: (
     green-color:#26d89a,
-    green-navbar:#ed1c24,
+  
     blue-navbar:#51b0cc,
     primary: #000,
     secondary: #986cda,
@@ -11,19 +11,15 @@ page-home{
     whitetext:#ffffff,
   );
 
-.text-green{
-  color:color($color, green-navbar);
-}
+
 .text-white{
   color:color($color,whitetext)!important;
 }
-.bg-img-green{
+.bg-img-red{
   background-image:url('../../assets/imgs/red.jpg');
   background-size: cover;
 }
-.bg-green {
-  background: color($color, green-navbar);
-}
+
 .bg-blue{
   background: color($color,blue-navbar);
 }
@@ -356,7 +352,33 @@ ion-content {
   background-size: 50px;
  
 }
-.button-md,.button-ios,.button-wp{
-  background-color: rgb(207, 24, 64);
-  border-left: 1px solid #fff;
+ .editButton, .deleteButton,.groupButton{
+  border-right:1px solid #ffffff!important;
+  background:#ed1c24;
 }
+.summaryButton{
+  background:#ed1c24;
+}
+.editButton{
+  padding:0 0.8rem!important;
+}
+.groupButton{
+  padding:0 0.9rem!important;
+}
+.button-md,.button-ios,.button-wp{
+ 
+}
+/*event input*/
+.item-inner{
+  border-bottom: 1px solid #ed1c24!important;
+}
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+  border: 0px!important;
+}
+.item-list{
+  padding: 0 2rem;
+}
+.item-list .item .item-block .item-ios{
+ padding-left: 0px;
+}
+/*end event input*/

@@ -6,23 +6,33 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Add Guest</ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only item-end (click)="addGuest()">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-buttons>
-  </ion-navbar>
+    <ion-navbar class="nav-child-page">
+        <ion-title class="title">Guest</ion-title>
+        <ion-buttons end>
+          <button ion-button icon-only item-end (click)="addGuest(groupId)">
+            <ion-icon name="md-add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
 
 </ion-header>
 
 
 <ion-content >
 
-  <ion-searchbar placeholder="Enter the guest's name." (ionInput)="filterItems($event)"></ion-searchbar>
+    <div class="search bg-img-red text-white">
+        <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+      </div>
+      <ion-item class="title-bar">
+       
+          <div ion-text class="bold bg-green text-white title-name-bar">
+            
+            <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
+            <span class="title-span-bar"> </span>
+            <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
+          </div>
+        </ion-item>
 
-  <h4 class="title" padding>My Guest</h4>
 
   <ion-list padding>
     <ion-item-sliding *ngFor="let item of items | async">

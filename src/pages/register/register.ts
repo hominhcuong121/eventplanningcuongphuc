@@ -79,12 +79,15 @@ userve :Promise<any>;
       
       this.auth.checkerror(e.code);
 
-  }    
+  }   
+ 
   }
 
 
 
-
+  backlogin(){
+    this.navCtrl.pop();
+  } 
 
 
 

@@ -1,7 +1,7 @@
 $color:(
   green-color:#0dbb7e, 
   white-color:#ffffff,
-  bg-green:#1fd696,
+ 
 bg-menu-content:#212121,
   logo-color:#ffffff,
   text-logo:#6da55c,
@@ -11,18 +11,34 @@ bg-menu-content:#212121,
 .text-green{
   color:color($color,green-color)!important;
 }
+.text-red{
+    color:color($color,red-color)!important;
+  }
 .text-white{
   color:color($color,white-color)!important;
 }
-.bg-green{
+.bg-red{
     background:color($color,red-color);
 }
+
 .color-red{
     color:color($color,red-color);
 }
 *{
     font-family: Arial, Helvetica, sans-serif;
 }
+/*--------------------------------Header----------------------------*/
+/*nav-white*/
+.nav-white{
+    background: #ffffff;
+}
+.nav-white .back-button{
+    color:color($color,red-color);
+}
+.nav-white .toolbar-title{
+    color:color($color,red-color);
+}
+/*nav-white*/
 .header-menu{
 
     font-size: 30px;
@@ -43,7 +59,7 @@ bg-menu-content:#212121,
 .header h2{
     color: color($color,white-color);
 }
-
+/*header*/
 /*-----------------------------Content------------------------------*/
 .bg-menu-list ion-list{
     margin-bottom:0px;

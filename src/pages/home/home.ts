@@ -239,12 +239,18 @@ export class HomePage {
     alert.present();
   }
 
-  openEventDetail(eventId) {
-    this.navCtrl.push(EventDetailPage, eventId);
+  openEventDetail(eventId, eventName) {
+    this.navCtrl.push(EventDetailPage, {
+      eventId: eventId,
+      eventName: eventName
+    });
   }
 
-  addGroupOfGuest(eventId) {
-    this.navCtrl.push(GroupOfGuestPage, eventId);
+  addGroupOfGuest(eventId, eventName) {
+    this.navCtrl.push(GroupOfGuestPage, {
+      eventId: eventId,
+      eventName: eventName
+    });
   }
 
   filterItems(ev: any) {

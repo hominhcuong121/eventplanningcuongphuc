@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { forEach } from '@firebase/util';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TaskProvider } from '../../providers/task/task';
 
@@ -24,23 +25,25 @@ export class EventDetailPage {
   public itemsRef: AngularFireList<any>;
   public items: Observable<any[]>;
   public eventId: string;
+  public eventName: string;
   public uid: string;
 
   public taskRef = this.db.database.ref('tasks');
   public taskExist: Array<any> = [];
 
-  constructor(public db: AngularFireDatabase, public navCtrl: NavController,
-    public modalCtrl: ModalController, public navParams: NavParams,
-    public alertCtrl: AlertController, public afAuth: AngularFireAuth,
-    public taskProvider: TaskProvider) {
+  constructor(public db: AngularFireDatabase, public navCtrl: NavController, 
+              public modalCtrl: ModalController, public navParams: NavParams,
+              public alertCtrl: AlertController, public afAuth: AngularFireAuth,
+              public taskProvider: TaskProvider) {
     this.uid = this.afAuth.auth.currentUser.uid;
-    this.eventId = this.navParams.data;
+    this.eventId = this.navParams.get('eventId');
+    this.eventName = this.navParams.get('eventName');
     this.items = db.list('tasks').valueChanges();
     this.itemsRef = db.list('tasks');
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
-
+    
   }
 
   ionViewDidLoad() {

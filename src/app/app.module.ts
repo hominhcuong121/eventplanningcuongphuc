@@ -57,7 +57,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     IonicPageModule.forChild(HomePage),
     TranslateModule.forChild(),
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {scrollAssist: false, autoFocusAssist: false}),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule,

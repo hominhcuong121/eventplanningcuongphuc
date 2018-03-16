@@ -6,13 +6,45 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>about</ion-title>
-  </ion-navbar>
+  <!-- <ion-navbar class="bg-green">
+    <button ion-button menuToggle class="btn-menu">
+      <ion-icon name="menu" class="text-white icon-menu"></ion-icon>
+    </button>
+    <ion-title ><span class="text-white">Event</span>   </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only item-end class="text-white add-event-icon" (click)="addEvent()">
+        <ion-icon name="md-add-circle"></ion-icon>
+      </button>
+  </ion-buttons>
+  </ion-navbar> -->
 
+    
+      <ion-navbar class="bg-green">
+          <button ion-button menuToggle class="btn-menu">
+            <ion-icon name="menu" class="text-white icon-menu"></ion-icon>
+          </button>
+          <ion-title ><span class="text-white">Event</span>   </ion-title>
+          <ion-buttons end>
+            <button ion-button icon-only item-end class="text-white add-event-icon" (click)="addEvent()">
+              <ion-icon name="md-add-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+      </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-
+    <video  preload="metadata" autoplay="autoplay" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+    <source src="assets/video/dxc.mp4" type="video/mp4" />
+   </video>
+   <ion-item class="company">
+     <h3>TECHNOLOGIES</h3>
+    </ion-item>
+   <ion-item class="ourteam text-red" padding>
+      <h3 ><b>OUR TEAMS</b></h3>
+      <p>Dev: Ho Minh Cuong</p>
+      <p>Dev: Le Hoang Phuc</p>
+   </ion-item>
+   
+   
 </ion-content>

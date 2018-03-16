@@ -6,20 +6,32 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Summary</ion-title>
-  </ion-navbar>
+    <ion-navbar class="nav-child-page">
+        <ion-title class="title">Guest</ion-title>
+        <ion-buttons end>
+          <button ion-button icon-only item-end (click)="addGuest(groupId)">
+            <ion-icon name="md-add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-item class="title-bar">
-    <div ion-text class="bold text-white title-name-bar">
-      <ion-icon name="ios-book" class="text-white icon-title-bar"> </ion-icon>
-      <span class="title-span-bar"> Task</span>
-    </div>
-  </ion-item>
+  
+    <div class="search bg-img-red text-white">
+    <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+  </div>
+<ion-item class="title-bar">
+   
+<div ion-text class="bold  text-white title-name-bar">
+  <ion-icon name="ios-book" class="text-white icon-title-bar" > </ion-icon>
+  <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
+  <span class="title-span-bar" text-capitalize>Chart</span>
+  <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
+</div>
+</ion-item>
   <ion-item>
     <ion-grid>
       <ion-row>
