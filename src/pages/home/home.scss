@@ -1,81 +1,132 @@
 page-home{
     $color: (
-    green-color:#0dbb7e,
-    green-navbar:#0dbb7e,
-    primary: #000,
-    secondary: #986cda,
-    danger: #9E1A7A,
-    light: #D7D6E1,
-    dark: #412d61,
+    green-color:#26d89a,
+    blue-navbar:#51b0cc,
     whitetext:#ffffff,
-);
+  );
 
-.text-green{
-  color:color($color, green-navbar);
-}
 
-.text-white {
+.text-white{
   color:color($color,whitetext)!important;
 }
-
-.bg-green {
-  background: color($color, green-navbar);
+.bg-img-red{
+  background-image:url('../assets/imgs/red.png');
+  background-size: cover;
 }
 
-/*-------default-------*/
-.toolbar-background {
+.bg-blue{
+  background: color($color,blue-navbar);
+}
+/*default*/
+.toolbar-background{
   background: none;
 }
-
-.toolbar-title-md {
+.toolbar-title-md{
   color: unset!important;
 }
-/*-------end default-------*/
 
-/*-------header-------*/
+/*end default*/
+/*header*/
+.icon-menu{
+  
+  font-size:4rem;
+}
+.btn-menu{
+  height: unset;
+}
 .add-event-icon {
   padding-right: 10px!important;
   font-size: 20px!important;
   font-weight: bold;
 }
-
-ion-header .title {
+ion-header .title{
   text-align: center!important;
 }
-/*-------End header-------*/
 
-/*-------Content-------*/
-.title-bar {
+/*End header*/
+/*Content*/
+.img-slide{
+  width: 100%;
+  max-height: 180px;
+}
+.search{
+  height: 50px;
+
+  position: relative;
+}
+.search ion-searchbar{
+  position: absolute;
+  bottom: -20px;
+  background: unset;
+ 
+}
+.searchbar-wp .searchbar-input-container{
+  border: unset;
+}
+.search .searchbar-input
+{
+  padding-left:70px!important;
+}
+.search .searchbar-search-icon{
+  background-image: url('../../assets/imgs/search.png');
+  left: 20px;
+    top: 13px;
+    width: 25px;
+    height: 25px;
+   
+    background-size: 24px;
+}
+.search .searchbar-md .searchbar-input,.search .searchbar-ios .searchbar-input,.search .searchbar-wp .searchbar-input{
+  
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-top-left-radius: 2rem;
+  box-shadow: 0px 5px red;
+  height: 50px;
+}
+.title-bar .title-span-bar{
+margin-left: 5rem;
+}
+.title-bar .label{
+border-radius:5px;
+}
+.title-bar{
   position: relative;
   height: 100px;
   background:unset;
+ 
 }
 
-.icon-title-bar {
-  margin-left: 5px;
+.icon-title-bar{
+ margin-left: 5px;
+ 
+ 
 }
 
-.img-hat span {
-  margin-left: 15px;
-}
 
-.img-hat {
-  height: 60px;
-  position: absolute;
-  top: 1px;
-  left: 40px;
-  z-index: 1000;
-  background: none;
-  min-width: 33px;
-}
+  .title-name-bar{
+    font-size: 15px;
+    -webkit-box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+-moz-box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
+box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
 
-.title-name-bar {
-  font-size: 20px;
-  background: #0dbb7e;
-  padding: 10px 0;
-  padding-right: 20px;
-}
-/*-------end content-------*/
+padding: 10px 0;
+padding-right: 20px;
+background-image: url('../../assets/imgs/calendar.png');
+background-repeat: no-repeat;
+background-position-x: 1rem;
+background-position-y: 0.3rem;
+background-size: 3rem;
+  }
+
+ .title-bar  .item-inner{
+  border-bottom: none!important;
+  }
+ .title-bar .item-wrapper{
+
+  }
+/*end content*/
 .home {
   .icon-title {
     width: 28px;
@@ -154,19 +205,23 @@ ion-header .title {
       padding: 0;
 
       ion-row {
+
         &:first-child {
           ion-col {
             border-bottom: 1px solid color($colors, light);
           }
         }
+
         ion-col {
           display: flex;
           align-items: center;
           padding: 1.5rem;
           font-size: 1.5rem;
+
           &:first-child {
             margin-left: 0;
           }
+
           ion-icon {
             margin-right: 1rem;
             font-size: 2.5rem;
@@ -272,9 +327,11 @@ ion-header .title {
 }
 
 ion-content {
-  background-image: url('../assets/imgs/background.jpg')
+  //background-image: url('../assets/imgs/background.jpg')
 }
-
+ion-content {
+  //background-image: url('../assets/imgs/background.jpg')
+}
 .addButton {
   margin-top: 10px; 
 }
@@ -282,3 +339,40 @@ ion-content {
 .ion-col {
   align-content: center;
 }
+.bg-opacity{
+  background-image: url('../../assets/imgs/fireworks.png');
+  background-repeat: no-repeat;
+  background-position: 10px 163px;
+  background-size: 50px;
+ 
+}
+ .editButton, .deleteButton,.groupButton{
+  border-right:1px solid #ffffff!important;
+  background:#ed1c24;
+}
+.summaryButton{
+  background:#ed1c24;
+}
+.editButton{
+  padding:0 0.8rem!important;
+}
+.groupButton{
+  padding:0 0.9rem!important;
+}
+.button-md,.button-ios,.button-wp{
+ 
+}
+/*event input*/
+.add-event .item-inner{
+  border-bottom: 1px solid #ed1c24!important;
+}
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+  border: 0px!important;
+}
+.item-list{
+  padding: 0 2rem;
+}
+.item-list .item .item-block .item-ios{
+ padding-left: 0px;
+}
+/*end event input*/

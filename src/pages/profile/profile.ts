@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
+import { UserProvider } from "../../providers/user/user";
+import { User } from '../../models/user';
+import { FileserviceProvider } from '../../providers/fileservice/fileservice';
+import { Upload } from '../../models/upload';
+import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -15,13 +21,90 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-email:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth) {
-    this.email=this.afAuth.auth.currentUser.email;
+  /*Fileupload*/
+  selectedFiles: FileList | null;
+  currentUpload: Upload;
+  loading: any;
+  url: any;
+  /*fileupload*/
+
+  user = {} as User;
+  public filteredUsers: Array<any>;
+  email: string;
+  uid: string;
+
+  public userRef = this.db.database.ref('users');
+  public userExist: Array<any> = [];
+
+  constructor(public auth: AuthProvider, private upSvc: FileserviceProvider, 
+              public db: AngularFireDatabase, public navCtrl: NavController, 
+              public navParams: NavParams, public afAuth: AngularFireAuth, 
+              public userProvider: UserProvider) {
+    this.uid = this.afAuth.auth.currentUser.uid;
+    this.email = this.afAuth.auth.currentUser.email;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userProvider.getuserList().on('value', eventListSnapshot => {
+          this.filteredUsers = [];
+          eventListSnapshot.forEach(snap => {
+            if (snap.key === this.uid) {
+              this.filteredUsers.push({
+                key: snap.key,
+                name: snap.val().name,
+                uid: snap.val().uid,
+                photoUrl: snap.val().photoUrl,
+              });
+              return false;
+            }
+          });
+          this.user.name = this.filteredUsers[0].name;
+          this.user.photoUrl = this.filteredUsers[0].photoUrl;
+        });
+      }
+    });
+  }
+
+  uploadSingle() {
+    const file = this.selectedFiles;
+    if (file && file.length === 1) {
+      this.currentUpload = new Upload(file.item(0));
+      this.upSvc.pushUpload(this.currentUpload);
+    } else {
+      console.error('No file found!');
+    }
+  }
+
+  detectFiles(event, url) {
+    this.selectedFiles = event.target.files;
+  }
+
+  initAllUsers() {
+    this.userProvider.getuserList().on('value', userListSnapshot => {
+      this.filteredUsers = [];
+      userListSnapshot.forEach(snap => {
+        if (snap.key === this.uid) {
+          this.filteredUsers.push({
+            key: snap.key,
+            name: snap.val().name,
+          });
+          return false;
+        }
+      });
+    });
+  }
+
+  logout() {
+    firebase.auth().signOut().then(function () {
+    }, function (error) {
+      console.log(error);
+    });
+  }
+
+  resetpassword() {
+    return this.auth.resetdialog();
   }
 
 }

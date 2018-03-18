@@ -23,6 +23,7 @@ export class SummaryPage {
   public numberOfTasks: number = 0;
   public totalExpectedCost: number = 0;
   public totalActualCost: number = 0;
+  public numberOftable: number = 0;
 
   public numberOfGuest: number = 0;
   public guestSummary: Array<any>;
@@ -64,7 +65,7 @@ export class SummaryPage {
 
   definePieChart() {
     this.giftMoneyPieChart = new Chart(this.giftMoenyPieCanvas.nativeElement, {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         labels: this.pieChartLabels,
         datasets: [
@@ -88,8 +89,7 @@ export class SummaryPage {
           },
           animation: {
             duration: 5000
-          },
-          
+          }
         }
       }
     });
@@ -203,6 +203,7 @@ export class SummaryPage {
         }
       });
       this.numberOfGuest = this.guestSummary.length;
+      this.numberOftable = Math.floor(this.numberOfGuest / 10) + 1;
     });
   }
 

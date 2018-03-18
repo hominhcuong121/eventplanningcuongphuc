@@ -5,40 +5,43 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Group Of Guest</ion-title>
+  <ion-navbar class="nav-child-page">
+    <ion-title class="title">{{"groupguest" | translate}}</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only item-end (click)="addGroup(eventId)">
-          <ion-icon name="add"></ion-icon>
-        </button>
+      <button ion-button icon-only item-end (click)="addGroup(eventId)">
+        <ion-icon name="logo-googleplus"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content>
+  <div class="search bg-img-red text-white">
+    <ion-searchbar placeholder="{{'searchgroup' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+  </div>
 
-  <ion-searchbar placeholder="Enter the group's name." (ionInput)="filterItems($event)"></ion-searchbar>
-  
-  <h4 class="title" padding>My Groups</h4>
+  <ion-item class="title-bar">
+    <div ion-text class="bold  text-white title-name-bar">
+      <span class="title-span-bar">{{eventName}}'s Group</span>
+    </div>
+  </ion-item>
 
-  <p *ngIf="numberOfAllGroups == 0">You have no any group, please insert a new one!</p>
+  <p *ngIf="numberOfAllGroups == 0">{{"haveanygroup" | translate}}</p>
 
   <ion-list padding>
-      <ion-item-sliding *ngFor="let item of filteredGroups">
-          <button ion-item text-capitalize (click)="openAddGuestPage(item.key, item.eventId)">
-              <h2>{{item.groupName}}</h2>
-          </button>
-          <ion-item-options>
-            <button ion-button expandable (click)="editGroup(item)" class="editButton">
-              <ion-icon name="ios-construct-outline"></ion-icon>
-            </button>
-            <button ion-button expandable (click)="deleteGroup(item.key)" class="deleteButton">
-              <ion-icon name="ios-trash"></ion-icon>
-            </button> 
-          </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
+    <ion-item-sliding *ngFor="let item of filteredGroups">
+      <button ion-item text-capitalize (click)="openAddGuestPage(item.key, item.eventId, item.groupName)">
+        <h2>{{item.groupName}}</h2>
+      </button>
+      <ion-item-options>
+        <button ion-button expandable (click)="editGroup(item)" class="editButton">
+          <ion-icon name="ios-construct-outline"></ion-icon>
+        </button>
+        <button ion-button expandable (click)="deleteGroup(item.key)" class="deleteButton">
+          <ion-icon name="ios-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

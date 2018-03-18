@@ -5,41 +5,40 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Add Guest</ion-title>
+  <ion-navbar class="nav-child-page">
+    <ion-title class="title">{{"guest" | translate}}</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only item-end (click)="addGuest()">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button icon-only item-end (click)="addGuest(groupId)">
+        <ion-icon name="ios-person-add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content >
-
-  <ion-searchbar placeholder="Enter the guest's name." (ionInput)="filterItems($event)"></ion-searchbar>
-
-  <h4 class="title" padding>My Guest</h4>
-
-  <p *ngIf="numberOfAllGuests == 0">You have no any guest, please insert a new one!</p>
+<ion-content>
+  <div class="search bg-img-red text-white">
+    <ion-searchbar placeholder="{{'searchguest' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+  </div>
+  <ion-item class="title-bar">
+    <div ion-text class="text-white title-name-bar">
+      <span class="title-span-bar"></span>
+    </div>
+  </ion-item>
 
   <ion-list padding>
     <ion-item-sliding *ngFor="let item of items | async">
-        <ion-item text-capitalize *ngIf="item.groupId == groupId">
-            <h2>{{item.guestName}}</h2>
-            <p>Gift Money: {{item.giftMoney}}</p>
-        </ion-item>
-        <ion-item-options>
-          <button ion-button expandable (click)="editGuest(item)" class="editButton">
-            <ion-icon name="ios-brush"></ion-icon>
-          </button>
-          <button ion-button expandable (click)="deleteGuest(item.key)" class="deleteButton">
-            <ion-icon name="ios-trash"></ion-icon>
-          </button> 
-        </ion-item-options>
-      </ion-item-sliding>
+      <ion-item text-capitalize *ngIf="item.groupId == groupId">
+        <h2>{{item.guestName}}</h2>
+        <p>Gift Money: {{item.giftMoney}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button expandable (click)="editGuest(item)" class="editButton">
+          <ion-icon name="ios-brush"></ion-icon>
+        </button>
+        <button ion-button expandable (click)="deleteGuest(item.key)" class="deleteButton">
+          <ion-icon name="ios-trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

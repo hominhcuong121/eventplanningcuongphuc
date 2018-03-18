@@ -1,52 +1,48 @@
-<ion-menu [content]="content">
-  <ion-header>
-      <ion-toolbar class="user-profile" no-padding>
+<ion-header>
+  <ion-navbar class="bg-green header-profile">
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="text-white"></ion-icon>
+    </button>
+    <ion-title class="text-white">Profile</ion-title>
+  </ion-navbar>
+</ion-header>
 
-          <ion-list no-margin >
-            <ion-item >
-              <ion-avatar item-start>
-                <img class="user-avarta" src="../assets/imgs/avar.png">
-              </ion-avatar>
-              <h2 class="bold">Le Hoang Phuc</h2>
-              <h3 ion-text  class="text-purple"></h3>
-            <div padding-top>
-              <button ion-button icon-left small class="bg-btn bg-purple" >
-                <ion-icon name="contact"></ion-icon>
-                Edit Profile
-              </button>
-              <button class="bg-purple" ion-button icon-left small color="secondary" menuClose tappable (click)="logout()">
-                <ion-icon name="log-out"></ion-icon>
-              </button>
-            </div>
-            </ion-item>
-          </ion-list>
-      
-          <ion-grid no-padding>
-            <ion-row class="other-data" no-padding>
-              <ion-col text-center class="column">
-                <span ion-text color="primary" class="bold" (click)="rehome()">Event</span>
-                <h5 ion-text no-margin class="text-1x text-white">10</h5>
-              </ion-col>
-              <ion-col text-center class="column">
-                <span ion-text color="light" class="bold">Summary</span>
-                <h5 ion-text no-margin class="text-1x text-white">10</h5>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-      
-        </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-toolbar class="user-profile" no-padding>
+    <ion-list no-margin>
+      <ion-item style="text-align:center">
+        <div class="header-avatar">
+          <ion-img src="{{user.photoUrl}}"></ion-img>
+        </div>
 
-  <ion-content>
-      <ion-list class="user-list">
+        <div *ngIf="currentUpload">
+          <div class="progress">
+            <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
+          </div>
+          Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+        </div>
 
-          <button ion-item class="text-1x" *ngFor="let p of pages" (click)="openPage(p)">
-            <ion-icon name="{{p.icontitle}}" color="primary" ></ion-icon> 
-            <span ion-text color="primary">{{p.title}}</span>
-          </button>      
-        </ion-list>
-  </ion-content>
+        <div class="upfile">
+          <label>
+            <input type="file" (change)="detectFiles($event)">
+          </label>
+          <button [disabled]="!selectedFiles" (click)="uploadSingle()">Upload</button>
+        </div>
 
-</ion-menu>
+        <h2 class="bold">{{user.name}}</h2>
 
+        <h3 ion-text class="text-green"></h3>
 
+        <div padding-top>
+          <button ion-button icon-left small class="bg-btn bg-green" (click)="resetpassword()">
+            <ion-icon name="contact"></ion-icon>
+            Reset Password
+          </button>
+          <button class="bg-green" ion-button icon-left small menuClose tappable (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+</ion-content>

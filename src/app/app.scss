@@ -1,41 +1,91 @@
 $color:(
-  green-color:#26d89a, 
+  green-color:#0dbb7e, 
   white-color:#ffffff,
-  bg-green:#1fd696,
-  bg-menu-content:#212121,
-  logo-color:#ceda13,
+ 
+bg-menu-content:#212121,
+  logo-color:#ffffff,
   text-logo:#6da55c,
-  icon-menu-color:#45c69b,
+  icon-menu-color:#ed1c24,//icon menu
+  red-color:#ed1c24,
 );
 .text-green{
   color:color($color,green-color)!important;
 }
+.text-red{
+    color:color($color,red-color)!important;
+  }
 .text-white{
   color:color($color,white-color)!important;
 }
+.bg-red{
+    background:color($color,red-color);
+}
 
+.color-red{
+    color:color($color,red-color);
+}
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+/*--------------------------------Header----------------------------*/
+/*nav-white*/
+.nav-white{
+    background: #ffffff;
+}
+.nav-white .back-button{
+    color:color($color,red-color);
+}
+.nav-white .toolbar-title{
+    color:color($color,red-color);
+}
+/*nav-white*/
 .header-menu{
 
     font-size: 30px;
     text-align: center;
     height: 130px;
-    background-color:color($color,bg-green);
+    background-color:color($color, red-color);
     color:color($color,white-color);
     
 }
-
+.logo-menu{
+    background-image: url('../../assets/imgs/fireworks.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .header-menu ion-icon{
     color: color($color,logo-color);
 }
 .header h2{
-    color: color($color,text-logo);
+    color: color($color,white-color);
+}
+/*header*/
+/*-----------------------------Content------------------------------*/
+.bg-menu-list ion-list{
+    margin-bottom:0px;
+}
+.bg-menu-list .menu-list .menu-title{
+    position: absolute;
+    margin-top: 10px;
+    font-size:18px;
+
+    margin-left: 2rem;
+    color:color($color,red-color);
+    
+   
+}
+.bg-menu-list .menu-list .profile{
+    margin-left: 2.2rem;
+}
+.bg-menu-list .menu-list .aboutus{
+    margin-left: 1.9rem;
 }
 .menu-list{
-    background:color($color,bg-menu-content)!important;
+    //background:color($color,bg-menu-content)!important;
 }
 .menu-list button {
-    background:#212121;
-    color:#ababab;
+//background:#212121;
+    color:#000;
     
     
     font-size: 18px;
@@ -43,14 +93,37 @@ $color:(
 .menu-list ion-icon{
     color:color($color,icon-menu-color);
     font-size: 35px;
-    padding-right: 20px;
+    padding-right: 18px;
 }
 .menu-list button .item-inner{
     background: none!important;
 }
-.bg-menu-list{
-background: #212121;
+.logout-menu{
+    font-size: 18px;
+    color: #ed1c24;
+    margin-top: 1.1rem;
+    position: absolute;
 }
+/*Language select*/
+.lang-icon{
+    font-size:35px;
+    padding-right: 18px;
+}
+.lang-title{
+    font-size: 18px;
+    color: #ed1c24;
+    margin-top: 1rem;
+    position: absolute;
+    padding: 0 2.5rem 0 0;
+    border-right: 2px solid #e06d6d;
+}
+.menu-list ion-select{
+    margin-right: 1rem;
+    margin-top: 0.7rem;
+    color: #ed1c24;
+}
+/*-----------------------------End Content------------------------------*/
+
  .scroll-content{
     overflow-y: auto!important;
 }

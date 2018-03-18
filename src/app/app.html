@@ -1,26 +1,49 @@
 <ion-menu [content]="content">
-  <ion-header class="bg-green">
+  <ion-header class="bg-red">
     <ion-item class="header-menu">
-       
-          <ion-icon name="calendar" text-center ></ion-icon>
-          <h2><strong>Event Planning</strong></h2>
+      <img src="assets/imgs/fireworks.png" alt="Logo">
+      <!-- <ion-icon name="calendar" color="red-color"></ion-icon> -->
+      <h2>
+        <strong>Event Planning</strong>
+      </h2>
 
-      
+
     </ion-item>
   </ion-header>
 
   <ion-content class='bg-menu-list'>
 
-    
+
     <ion-list class="menu-list">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon name="{{p.icon}}"></ion-icon>     
-        {{p.title}}
+        <ion-icon name="{{p.icon}}">
+            <span class="menu-title {{p.title}}">{{p.title | translate}}</span>
+
+        </ion-icon>
+        
       </button>
       <button menuClose ion-item (click)="logout()">
-          <ion-icon name="log-out" ></ion-icon> 
-        Logout</button>
+        <ion-icon name="log-out"></ion-icon>
+        <span class="logout-menu">{{"logout" | translate}}</span>
+      </button>
+
     </ion-list>
+
+    <ion-item class="text-green">
+        
+      <ion-label>
+          <ion-icon class="color-red lang-icon" name="globe"></ion-icon>
+        <span class="lang-title">{{"lang" | translate}}</span>
+      </ion-label>
+      <ion-select (ionChange)="onChange($event)">
+        <ion-option value="vi">
+          Việt Nam
+        </ion-option>
+        <ion-option value="en">
+          English
+        </ion-option>
+      </ion-select>
+    </ion-item>
   </ion-content>
 
 </ion-menu>
