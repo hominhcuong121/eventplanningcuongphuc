@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar class="nav-child-page">
-    <ion-title class="title">Task</ion-title>
+    <ion-title class="title">{{"task" | translate}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only item-end (click)="addTask(eventId)">
         <ion-icon name="md-add-circle"></ion-icon>
@@ -17,14 +17,14 @@
 
 <ion-content>
     <div class="search bg-img-red text-white">
-        <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+        <ion-searchbar placeholder="{{'searchtask' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
       </div>
+
   <ion-item class="title-bar">
-       
-    <div ion-text class="bold  text-white title-name-bar">
-      <ion-icon name="ios-book" class="text-white icon-title-bar" > </ion-icon>
+    <div ion-text class="bold  text-white title-name-bar ">
+    
       <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
-      <span class="title-span-bar">{{eventName}}'s Task</span>
+      <span class="title-span-bar">{{eventName}}'s {{"task" | translate}}</span>
       <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
     </div>
   </ion-item>
@@ -32,7 +32,7 @@
 
   <p *ngIf="numberOfAllTasks == 0">You have no any task, please insert a new one!</p>
 
-  <ion-list padding>
+  <ion-list padding class="item-slide-height">
     <ion-item-sliding *ngFor="let item of filteredTasks">
       <ion-item text-capitalize>
         <h2>{{item.taskName}}</h2>

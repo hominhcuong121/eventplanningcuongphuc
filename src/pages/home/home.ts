@@ -102,6 +102,7 @@ export class HomePage {
           text: 'Save',
           handler: data => {
             this.eventRef.on('value', snapshot => {
+              
               this.eventExist = [];
               snapshot.forEach(data => {
                 if (data.val().uid == this.uid) {

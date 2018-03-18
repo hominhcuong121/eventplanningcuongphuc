@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar class="bg-green">
+  <ion-navbar class="bg-green header-profile">
     <button ion-button menuToggle>
       <ion-icon name="menu" class="text-white"></ion-icon>
     </button>
@@ -48,7 +48,7 @@
       
         <h3 ion-text class="text-green"></h3>
         <div padding-top>
-          <button ion-button icon-left small class="bg-btn bg-green">
+          <button ion-button icon-left small class="bg-btn bg-green" (click)="resetpassword()">
             <ion-icon name="contact"></ion-icon>
             Reset Password
           </button>
@@ -59,18 +59,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-grid no-padding class="bg-green text-white">
-      <ion-row class="other-data" no-padding>
-        <ion-col text-center class="column">
-          <span ion-text class="bold" (click)="rehome()">Event</span>
-          <h5 ion-text no-margin class="text-1x text-white">10</h5>
-        </ion-col>
-        <ion-col text-center class="column">
-          <span ion-text class="bold">Summary</span>
-          <h5 ion-text no-margin class="text-1x text-white">10</h5>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+   
 
   </ion-toolbar>
 

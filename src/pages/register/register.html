@@ -5,14 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-header class="bg-white nav-white">
-  <ion-navbar class="nav-white">
+  <ion-navbar class="nav-white nav-back-title">
     <ion-title>Sign up</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding class="login  background">
+<ion-content padding class="login  background register">
   <div class="login-content">
     <!-- Login form -->
     <ion-item class="none-color">
@@ -41,7 +41,7 @@
   
       <ion-item class=" none-color">
         <ion-label floating class="text-white">
-          <ion-icon name="name" item-start class="text-white"></ion-icon>
+          <ion-icon name="ios-person" item-start class="text-white"></ion-icon>
           Name
         </ion-label>
         <ion-input type="text"  [(ngModel)]="user.name"></ion-input>

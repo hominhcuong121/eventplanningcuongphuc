@@ -1,9 +1,17 @@
 page-login {
+  $color: (
+    
+    blue-fb:#4267B2,
+    red-color:#ed1c24,
+  );
   .background{
     // background: url('../../assets/imgs/bg2.jpg') no-repeat;
     // background-size: 100%;
     //background: #26d89a; 0dbb7e
     background: #cd4f39;
+  }
+  .bg-blue{
+    background: color($color,blue-fb)!important;
   }
 .logo-icon{
     font-size: 50px;
@@ -39,14 +47,24 @@ font-weight: bold;
 
 
   } 
-  
- .button-inner{
+  /*windowphone css input*/
+  .list-form .input-wrapper .text-input-wp{
+    border: unset;
+  }
+
+  /*button fb gg*/
+ .bg-fb .button-inner,.btn-gplus .button-inner{
     border: 2px solid #e2e9ef!important;
    
   }
   .text-white{
     color:#ffffff!important;
   }
+  .bg-fb  .button-inner{
+    background-color: color($color,blue-fb);
+  }
+
+/*end button fb gg*/
   }
   /*input email password*/
   .list-form .input-wrapper .text-input{

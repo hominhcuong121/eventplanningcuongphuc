@@ -1,15 +1,22 @@
 {
   "home": "Trang chủ",
   "events":"Sự kiện",
+  "haveanyevent":"Bạn chưa có sự kiện, nhấn add để tạo sự kiện",
+  "haveanytask":"You have no any task, please insert a new one!",
+  "haveanygroup":"You have no any group, please insert a new one!",
+  "haveanyguest":"You have no any guest, please insert a new one!",
   "myevent":"Sự kiện của tôi",
   "profile":"Hồ sơ cá nhân",
   "aboutus" : "Giới thiệu",
   "logout":"Đăng xuất",
   "lang":"Ngôn ngữ",
-  "task":"Nhiệm vụ",
+  "task":"Kế hoạch",
   "guest":"Khách",
   "groupguest":"Nhóm khách",
   "chart":"Biểu đồ",
   "summary":"Thống kê",
-  "searchtitle":"Nhập tên event"
+  "searchevent":"Nhập tên sự kiện...",
+  "searchtask":"Nhập tên kế hoạch...",
+  "searchgroup":"Nhập tên nhóm...",
+  "searchguest":"Nhập tên khách..."
 }

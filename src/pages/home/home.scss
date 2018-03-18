@@ -1,13 +1,7 @@
 page-home{
     $color: (
     green-color:#26d89a,
-  
     blue-navbar:#51b0cc,
-    primary: #000,
-    secondary: #986cda,
-    danger: #9E1A7A,
-    light: #D7D6E1,
-    dark: #412d61,
     whitetext:#ffffff,
   );
 
@@ -16,7 +10,7 @@ page-home{
   color:color($color,whitetext)!important;
 }
 .bg-img-red{
-  background-image:url('../../assets/imgs/red.jpg');
+  background-image:url('../assets/imgs/red.png');
   background-size: cover;
 }
 
@@ -369,7 +363,7 @@ ion-content {
  
 }
 /*event input*/
-.item-inner{
+.add-event .item-inner{
   border-bottom: 1px solid #ed1c24!important;
 }
 .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{

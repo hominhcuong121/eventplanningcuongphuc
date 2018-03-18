@@ -111,7 +111,12 @@ addUser(user,uid:string){
     photoUrl:'../../assets/imgs/avar1.jpg',
   });
 }
- 
+addUserwithoutimg(email:string,name:string,uid:string){
+  return this.db.database.ref('users/' + uid).set({
+    name: name,
+    email: email,
+  });
+}
 checkerror(e){
   
   if (e == 'auth/weak-password') {

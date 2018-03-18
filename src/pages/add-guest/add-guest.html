@@ -7,10 +7,10 @@
 <ion-header>
 
     <ion-navbar class="nav-child-page">
-        <ion-title class="title">Guest</ion-title>
+        <ion-title class="title">{{"guest" | translate}}</ion-title>
         <ion-buttons end>
           <button ion-button icon-only item-end (click)="addGuest(groupId)">
-            <ion-icon name="md-add-circle"></ion-icon>
+            <ion-icon name="ios-person-add"></ion-icon>
           </button>
         </ion-buttons>
       </ion-navbar>
@@ -21,15 +21,15 @@
 <ion-content >
 
     <div class="search bg-img-red text-white">
-        <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+        <ion-searchbar placeholder="{{'searchguest' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
       </div>
       <ion-item class="title-bar">
        
-          <div ion-text class="bold bg-green text-white title-name-bar">
+          <div ion-text class="text-white title-name-bar">
             
-            <!-- <ion-img class="img-hat" src="../../assets/imgs/hat2.jpg"></ion-img> -->
-            <span class="title-span-bar"> </span>
-            <!--<ion-badge class="pull-right seemore" tappable (click)="seemore()">SEE MORE</ion-badge>-->
+           
+            <span class="title-span-bar"></span>
+           
           </div>
         </ion-item>
 

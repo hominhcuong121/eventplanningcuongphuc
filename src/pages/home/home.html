@@ -16,25 +16,25 @@
   <div class="slide-bar">
       <ion-slides>
           <ion-slide  >
-            <img class="img-slide" src="../assets/imgs/slide4.jpg" alt="">
+            <img class="img-slide" src="assets/imgs/slide4.png" alt="">
           </ion-slide>
           <ion-slide>
-              <img class="img-slide" src="../assets/imgs/slide1.jpg" alt="">
+              <img class="img-slide" src="assets/imgs/slide1.png" alt="">
           </ion-slide>
           <ion-slide>
-              <img class="img-slide" src="../assets/imgs/slide2.png" alt="">
+              <img class="img-slide" src="assets/imgs/slide2.png" alt="">
           </ion-slide>
           <ion-slide>
-              <img class="img-slide" src="../assets/imgs/slide3.png" alt="">
+              <img class="img-slide" src="assets/imgs/slide3.png" alt="">
           </ion-slide>
           <ion-slide>
-              <img class="img-slide" src="../assets/imgs/slide5.jpg" alt="">
+              <img class="img-slide" src="assets/imgs/slide5.png" alt="">
           </ion-slide>
         </ion-slides>
   </div>
 
   <div class="search bg-img-red text-white">
-    <ion-searchbar placeholder="{{'searchtitle' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+    <ion-searchbar placeholder="{{'searchevent' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
   </div>
   
     
@@ -49,7 +49,7 @@
       </div>
     </ion-item>
  
-  <p *ngIf="numberOfAllEvents == 0">You have no any event, please insert a new one!</p>
+  <p padding *ngIf="numberOfAllEvents == 0">{{"haveanyevent" | translate}}</p>
 
   <ion-list class="item-list" >
    

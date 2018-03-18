@@ -7,7 +7,7 @@ import { UserProvider } from "../../providers/user/user";
 import {User} from '../../models/user';
 import {FileserviceProvider} from '../../providers/fileservice/fileservice';
 import { Upload } from '../../models/upload';
-
+import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -33,7 +33,7 @@ email:string;
 uid:string;
 public userRef = this.db.database.ref('users');
 public userExist: Array<any> = [];
-  constructor(private upSvc: FileserviceProvider,public db: AngularFireDatabase,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public userProvider:UserProvider) {
+  constructor(public auth: AuthProvider,private upSvc: FileserviceProvider,public db: AngularFireDatabase,public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth,public userProvider:UserProvider) {
     this.uid=this.afAuth.auth.currentUser.uid;
     
     this.email=this.afAuth.auth.currentUser.email;
@@ -79,7 +79,7 @@ public userExist: Array<any> = [];
   detectFiles(event,url) {
     
     this.selectedFiles = event.target.files;
-    console.log( this.selectedFiles[0]);
+    
   }
   initAllUsers() {
     this.userProvider.getuserList().on('value', userListSnapshot => {
@@ -115,4 +115,10 @@ public userExist: Array<any> = [];
   
     });
    }
+   resetpassword(){
+  
+      return this.auth.resetdialog();
+      
+    }
+   
 }

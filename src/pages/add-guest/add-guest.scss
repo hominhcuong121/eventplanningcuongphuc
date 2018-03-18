@@ -36,7 +36,7 @@ page-add-guest {
 
   /*Search*/
   .bg-img-red{
-    background-image:url('../../assets/imgs/red.jpg');
+    background-image:url('../../assets/imgs/red.png');
     background-size: cover;
   }
   .search{
@@ -83,7 +83,22 @@ page-add-guest {
   }
   /*End Search*/
 
+/*Title bar*/
+.title-bar{
+  margin-top: 2rem;
+}
+ .title-bar .title-name-bar{
+  background-image: url('../../assets/imgs/oneguest.png');
+  background-position:1rem 0.7rem;
 
+  background-repeat: no-repeat;
+  background-size: 2.5rem;
+  
+}
+.title-bar .title-span-bar{
+  margin-left: 4.5rem;
+  font-size: 1.8rem;
+}
   .title-bar .label{
     border-radius:5px;
   }
@@ -116,7 +131,7 @@ page-add-guest {
      .title-bar .item-wrapper{
     
       }
-
+/*End Title bar*/
       .image-event{
         width: 100%;
         height: 100%;;

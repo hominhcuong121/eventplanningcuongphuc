@@ -46,12 +46,11 @@ page-summary {
     
       /*Search*/
       .bg-img-red{
-        background-image:url('../../assets/imgs/red.jpg');
+        background-image:url('../../assets/imgs/red.png');
         background-size: cover;
       }
       .search{
         height: 50px;
-      
         position: relative;
       }
       .search ion-searchbar{
@@ -92,7 +91,27 @@ page-summary {
         margin: 2rem 0 0 0;
       }
       /*End Search*/
-    
+      /*Title bar*/
+      .title-bar .title-name-bar{
+        background-image: url('../../assets/imgs/barchart.png');
+        background-position:1rem 0.5rem;
+      
+        background-repeat: no-repeat;
+        background-size: 3rem;
+        
+      }
+      .title-bar .title-name-bartwo{
+      
+        background-image: url('../../assets/imgs/pie-chart.png')!important;
+        background-position:1rem 0.5rem;
+      
+        background-repeat: no-repeat;
+        background-size: 3rem;
+      }
+      .title-bar .title-span-bar{
+        margin-left: 4.5rem;
+        font-size: 1.8rem;
+      }
     
       .title-bar .label{
         border-radius:5px;
@@ -160,12 +179,12 @@ page-summary {
         background:unset;
     }
 
-    .title-name-bar {
+   /* .title-name-bar {
         font-size: 20px;
         background: #0dbb7e;
         padding: 10px 0;
         padding-right: 20px;
-    }
+    }*/
 
     .icon-title-bar {
         margin-left: 5px;
@@ -185,5 +204,15 @@ page-summary {
                 font-weight: bold;
             }
         }
+    }
+    .summary .item-inner{
+      border-bottom:0px!important;
+    }
+    .nav-back-title .toolbar-title-md,.nav-back-title .toolbar-title-ios,.nav-back-title .toolbar-title-wp{
+      color: color($color,red-color)!important;
+    
+    }
+    .nav-back-title .toolbar-title-md,.nav-back-title .toolbar-title-wp{
+      margin-right: 5rem;
     }
 }

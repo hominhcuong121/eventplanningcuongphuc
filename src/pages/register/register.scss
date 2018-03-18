@@ -1,4 +1,15 @@
 page-register {
+  $color:(
+ 
+  white-color:#ffffff,
+ 
+
+  logo-color:#ffffff,
+
+ 
+  red-color:#ed1c24,
+);
+
     .background{
       background: #cd4f39;
         //background: #26d89a;
@@ -6,20 +17,31 @@ page-register {
       .none-color{
         background: none;
       }
-      .btn-login{
-        background: #6ef295;//26d89a
-          }
-          .btn-register{
-            text-align: center;
-            margin-top: 5rem;
-          }
-          .btn-register button{
-            background:#ffffff;
-            color: #cd4f39;
-            display: inline-block;
-            width: 60%;
-            font-weight: bold;
+  .btn-login{
+    background: #6ef295;//26d89a
+  }
+ .btn-register{
+    text-align: center;
+    margin-top: 5rem;
+  }
+  .btn-register button{
+    background:#ffffff;
+    color: #cd4f39;
+    display: inline-block;
+    width: 60%;
+    font-weight: bold;
             
-          }
+}
+.nav-back-title .toolbar-title-md,.nav-back-title .toolbar-title-ios,.nav-back-title .toolbar-title-wp{
+  color: color($color,red-color)!important;
 
+}
+.nav-back-title .toolbar-title-md,.nav-back-title .toolbar-title-wp{
+  margin-right: 5rem;
+}
+/*wp input border delete*/
+.register .text-input-wp{
+  border: unset;
+} 
+/**/
 }

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Upload } from "../../models/upload";
 import { AngularFireAuth } from 'angularfire2/auth';
-import {FormBuilder, FormGroup, Validators, AbstractControl,FormControl} from '@angular/forms';
-import { LoadingController,ToastController,AlertController  } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { LoadingController, ToastController, AlertController } from 'ionic-angular';
 
 
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -13,7 +13,7 @@ import { HomePage } from '../home/home';
 //import { File } from 'firebase/firestore';
 
 
-import {FileserviceProvider} from '../../providers/fileservice/fileservice';
+import { FileserviceProvider } from '../../providers/fileservice/fileservice';
 import { AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
@@ -26,68 +26,67 @@ import { LoginPage } from '../login/login';
 })
 export class RegisterPage {
   user = {} as User;
-  loading:any;
-userve :Promise<any>;
-  
-  
-  constructor( public alertCtrl:AlertController,private afAuth: AngularFireAuth,public loadingCtrl:LoadingController,private fb: FormBuilder, private auth: AuthProvider,public navCtrl:NavController) { 
-   
+  loading: any;
+  userve: Promise<any>;
+
+
+  constructor(public alertCtrl: AlertController, private afAuth: AngularFireAuth, public loadingCtrl: LoadingController, private fb: FormBuilder, private auth: AuthProvider, public navCtrl: NavController) {
+
   }
   async signup(user) {
     try {
-      if(this.auth.checkretypepassword(user.password,user.repassword)){
-        
-        const result= await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-              console.log(result.uid);
-              
-        if(result.sendEmailVerification().then(function(user){
+      if (this.auth.checkretypepassword(user.password, user.repassword)) {
+
+        const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+        console.log(result.uid);
+
+        if (result.sendEmailVerification().then(function (user) {
           console.log("email verification sent to user");
           return true;
-        }).catch(function(error){
-            console.log(error);
-            
-        }))
-{        
-          this.auth.addUser(user,result.uid);
+        }).catch(function (error) {
+          console.log(error);
+
+        })) {
+          this.auth.addUser(user, result.uid);
           this.navCtrl.setRoot(LoginPage);
         }
-       
-      /*.then(function(user){
-        this.userve=user;
-        if(user && user.emailVerified === false){
-           user.sendEmailVerification().then(function(){
+      }
+    } catch (e) {
 
-            console.log("email verification sent to user");
-            
-          });
-          
-          
-        } 
 
-      
-      }).catch(function(error) {
-       
-      var errorCode = error.code;
-       var errorMessage = error.message;
-  
-       console.log(errorCode, errorMessage);
-     });
-     console.log(this.afAuth.auth.currentUser);*/
-    }
-    } catch (e) {  
-     
-      
       this.auth.checkerror(e.code);
 
-  }   
- 
+    }
+
   }
+  /*.then(function(user){
+    this.userve=user;
+    if(user && user.emailVerified === false){
+       user.sendEmailVerification().then(function(){
+ 
+        console.log("email verification sent to user");
+        
+      });
+      
+      
+    } 
+ 
+  
+  }).catch(function(error) {
+   
+  var errorCode = error.code;
+   var errorMessage = error.message;
+ 
+   console.log(errorCode, errorMessage);
+ });
+ console.log(this.afAuth.auth.currentUser);*/
 
 
 
-  backlogin(){
+
+  backlogin() {
     this.navCtrl.pop();
-  } 
+  }
 
 
 
