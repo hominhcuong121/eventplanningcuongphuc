@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "events" : "Events",
+  "haveanyevent":"You have no any event, please insert a new one!",
+  "haveanytask":"You have no any task, please insert a new one!",
+  "haveanygroup":"You have no any group, please insert a new one!",
+  "haveanyguest":"You have no any guest, please insert a new one!",
+  "myevent":"My Events",
+  "profile" : "Profile",
+  "aboutus" : "About us",
+  "lang":"Language",
+  "logout":"Logout",
+  "task":"Task",
+  "guest":"Guests",
+  "groupguest":"Group Guest",
+  "chart":"Chart",
+  "summary":"Summary",
+  "searchevent":"Enter Event's name",
+  "searchtask":"Enter Task's name...",
+  "searchgroup":"Enter Group's name...",
+  "searchguest":"Enter Guest's name..."
+
+}

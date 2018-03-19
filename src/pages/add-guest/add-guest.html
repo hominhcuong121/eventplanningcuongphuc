@@ -6,26 +6,35 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Add Guest</ion-title>
-  </ion-navbar>
+    <ion-navbar class="nav-child-page">
+        <ion-title class="title">{{"guest" | translate}}</ion-title>
+        <ion-buttons end>
+          <button ion-button icon-only item-end (click)="addGuest(groupId)">
+            <ion-icon name="ios-person-add"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 
-  <ion-item-divider>
-      <ion-label floating>Add your new guest here</ion-label>
-      <ion-input [(ngModel)]="nameGuest" type="text" autofocus maxLength="40"></ion-input>
-      <button ion-button ion-only item-end round (click)="addGuest(nameGuest)" style="width: 40px; height: 40px;">
-          <ion-icon name="add"></ion-icon>
-      </button>
-  </ion-item-divider>
+    <div class="search bg-img-red text-white">
+        <ion-searchbar placeholder="{{'searchguest' | translate}}..." (ionInput)="filterItems($event)"></ion-searchbar>
+      </div>
+      <ion-item class="title-bar">
+       
+          <div ion-text class="text-white title-name-bar">
+            
+           
+            <span class="title-span-bar">Guests</span>
+           
+          </div>
+        </ion-item>
 
-  <h4 class="title">My Guest</h4>
 
-  <ion-list>
+  <ion-list padding>
     <ion-item-sliding *ngFor="let item of items | async">
         <ion-item text-capitalize *ngIf="item.groupId == groupId">
             <h2>{{item.guestName}}</h2>

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { EditGroupPage } from '../edit-group/edit-group';
+import { GroupProvider } from '../../providers/group/group';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AddGuestPage } from '../add-guest/add-guest';
 
 /**
@@ -18,41 +19,97 @@ import { AddGuestPage } from '../add-guest/add-guest';
   templateUrl: 'group-of-guest.html',
 })
 export class GroupOfGuestPage {
+  public filteredGroups: Array<any>;
+  public numberOfAllGroups: number;
 
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
-  eventId: string;
+  public itemsRef: AngularFireList<any>;
+  public items: Observable<any[]>;
+  public eventId: string;
+  public eventName: string;
+
+  public guestRef: AngularFireList<any>;
+  public guests: Observable<any[]>;
+  public guestsRef = this.db.database.ref('guests');
+
+  public groupRef = this.db.database.ref('groups');
+  public groupExist: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public db: AngularFireDatabase, public alertCtrl: AlertController) {
+              public db: AngularFireDatabase, public alertCtrl: AlertController,
+              public groupProvider: GroupProvider, public afAuth: AngularFireAuth
+            ) {
+    this.eventId = this.navParams.get('eventId');
+    this.eventName = this.navParams.get('eventName');
+    this.items = db.list('groups').valueChanges();
     this.itemsRef = db.list('groups');
-    // Use snapshotChanges().map() to store the key
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
-    this.eventId = this.navParams.data;
+    this.guests = db.list('guests').valueChanges();
+    this.guestRef = db.list('guests');
+    this.guests = this.guestRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroupOfGuestPage');
+    this.initAllGroups();
   }
 
-  addGroup(eventId, groupName) {
+  addGroup(eventId) {
     let alert = this.alertCtrl.create({
-      title: 'Notice!',
-      message: 'Do you agree to add this group?',
+      title: 'Add Group',
+      message: "Please enter a group's name",
+      inputs: [
+        {
+          name: 'groupName',
+          placeholder: "group's name"
+        },
+      ],
       buttons: [
         {
-          text: 'Disagree',
+          text: 'Cancel',
           handler: () => {
-            console.log('Disagree clicked');
+            console.log('Cancel clicked');
           }
         },
         {
-          text: 'Agree',
-          handler: () => {
-            this.itemsRef.push({groupName: groupName, eventId: this.eventId});
+          text: 'Save',
+          handler: data => {
+            this.groupRef.on('value', snapshot => {
+              this.groupExist = [];
+              snapshot.forEach(data => {
+                if (data.val().eventId == this.eventId) {
+                  this.groupExist.push(data.val().groupName.toLowerCase());
+                }
+                return false;
+              });
+            });
+            if (data.groupName === undefined || data.groupName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: "Failed...",
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              var groupName = data.groupName.trim().toLowerCase();
+              if (this.groupExist.indexOf(groupName) === -1) {
+                this.itemsRef.push({ groupName: groupName, eventId: eventId });
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Group's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
+            }
           }
         }
       ]
@@ -62,7 +119,52 @@ export class GroupOfGuestPage {
   }
 
   editGroup(item) {
-    this.navCtrl.push(EditGroupPage, item);
+    let alert = this.alertCtrl.create({
+      title: 'Edit Group',
+      inputs: [
+        {
+          name: "groupName",
+          placeholder: "Enter your new group's name"
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            if (data.groupName.trim() === '') {
+              let alert = this.alertCtrl.create({
+                title: 'Notice!!!',
+                subTitle: "Event's name cannot be empty",
+                buttons: ['Dismiss']
+              });
+              alert.present();
+            }
+            else {
+              var groupName = data.groupName.trim().toLowerCase();
+              if (this.groupExist.indexOf(groupName) === -1) {
+                this.itemsRef.update(item.key, { groupName: groupName, eventId: item.eventId});
+              }
+              else {
+                let alert = this.alertCtrl.create({
+                  title: 'Notice!!!',
+                  subTitle: "Event's name has already existed. Please enter another name",
+                  buttons: ['Dismiss']
+                });
+                alert.present();
+              }
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   deleteGroup(item) {
@@ -80,6 +182,15 @@ export class GroupOfGuestPage {
           text: 'Agree',
           handler: () => {
             this.itemsRef.remove(item);
+            //delete all guests belong to this group if this one is deleted
+            this.guestsRef.on('value', guestSnap => {
+              guestSnap.forEach(snap => {
+                if(snap.val().groupId === item) {
+                  this.guestRef.remove(snap.key);
+                }
+                return false;
+              });
+            });
           }
         }
       ]
@@ -88,12 +199,56 @@ export class GroupOfGuestPage {
     alert.present();
   }
 
-  openAddGuestPage(groupId, EventId) {
+  openAddGuestPage(groupId, EventId, groupName) {
     // console.log(groupId, this.eventId);
     this.navCtrl.push(AddGuestPage, {
       groupId: groupId,
-      eventId: this.eventId
+      eventId: this.eventId,
+      groupName: groupName
     });
+  }
+
+  initAllGroups() {
+    this.groupProvider.getGroupList().on('value', groupListSnapshot => {
+      this.filteredGroups = [];
+      groupListSnapshot.forEach(snap => {
+        if (snap.val().eventId === this.eventId) {
+          this.filteredGroups.push({
+            key: snap.key,
+            groupName: snap.val().groupName,
+            eventId: snap.val().eventId
+          });
+          return false;
+        }
+      });
+      this.numberOfAllGroups = this.filteredGroups.length;
+    });
+  }
+
+  filterItems(ev: any) {
+    let val = ev.target.value;
+
+    if (val === null || val.trim() === '') {
+      this.initAllGroups();
+    }
+
+    if (val && val.trim() !== '') {
+      this.groupProvider.getGroupList().on('value', groupListSnapshot => {
+        let allGroups = [];
+        groupListSnapshot.forEach(snap => {
+          if (snap.val().eventId === this.eventId) {
+            allGroups.push({
+              key: snap.key,
+              groupName: snap.val().groupName,
+              eventId: snap.val().eventId
+            });
+            return false;
+          }
+        });
+
+        this.filteredGroups = allGroups.filter(e => e.groupName.toLowerCase().includes(val.toLowerCase()));
+      });
+    }
   }
 
 }

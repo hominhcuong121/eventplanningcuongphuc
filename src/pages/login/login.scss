@@ -1,12 +1,27 @@
 page-login {
+  $color: (
+    
+    blue-fb:#4267B2,
+    red-color:#ed1c24,
+  );
   .background{
-    /*background: url('../../assets/imgs/bg.png') no-repeat;
-    background-size: 100%;*/
-    background: #554C8B;
+    // background: url('../../assets/imgs/bg2.jpg') no-repeat;
+    // background-size: 100%;
+    //background: #26d89a; 0dbb7e
+    background: #cd4f39;
+  }
+  .bg-blue{
+    background: color($color,blue-fb)!important;
   }
 .logo-icon{
     font-size: 50px;
     color: #ffffff;
+  }
+  .logo-img{
+    min-height: 80px;
+    min-width: 80px;
+    background: unset;
+  
   }
   .logo{
     width: 50px;
@@ -20,24 +35,44 @@ page-login {
   .none-color{
     background: none;
   }
-  $color: (
-  
-    primary: #000,
-    secondary: #986cda,
-    danger: #9E1A7A,
-    light: #D7D6E1,
-    dark: #412d61,
-    whitetext:#ffffff,
-  );
+ 
   .text-primary{
     color: #9871d1;
     
   }
-  .btn-login{
-background: #563D7C;
+  .btn-login {
+background: #ffffff;//26d89a
+color:color($color,red-color);
+font-weight: bold;
+
+
+  } 
+  /*windowphone css input*/
+  .list-form .input-wrapper .text-input-wp{
+    border: unset;
+  }
+
+  /*button fb gg*/
+ .bg-fb .button-inner,.btn-gplus .button-inner{
+    border: 2px solid #e2e9ef!important;
+   
   }
   .text-white{
     color:#ffffff!important;
   }
+  .bg-fb  .button-inner{
+    background-color: color($color,blue-fb);
   }
-  
+
+/*end button fb gg*/
+  }
+  /*input email password*/
+  .list-form .input-wrapper .text-input{
+    color:#ffffff!important;
+  }
+  .list-form .input-has-focus .item-inner{
+    border-bottom-color: #830a83!important;
+    -webkit-box-shadow: inset 0 -1px 0 0 #830a83!important;
+    box-shadow: inset 0 -1px 0 0 #830a83!important;
+  }
+  /**/

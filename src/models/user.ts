@@ -5,4 +5,5 @@ export class User {
     name:string;
     dateofbirth:string;
     avatar:any;
+    photoUrl:string;
 }
