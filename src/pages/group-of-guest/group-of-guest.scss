@@ -36,7 +36,7 @@ page-group-of-guest {
 
   /*Search*/
   .bg-img-red{
-    background-image:url('../../assets/imgs/red.png');
+    background-image:url('../assets/imgs/red.png');
     background-size: cover;
   }
   .search{
@@ -58,7 +58,7 @@ page-group-of-guest {
     padding-left:70px!important;
   }
   .search .searchbar-search-icon{
-    background-image: url('../../assets/imgs/search.png');
+    background-image: url('../assets/imgs/search.png');
     left: 20px;
       top: 13px;
       width: 25px;
@@ -85,7 +85,7 @@ page-group-of-guest {
 
  /*Title bar*/
  .title-bar .title-name-bar{
-  background-image: url('../../assets/imgs/guests2.png');
+  background-image: url('../assets/imgs/guests2.png');
   background-position:1rem 0.5rem;
 
   background-repeat: no-repeat;

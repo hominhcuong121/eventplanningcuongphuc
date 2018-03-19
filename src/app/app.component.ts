@@ -29,7 +29,10 @@ export class MyApp {
   public user: any;
   constructor(public keyboard: Keyboard, public authSvc: AuthProvider, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public translate: TranslateService) {
     this.translate = translate;
-    translate.setDefaultLang('en');
+    
+      translate.setDefaultLang('en');
+    
+    
     this.initializeApp();
     this.pages = [
       { title: 'events', icon: 'home', component: HomePage },

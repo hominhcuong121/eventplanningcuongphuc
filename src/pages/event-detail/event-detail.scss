@@ -45,7 +45,7 @@ page-event-detail {
 
     /*Search*/
     .bg-img-red{
-      background-image:url('../../assets/imgs/red.png');
+      background-image:url('../assets/imgs/red.png');
       background-size: cover;
     }
     .search{
@@ -67,7 +67,7 @@ page-event-detail {
       padding-left:70px!important;
     }
     .search .searchbar-search-icon{
-      background-image: url('../../assets/imgs/search.png');
+      background-image: url('../assets/imgs/search.png');
       left: 20px;
         top: 13px;
         width: 25px;
@@ -96,7 +96,7 @@ page-event-detail {
     /*End Search*/
     /*Title bar*/
    .title-bar .title-name-bar{
-      background-image: url('../../assets/imgs/task2.png');
+      background-image: url('../assets/imgs/task2.png');
       background-position:1rem 0.5rem;
 
       background-repeat: no-repeat;

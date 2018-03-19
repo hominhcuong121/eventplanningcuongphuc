@@ -68,7 +68,7 @@ ion-header .title{
   padding-left:70px!important;
 }
 .search .searchbar-search-icon{
-  background-image: url('../../assets/imgs/search.png');
+  background-image: url('../assets/imgs/search.png');
   left: 20px;
     top: 13px;
     width: 25px;
@@ -113,7 +113,7 @@ box-shadow: 1px 1px 8px 0px rgba(94,112,106,1);
 
 padding: 10px 0;
 padding-right: 20px;
-background-image: url('../../assets/imgs/calendar.png');
+background-image: url('../assets/imgs/calendar.png');
 background-repeat: no-repeat;
 background-position-x: 1rem;
 background-position-y: 0.3rem;
@@ -325,13 +325,6 @@ background-size: 3rem;
   }
 }
 }
-
-ion-content {
-  //background-image: url('../assets/imgs/background.jpg')
-}
-ion-content {
-  //background-image: url('../assets/imgs/background.jpg')
-}
 .addButton {
   margin-top: 10px; 
 }
@@ -340,7 +333,7 @@ ion-content {
   align-content: center;
 }
 .bg-opacity{
-  background-image: url('../../assets/imgs/fireworks.png');
+  background-image: url(' ../../assets/imgs/fireworks.png');
   background-repeat: no-repeat;
   background-position: 10px 163px;
   background-size: 50px;
@@ -375,4 +368,5 @@ ion-content {
 .item-list .item .item-block .item-ios{
  padding-left: 0px;
 }
+
 /*end event input*/
